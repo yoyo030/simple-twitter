@@ -3,7 +3,8 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-//新增scss路線
+
+//載入assets/styles樣式設定
 import '@/assets/styles/main.scss'
 
 Vue.config.productionTip = false;
