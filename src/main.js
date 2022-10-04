@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+
 //載入assets/styles樣式設定
 import '@/assets/styles/main.scss'
 
