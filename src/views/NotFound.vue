@@ -7,3 +7,7 @@
 </div>
 
 </template>
+
+<style scoped>
+@import './../assets/styles/main.scss';
+</style>

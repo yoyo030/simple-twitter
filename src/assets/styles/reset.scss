@@ -1,0 +1,139 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: $bg-color;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span {
+  margin: 0;
+  padding: 0;
+  color: $dark-100
+}
+
+h1 {
+  font-size: 68px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 42px;
+  font-weight: 700;
+  ;
+}
+
+h3 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+h5 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+p {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+ul,
+li {
+  /* remove dots */
+  list-style: none;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: $primary;
+}
+
+a:hover {
+  color: $brand;
+}
+
+button,
+button:focus,
+input:focus,
+textarea:focus,
+select,
+select:focus,
+a:focus {
+  outline: 0px !important;
+}
+
+button {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+
+  button:disabled {
+    pointer-events: none;
+  }
+}
+
+select {
+  border: none;
+}
+
+input:required,
+input:invalid {
+  box-shadow: none;
+}
+
+/* 使用@extend 繼承設定 */
+%input-setting {
+  -webkit-appearance: none;
+  width: 356px;
+  height: 54px;
+  border-bottom: 2px solid $underline;
+  margin-bottom: 32px;
+  background-color: transparent;
+}
+
+
+%active {
+  opacity: 0.5;
+
+  &:hover,
+  &.active {
+    opacity: 1;
+  }
+
+}
+
+/* 使用@mixin設定 */
+@mixin font-setting($size, $weight, $color) {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+}
+
+
