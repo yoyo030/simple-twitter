@@ -103,21 +103,41 @@ select {
   border: none;
 }
 
-input:required,
-input:invalid {
-  box-shadow: none;
+/* 使用@mixin設定 */
+@mixin font-setting($size, $weight, $color, $line-height) {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+  line-height: $line-height;
 }
 
 /* 使用@extend 繼承設定 */
-%input-setting {
+
+//登入註冊欄位
+%form-setting {
+  display: flex;
+  flex-direction: column;
   -webkit-appearance: none;
+  padding: 2px 10.55px;
   width: 356px;
   height: 54px;
   border-bottom: 2px solid $underline;
+  border-radius: 2px;
   margin-bottom: 32px;
-  background-color: transparent;
+  background-color: $placeholder-bg;
 }
 
+//登入註冊頁面按鈕
+%sign-button {
+  padding: 8px 24px;
+  width: 356px;
+  height: 46px;
+  margin: 40px auto 22px auto;
+  /* color/brand/main */
+  background: $brand;
+  border-radius: 50px;
+  @include font-setting(20px, 400, $bg-color, 30px)
+}
 
 %active {
   opacity: 0.5;
@@ -129,11 +149,28 @@ input:invalid {
 
 }
 
-/* 使用@mixin設定 */
-@mixin font-setting($size, $weight, $color) {
-  font-size: $size;
-  font-weight: $weight;
-  color: $color;
+input {
+  margin: 4px 0 2px 0;
+  border: none;
+  background-color: $placeholder-bg;
 }
 
+input:required,
+input:invalid {
+  box-shadow: none;
+}
+
+
+::placeholder {
+  /* CSS 3 標準 */
+  @include font-setting(16px, 400, $dark-60, 26px);
+  background-color: transparent;
+}
+
+
+:-ms-input-placeholder {
+  /* IE 10+ */
+  @include font-setting(16px, 400, $dark-60, 26px);
+    background-color: transparent;
+  }
 
