@@ -83,26 +83,3 @@
   </div>
 </template>
 
-<style lang="scss">
-@import "../assets/styles/main.scss";
-
-button {
-  @extend %sign-button;
-}
-.form-label-group {
-  @extend %form-setting;
-}
-label {
-  @include font-setting(14px, 400, $dark-80, 22px);
-}
-
-.logo {
-  width: 40px;
-  height: 40px;
-  margin: 69px auto 29px auto;
-}
-
-.sign-page-title {
-  margin-bottom:  40px;
-}
-</style>
