@@ -1,16 +1,17 @@
 <template>
-       <form class="d-flex flex-column align-items-center" >
-
-     <div class="d-flex flex-column align-items-center" >
-
-      <div>     
+  <form 
+   @submit.prevent.stop="handleSubmit"
+   class="d-flex flex-column align-items-center">
+    <div class="d-flex flex-column align-items-center">
+      <div>
         <img class="logo" src="../assets/images/ac-logo.png" />
-      </div>   
+      </div>
       <h3 class="sign-page-title">登入 Alphitter</h3>
-        <div class="sign-up-content">
+      <div class="sign-up-content">
         <div class="form-label-group mb-2">
           <label for="account">帳號</label>
           <input
+            v-model="account"
             id="account"
             name="account"
             type="text"
@@ -25,6 +26,7 @@
         <div class="form-label-group mb-3">
           <label for="password">密碼</label>
           <input
+            v-model="password"
             id="password"
             name="password"
             type="password"
@@ -35,23 +37,19 @@
           />
         </div>
       </div>
-   
-   <div class="sign-up-button">
+
+      <div class="sign-up-button">
         <button class="sign-up" type="submit">登入</button>
-    </div>
-
-      <div class="login-footer-link">
-
-
-      <span >
-        <router-link to="/signup" class=""> 註冊 Alphitter </router-link> ．
-        <router-link to="/admin/login" class=""> 後台登入 </router-link>
-      </span>
       </div>
 
-     </div>
-
-    </form>
+      <div class="login-footer-link">
+        <span>
+          <router-link to="/signup" class=""> 註冊 Alphitter </router-link> ．
+          <router-link to="/admin/login" class=""> 後台登入 </router-link>
+        </span>
+      </div>
+    </div>
+  </form>
 </template>
 
 
@@ -60,4 +58,25 @@
 @import "@/assets/styles/_LogIn.scss";
 </style>
 
+<script>
+export default {
+  data() {
+    return {
+      account: "",
+      password: "",
+    };
+  },
+  methods: {
+    handleSubmit() {
+      const data = JSON.stringify({
+        account: this.account,
+        password: this.password,
+      });
+
+      // TODO: 待向後端驗證使用者登入資訊是否合法
+      console.log("data", data);
+    },
+  },
+};
+</script>
 

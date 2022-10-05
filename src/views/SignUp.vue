@@ -1,6 +1,8 @@
 <template>
   <div class="form-container ">
-    <form class="main d-flex flex-column align-items-center">
+    <form 
+     @submit.prevent.stop="handleSubmit"
+     class="main d-flex flex-column align-items-center">
       <div class="sign-up-heading">
         <img class="logo" src="../assets/images/ac-logo.png" />
         </div>
@@ -10,6 +12,7 @@
         <div class="form-label-group mb-2">
           <label for="account">帳號</label>
           <input
+            v-model="account"
             id="account"
             name="account"
             type="text"
@@ -23,6 +26,7 @@
         <div class="form-label-group mb-2">
           <label for="name">名稱</label>
           <input
+            v-model="name"
             id="name"
             name="name"
             type="text"
@@ -37,6 +41,7 @@
         <div class="form-label-group mb-2">
           <label for="email">Email</label>
           <input
+            v-model="email"
             id="email"
             name="email"
             type="email"
@@ -50,6 +55,7 @@
         <div class="form-label-group mb-3">
           <label for="password">密碼</label>
           <input
+            v-model="password"
             id="password"
             name="password"
             type="password"
@@ -63,6 +69,7 @@
         <div class="form-label-group mb-3">
           <label for="password-check">密碼確認</label>
           <input
+            v-model="passwordCheck"
             id="password-check"
             name="passwordCheck"
             type="password"
@@ -74,7 +81,12 @@
         </div>
       </div>
       <div class="sign-up-button">
-        <button class="sign-up" type="submit">註冊</button>
+        <button 
+         class="sign-up" 
+         type="submit"
+         >
+         註冊
+        </button>
       </div>
       <div class="cancel">
         <router-link to="/signin" class="cancel"> 取消 </router-link>
@@ -83,3 +95,30 @@
   </div>
 </template>
 
+<script>
+export default {
+  data () {
+    return {
+      account: '',
+      name: '',
+      email: '',
+      password: '',
+      passwordCheck: '',
+    }
+  },
+  methods: {
+    handleSubmit () {
+      const data = JSON.stringify({
+        account: this.account,
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        passwordCheck: this.passwordCheck
+      })
+
+      // TODO: 待向後端驗證使用者註冊資訊是否合法
+      console.log('data', data)
+    }
+  }
+}
+</script>
