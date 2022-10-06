@@ -7,15 +7,35 @@
   width:178px;
   margin-left:0px;
   margin-right:24px
-  }
-  .centerSection{
+}
+.centerSection{
+  position: relative;
   border:1px solid #E6ECF0;
   width:639px;
   margin-left:0px;
   margin-right:25px
-  }
-  .rightSection{
+}
+.rightSection{
 
   margin-left:0px;
   width:273px;
-  }
+}
+
+.form-label-group {
+  width: 593px;
+  height: 54px;
+  border-radius: 2px;
+  margin-bottom: 32px;
+}
+
+.setting-save-button {
+  position: absolute;
+  right: 0;
+  margin: 8px 23px;
+  width: 88px;
+  height: 46px;
+  border-radius: 50px;
+  background-color: $brand;
+  @include font-setting(20px, 400, white, 30px);
+
+}

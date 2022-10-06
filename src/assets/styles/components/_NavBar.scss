@@ -9,7 +9,7 @@ nav > ul {
 
 /* 滑鼠移到 <a> 時變成深底淺色 */
 .active {
-  color: #f75000;
+  color: #FF6600;
 }
 .userprofile > .active > img{
   content:url("../assets/images/info-active.png");
@@ -36,7 +36,7 @@ button {
   font-size: 1rem;
   color: white;
   text-align: center;
-  background: #f75000;
+  background: #FF6600;
   border-radius: 50px;
 
 }

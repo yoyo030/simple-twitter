@@ -2,7 +2,9 @@
 <div class="d-flex justify-content-center w100">
 <div class="d-flex w100">
 <div class="w100 leftSection" ><NavBar /></div>
-<div class="w100 centerSection" >Home</div>
+<div class="w100 centerSection">
+        <h4 class="setting-title main-title">首頁</h4>
+      </div>
 <div class="w100 rightSection" >popularList</div>
 </div>
 </div>
