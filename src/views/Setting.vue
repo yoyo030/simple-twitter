@@ -11,7 +11,9 @@
         </div>
       </div>
 
-      <div class="w100 rightSection">popularList</div>
+      <div class="w100 rightSection">
+        <RecommandedList />
+      </div>
     </div>
 
 </template>
@@ -21,12 +23,14 @@
 <script>
 import NavBar from "../components/NavBar.vue";
 import SettingForm from "../components/SettingForm.vue";
+import RecommandedList from "../components/RecommandedList.vue";
 
 export default {
   name: "Setting",
   components: {
     NavBar,
     SettingForm,
+    RecommandedList,
   },
 
   methods: {

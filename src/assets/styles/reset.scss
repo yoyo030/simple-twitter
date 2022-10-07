@@ -211,7 +211,8 @@ input:invalid {
 
 .main-title {
   padding: 24px;
-  border: 1px solid $border;
+  margin-bottom: 24px;
+  border-bottom: 1px solid $border;
 }
 
 .w100 {
@@ -221,20 +222,19 @@ input:invalid {
 .leftSection {
   width: 18%;
   margin-left: 0px;
-  margin-right: 24px
+  padding-right: 24px;
+  border-right: 1px solid $border;
 }
 
 .centerSection {
   width: 56%;
   margin-left: 0px;
-  margin-right: 25px;
-
 }
 
 .rightSection {
-
-  margin-left: 0px;
-  width: 26%;
+  border-left: 1px solid $border;
+  padding-left: 25px;
+  width: 29%;
 }
 
 /* RWD樣式 */
