@@ -1,10 +1,11 @@
 
-.setting-content {
-
+.form-container {
+  position: relative;
 }
 
 .form-label-group {
-  @extend %settimg-form
+  @extend %settimg-form;
+
 }
 
 .setting-save-button {
