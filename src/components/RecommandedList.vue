@@ -5,7 +5,6 @@
         <h4>推薦跟隨</h4>
       </div>
       <div v-for="user in userList" :key="user.id">
-
         <div class="user-container d-flex">
           <img class="user-img" :src="user.img" />
           <span class="info">
@@ -16,13 +15,17 @@
               {{ user.account | addPrefix }}
             </div>
           </span>
-          <button v-if="user.isFollowed"
-            class="btn-isFollowed" >          
-            {{ user.isFollowed ? "正在跟隨" : "跟隨" }}
+          <button
+           v-if="user.isFollowed"
+           class="btn-isFollowed"
+           @click.stop.prevent="unFollowed(user.id)"> 
+           正在跟隨
           </button>
-           <button v-else
-            class="btn-unFollow" >          
-            {{ user.isFollowed ? "正在跟隨" : "跟隨" }}
+          <button
+           v-else
+            class="btn-unFollow"
+            @click.stop.prevent="followed(user.id)">
+            跟隨
           </button>
         </div>
       </div>
@@ -44,7 +47,7 @@ const dummyData = {
       isFollowed: true,
     },
     {
-      id: 1,
+      id: 2,
       account: "apple123",
       name: "apple",
       img: "../assets/images/logo-gray.png",
@@ -52,7 +55,7 @@ const dummyData = {
       isFollowed: true,
     },
     {
-      id: 1,
+      id: 3,
       account: "apple123",
       name: "apple",
       img: "../assets/images/logo-gray.png",
@@ -60,7 +63,7 @@ const dummyData = {
       isFollowed: false,
     },
     {
-      id: 1,
+      id: 4,
       account: "apple123",
       name: "apple",
       img: "../assets/images/logo-gray.png",
@@ -68,7 +71,7 @@ const dummyData = {
       isFollowed: false,
     },
     {
-      id: 1,
+      id: 5,
       account: "apple123",
       name: "apple",
       img: "../assets/images/logo-gray.png",
@@ -76,7 +79,7 @@ const dummyData = {
       isFollowed: false,
     },
     {
-      id: 1,
+      id: 6,
       account: "apple123",
       name: "apple",
       img: "../assets/images/logo-gray.png",
@@ -84,7 +87,7 @@ const dummyData = {
       isFollowed: false,
     },
     {
-      id: 1,
+      id: 7,
       account: "apple123",
       name: "apple",
       img: "../assets/images/logo-gray.png",
@@ -92,7 +95,7 @@ const dummyData = {
       isFollowed: false,
     },
     {
-      id: 1,
+      id: 8,
       account: "apple123",
       name: "apple",
       img: "../assets/images/logo-gray.png",
@@ -100,7 +103,7 @@ const dummyData = {
       isFollowed: false,
     },
     {
-      id: 1,
+      id: 9,
       account: "apple123",
       name: "apple",
       img: "../assets/images/logo-gray.png",
@@ -108,7 +111,7 @@ const dummyData = {
       isFollowed: false,
     },
     {
-      id: 1,
+      id: 10,
       account: "apple123",
       name: "apple",
       img: "../assets/images/logo-gray.png",
@@ -131,6 +134,29 @@ export default {
     fetchRecommendedlist() {
       this.userList = dummyData.user;
     },
+    followed (userId) {
+      this.userList = this.userList.map((user) => {
+       if (user.id === userId) {
+            return {
+              ...user,
+              isFollowed: true,
+            };
+          }
+          return user;
+        })
+    },
+    unFollowed (userId) {
+      this.userList = this.userList.map((user) => {
+          if (user.id === userId) {
+            return {
+              ...user,
+              isFollowed: false,
+            };
+          }
+          return user;
+        });
+    }
+  
   },
 
   filters: {
