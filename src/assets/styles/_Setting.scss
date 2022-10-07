@@ -1,31 +1,10 @@
 
-.w100{
-  height:100%;
-}
-.leftSection{
- 
-  width:178px;
-  margin-left:0px;
-  margin-right:24px
-}
-.centerSection{
-  position: relative;
-  border:1px solid #E6ECF0;
-  width:639px;
-  margin-left:0px;
-  margin-right:25px
-}
-.rightSection{
+.setting-content {
 
-  margin-left:0px;
-  width:273px;
 }
 
 .form-label-group {
-  width: 593px;
-  height: 54px;
-  border-radius: 2px;
-  margin-bottom: 32px;
+  @extend %settimg-form
 }
 
 .setting-save-button {
@@ -39,3 +18,13 @@
   @include font-setting(20px, 400, white, 30px);
 
 }
+
+@media screen and (min-width: 1200px) {
+
+.form-label-group {
+    width: 593px;
+  }
+  
+
+}
+

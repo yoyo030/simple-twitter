@@ -1,6 +1,5 @@
 <template>
-  <div class="d-flex justify-content-center w100">
-    <div class="d-flex w100">
+  <div class="container d-flex justify-content-center w100">
       <div class="w100 leftSection">
         <NavBar />
       </div>
@@ -14,7 +13,7 @@
 
       <div class="w100 rightSection">popularList</div>
     </div>
-  </div>
+
 </template>
 
 
