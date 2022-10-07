@@ -211,8 +211,7 @@ input:invalid {
 
 .main-title {
   padding: 24px;
-  margin-bottom: 24px;
-  border-bottom: 1px solid $border;
+  border: 1px solid $border;
 }
 
 .w100 {
@@ -220,22 +219,22 @@ input:invalid {
 }
 
 .leftSection {
-  width: 19%;
+  width: 18%;
   margin-left: 0px;
   margin-right: 24px
 }
 
 .centerSection {
-  border: 1px solid #E6ECF0;
-  width: 65%;
+  width: 56%;
   margin-left: 0px;
-  margin-right: 25px
+  margin-right: 25px;
+
 }
 
 .rightSection {
 
   margin-left: 0px;
-  width: 27%;
+  width: 26%;
 }
 
 /* RWD樣式 */
