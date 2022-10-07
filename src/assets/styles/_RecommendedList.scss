@@ -1,0 +1,49 @@
+.recommended-list {
+  background-color: $dark-20;
+  border-radius: 16px;
+}
+
+h4 {
+  padding: 24px;
+  border-bottom: 1px solid $border;
+}
+.list-container {
+  padding-bottom: 16px;
+}
+
+.user-container {
+  margin: 16px;
+}
+
+.user-img {
+  width: 50px;
+  height: 50px;
+  margin-right: 8px
+}
+
+.recommended-name {
+  @include font-setting(15px, 700, $dark-100, 26px);
+}
+
+.recommended-account {
+  @include font-setting(14px, 500, $dark-70, 22px);
+}
+
+.btn-isFollowed {
+  margin: auto;
+  padding: 8px 16px;
+  width: 96px;
+  height: 40px;
+  @include font-setting(15px, 400, $bg-color, 24px);
+}
+
+.btn-unFollow {
+  background-color: transparent;
+  margin: auto;
+  padding: 8px 16px;
+  width: 64px;
+  height: 40px;
+  border: 1px solid $brand;
+  @include font-setting(15px, 400, $brand, 24px);
+
+}
