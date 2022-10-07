@@ -220,22 +220,21 @@ input:invalid {
 }
 
 .leftSection {
-  width: 19%;
+  width: 18%;
   margin-left: 0px;
-  margin-right: 24px
+  padding-right: 24px;
+  border-right: 1px solid $border;
 }
 
 .centerSection {
-  border: 1px solid #E6ECF0;
-  width: 65%;
+  width: 56%;
   margin-left: 0px;
-  margin-right: 25px
 }
 
 .rightSection {
-
-  margin-left: 0px;
-  width: 27%;
+  border-left: 1px solid $border;
+  padding-left: 25px;
+  width: 29%;
 }
 
 /* RWD樣式 */

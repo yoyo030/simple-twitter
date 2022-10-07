@@ -1,0 +1,83 @@
+
+.home-tweet-box {
+  position: relative;
+  padding: 16px 25px;
+  height: 136px;
+}
+.home-tweet-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.home-tweet-input {
+  width: 85%;
+  height: 26px;
+  padding: 0;
+  border: none;
+  font-size: 18px;
+  resize: none;
+}
+
+.home-tweet-button {
+    position: absolute;
+    bottom: 0px;
+    right: 24px;
+    padding: 8px 16px;
+    width: 64px;
+    height: 40px;
+    @include font-setting(16px, 400, $bg-color, 24px);
+}
+
+.tweet-list {
+  height: 70vh;
+
+  border-top: 10px solid $border;
+  overflow-y: scroll;
+}
+.tweet-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tweet-list::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 50px;
+}
+.tweet {
+  border-bottom: 1px solid $border;
+  padding: 16px 0;
+}
+
+.tweet-list-tweet-img {
+  width: 50px;
+  height: 50px;
+  margin: 0 8px 0 24px;
+  border-radius: 50%;
+}
+
+.tweet-user-name {
+  @include font-setting(16px, 700, $dark-100, 26px);
+}
+
+.tweet-user-account,
+.tweet-user-createdAt {
+  @include font-setting(14px, 400, $secondary, 22px);
+}
+
+.tweet-contentText {
+  margin: 8px 0;margin: 8px 0;
+  @include font-setting(16px, 400, $dark-100, 26px);
+}
+
+.tweet-action {
+  @include font-setting(14px, 600, $secondary, 14px);
+}
+.tweet-reply {
+  margin-right: 41px;
+}
+
+.icon {
+  width: 14px;
+  margin-right: 8px;
+}
