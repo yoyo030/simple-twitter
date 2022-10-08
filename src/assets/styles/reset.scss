@@ -76,12 +76,9 @@ li {
   padding: 0;
 }
 
-a {
-  color: $primary;
-}
-
+a,
 a:hover {
-  color: $brand;
+  text-decoration: none;
 }
 
 button,

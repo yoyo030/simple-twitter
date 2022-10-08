@@ -8,7 +8,7 @@
         <img src="../assets/images/back.png" alt="" class="back-icon cursor-pointer" />
         <h4 class="setting-title reply-main-title">推文</h4>
       </div>
-      <TweetReply :initial-tweet="tweet" />
+      <Replies :initial-tweet="tweet" />
     </div>
     <div class="w100 rightSection">
       <RecommandedList />
@@ -20,7 +20,7 @@
 <script>
 import NavBar from "../components/NavBar.vue";
 import RecommandedList from "../components/RecommandedList.vue";
-import TweetReply from "../components/TweetReply.vue";
+import Replies from "../components/Replies.vue";
 
 const dummyData = {
   tweet: 
@@ -69,7 +69,7 @@ export default {
   components: {
     NavBar,
     RecommandedList,
-    TweetReply,
+    Replies,
   },
 
   data() {
