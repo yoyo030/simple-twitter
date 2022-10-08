@@ -92,6 +92,8 @@
 </template>
 
 <script>
+import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
 export default {
   name: "SignUp",
   data() {
@@ -104,17 +106,62 @@ export default {
     };
   },
   methods: {
-    handleSubmit() {
-      const data = JSON.stringify({
-        account: this.account,
-        name: this.name,
-        email: this.email,
-        password: this.password,
-        passwordCheck: this.passwordCheck,
-      });
+    async handleSubmit() {
+      // const data = JSON.stringify({
+      //   account: this.account,
+      //   name: this.name,
+      //   email: this.email,
+      //   password: this.password,
+      //   passwordCheck: this.passwordCheck,
+      // });
 
-      // TODO: 待向後端驗證使用者註冊資訊是否合法
-      console.log("data", data);
+      try {
+        if (
+          !this.account ||
+          !this.name ||
+          !this.email ||
+          !this.password ||
+          !this.passwordCheck
+        ) {
+          Toast.fire({
+            icon: "warning",
+            title: "請填寫所有欄位",
+          });
+          return;
+        }
+        if (this.password !== this.passwordCheck) {
+          Toast.fire({
+            icon: "warning",
+            title: "兩次輸入的密碼需相同",
+          });
+          this.passwordCheck = "";
+          return;
+        }
+
+        const response = await authorizationAPI.signUp({
+          account: this.account,
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          checkPassword: this.passwordCheck,
+        });
+
+        if (response.data.status !== "success") {
+          throw new Error(response.data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: `註冊成功，歡迎 ${response.data.data.user.name} !`,
+        });
+        this.$router.push("/login");
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "error",
+          title: "此帳號已存在",
+        });
+      }
     },
   },
 };
@@ -165,4 +212,3 @@ export default {
 //         title: '此帳號已存在'
 //       })
 </script>
-
