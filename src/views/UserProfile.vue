@@ -33,7 +33,9 @@ max-height:100%;"/></div>
 </nav>
        </div>
        </div>
-    <div class="w100 rightSection">popularList</div>
+    <div class="w100 rightSection">
+      <RecommandedList />
+    </div>
   </div>
 </template>
 
@@ -41,9 +43,13 @@ max-height:100%;"/></div>
 
 <script>
 import NavBar from "../components/NavBar.vue";
+import RecommandedList from "../components/RecommandedList.vue";
+
 export default {
   name: "UserProfile",
-  components: { NavBar },
+  components: { 
+    NavBar,
+    RecommandedList },
 };
 </script>
 

@@ -223,16 +223,16 @@ input:invalid {
   width: 18%;
   margin-left: 0px;
   padding-right: 24px;
-  border-right: 1px solid $border;
 }
 
 .centerSection {
   width: 56%;
   margin-left: 0px;
+  border-left: 1px solid $border;
+  border-right: 1px solid $border;
 }
 
 .rightSection {
-  border-left: 1px solid $border;
   padding-left: 25px;
   width: 29%;
 }

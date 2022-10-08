@@ -23,8 +23,9 @@
         class="tweet d-flex"
         v-for="tweet in tweets"
         :key="tweet.id">
+        <!--待串接後用v-bind改為使用者img-->
         <img
-          src="../assets/images/ac-logo.png"
+          src="../assets/images/logo-gray.png"
           class="tweet-list-tweet-img"
           alt=""/>
 
@@ -49,9 +50,9 @@
             <div class="tweet-reply d-flex">
               <img
                 src="../assets/images/reply.png"
-                class="tweet-reply-icon icon cursor-pointer"
+                class="icon cursor-pointer"
                 alt=""/>
-              <div class="tweet-reply-amount num-font">
+              <div class="tweet-reply-amount number-font">
                 {{ tweet.reply.length }}
               </div>
             </div>
@@ -59,8 +60,8 @@
               <img
                 src="../assets/images/like.png"
                 alt=""
-                class="tweet-like-icon icon cursor-pointer"/>
-              <div class="tweet-like-amount num-font">
+                class="icon cursor-pointer"/>
+              <div class="tweet-like-amount number-font">
                 {{ tweet.likeAmount }}
               </div>
             </div>

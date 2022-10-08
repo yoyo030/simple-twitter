@@ -1,7 +1,7 @@
 
 .home-tweet-box {
   position: relative;
-  padding: 16px 25px;
+  padding: 0 25px 16px 25px;
   height: 136px;
 }
 .home-tweet-img {
@@ -66,7 +66,7 @@
 }
 
 .tweet-contentText {
-  margin: 8px 0;margin: 8px 0;
+  margin: 8px 0;
   @include font-setting(16px, 400, $dark-100, 26px);
 }
 

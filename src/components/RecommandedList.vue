@@ -8,10 +8,10 @@
         <div class="user-container d-flex">
           <img class="user-img" :src="user.img" />
           <span class="info">
-            <div class="recommended-name">
+            <div class="name">
               {{ user.name }}
             </div>
-            <div class="recommended-account">
+            <div class="account">
               {{ user.account | addPrefix }}
             </div>
           </span>
