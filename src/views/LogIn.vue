@@ -1,7 +1,8 @@
 <template>
-  <form 
-   @submit.prevent.stop="handleSubmit"
-   class="d-flex flex-column align-items-center">
+  <form
+    @submit.prevent.stop="handleSubmit"
+    class="d-flex flex-column align-items-center"
+  >
     <div class="d-flex flex-column align-items-center">
       <div>
         <img class="logo" src="../assets/images/ac-logo.png" />
@@ -39,7 +40,9 @@
       </div>
 
       <div class="sign-up-button">
-        <button class="sign-up" type="submit">登入</button>
+        <button class="sign-up" type="submit" :disabled="isProcessing">
+          登入
+        </button>
       </div>
 
       <div class="login-footer-link">
@@ -52,31 +55,63 @@
   </form>
 </template>
 
-
 <style scoped lang="scss">
 @import "@/assets/styles/main.scss";
 @import "@/assets/styles/_LogIn.scss";
+button:disabled {
+  background: gray;
+}
 </style>
 
 <script>
+import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
 export default {
   data() {
     return {
       account: "",
       password: "",
+      isProcessing: false,
     };
   },
   methods: {
-    handleSubmit() {
-      const data = JSON.stringify({
-        account: this.account,
-        password: this.password,
-      });
+    async handleSubmit() {
+      try {
+        if (!this.account || !this.password) {
+          Toast.fire({
+            icon: "warning",
+            title: "請填入 account 和 password",
+          });
+          return;
+        }
 
-      // TODO: 待向後端驗證使用者登入資訊是否合法
-      console.log("data", data);
+        this.isProcessing = true;
+
+        // 使用 authorizationAPI 的 signIn 方法
+        // 並且帶入使用者填寫的 email 和 password
+        const response = await authorizationAPI.signIn({
+          user: { email: this.account, password: this.password },
+        });
+
+        if (response.data.status !== "success") {
+          throw new Error(response.data.message);
+        }
+
+        // 將 token 存放在 localStorage 內
+        localStorage.setItem("token", response.data.data.token);
+
+        // 成功登入後轉址到餐聽首頁
+        this.$router.push("/home");
+      } catch (error) {
+        this.password = "";
+        this.isProcessing = false;
+
+        Toast.fire({
+          icon: "warning",
+          title: "請確認您輸入了正確的帳號密碼",
+        });
+      }
     },
   },
 };
 </script>
-
