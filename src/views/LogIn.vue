@@ -77,6 +77,8 @@ export default {
   methods: {
     async handleSubmit() {
       try {
+
+        //檢查必填欄位
         if (!this.account || !this.password) {
           Toast.fire({
             icon: "warning",
@@ -84,31 +86,42 @@ export default {
           });
           return;
         }
-
+        //鎖定登入鍵
         this.isProcessing = true;
+
+
 
         // 使用 authorizationAPI 的 signIn 方法
         // 並且帶入使用者填寫的 email 和 password
         const response = await authorizationAPI.signIn({
-          user: { email: this.account, password: this.password },
+           account: this.account, password: this.password 
         });
+        let data = response.data
+        console.log(data)
 
-        if (response.data.status !== "success") {
-          throw new Error(response.data.message);
+        //await跑完才會來這裡,判斷身分認證是否成功
+        if (data.status !== "success") {
+          throw new Error(data.message);
         }
 
         // 將 token 存放在 localStorage 內
-        localStorage.setItem("token", response.data.data.token);
+        localStorage.setItem("token", data.data.token);
+
+        //先放一張假資料
+        data.data.user.cover="https://miro.medium.com/max/720/1*XEgA1TTwXa5AvAdw40GFow.png";
+        //set vuex
+        this.$store.commit('setCurrentUser',data.data.user)
 
         // 成功登入後轉址到餐聽首頁
         this.$router.push("/home");
+
       } catch (error) {
         this.password = "";
         this.isProcessing = false;
 
         Toast.fire({
           icon: "warning",
-          title: "請確認您輸入了正確的帳號密碼",
+          title: error.message,
         });
       }
     },
