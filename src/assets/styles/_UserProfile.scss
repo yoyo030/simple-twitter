@@ -1,1 +1,79 @@
+.user-profile-title {
+  height: 75px;
+}
+.user-back {
+  margin-right: 19px
+}
+
+.tweet-amount {
+  @include font-setting(13px, 500, $secondary, 18px);
+}
+
+
+.user-profile-bg {
+ max-width: 100%; 
+ max-height: 100%; 
+ margin-bottom: 0px
+}
+
+.user-profile-info {
+  padding-top: 72px;
+  height: 195px;
+  position: relative;
+
+}
+
+.user-profile-img {
+  border: 2px solid white;
+  border-radius: 50px;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  margin-left: 16.13px;
+  top: -50px;
+}
+
+.edit-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background-color: transparent;
+  margin: auto;
+  padding: 8px 16px;
+  width: 128px;
+  height: 40px;
+  border: 1px solid #FF6600;
+  @include font-setting(15px, 400, $brand, 24px);
+}
+
+.user-follow-count {
+  @include font-setting(14px, 400, $secondary, 22px);
+}
+.user-following {
+  margin-right: 20px;
+}
+
+.nav-ul-group {
+  list-style: none;
+  /* 移除項目符號 */
+  margin: 0;
+  padding: 51px  50px 0 0;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid $border;
+
+}
+.nav-ul-group > li {
+  text-decoration: none;/* 移除超連結底線 */
+  display: block;/* 讓 <a> 填滿 <li> */
+  padding: 0 50px 15px 50px;
+  @include font-setting(15px, 700, #657786, 23px);
+}
+
+/* 滑鼠移到 <a> 時變成深底淺色 */
+.nav-li:hover {
+  color: $brand;
+  border-bottom: solid $brand 1px;
+}
 

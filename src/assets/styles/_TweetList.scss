@@ -3,6 +3,7 @@
   position: relative;
   padding: 0 25px 16px 25px;
   height: 136px;
+  border-bottom: 10px solid $border;
 }
 .home-tweet-img {
   width: 50px;
@@ -32,8 +33,6 @@
 
 .tweet-list {
   height: 70vh;
-
-  border-top: 10px solid $border;
   overflow-y: scroll;
 }
 .tweet-list::-webkit-scrollbar {

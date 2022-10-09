@@ -16,7 +16,7 @@
       <div class="reply-tweet-date">
         上午10:05
         <span>・</span>
-        2022年10月10日
+        {{ tweet.createdAt }}
       </div>
       <div class="line"></div>
       <div class="reply-action-amount d-flex">
@@ -92,6 +92,7 @@ export default {
       tweet: this.initialTweet,
     };
   },
+
   filters: {
     addPrefix(account) {
       if (!account) {

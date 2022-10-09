@@ -40,7 +40,7 @@ const routes = [
     component: () => import('../views/Home.vue'),
   },
   {
-    path: '/ReplyList/:id',
+    path: '/home/replylist/:id',
     name: 'reply-list',
     component: () => import('../views/ReplyList.vue'),
   },

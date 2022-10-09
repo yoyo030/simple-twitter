@@ -4,6 +4,18 @@
       <div class="w100 leftSection"><NavBar /></div>
       <div class="w100 centerSection">
         <h4 class="setting-title main-title">首頁</h4>
+         <div class="home-tweet-box">
+      <div class="d-flex align-items-center">
+        <img src="../assets/images/ac-logo.png" class="home-tweet-img" alt="" />
+        <textarea
+          class="home-tweet-input"
+          type="text"
+          name="home-tweet-input"
+          placeholder="有什麼新鮮事？"
+        />
+      </div>
+      <button class="home-tweet-button">推文</button>
+    </div>
         <TweetList :initial-tweets="tweets"/>
       </div>
       <div class="w100 rightSection"><RecommandedList /></div>

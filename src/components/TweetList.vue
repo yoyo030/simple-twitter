@@ -1,17 +1,6 @@
 <template>
   <div class="home-tweet-container">
-    <div class="home-tweet-box">
-      <div class="d-flex align-items-center">
-        <img src="../assets/images/ac-logo.png" class="home-tweet-img" alt="" />
-        <textarea
-          class="home-tweet-input"
-          type="text"
-          name="home-tweet-input"
-          placeholder="有什麼新鮮事？"
-        />
-      </div>
-      <button class="home-tweet-button">推文</button>
-    </div>
+    
 
     <div class="tweet-list scrollbar">
       <div class="tweet d-flex" v-for="tweet in tweets" :key="tweet.id">
@@ -70,6 +59,15 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+a,
+a:hover {
+  text-decoration: none;
+}
+
+</style>
+
 
 <script>
 import { fromNowFilter } from "./../utils/mixins";
