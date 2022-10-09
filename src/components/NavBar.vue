@@ -21,10 +21,10 @@
       </li>
 
       <li style="position: absolute; bottom: 0">
-        <a href="#"
+        <a @click="logout"
           ><img
             class="navbar-icon"
-            src="../assets/images/sign-out.png"
+            src="../assets/images/sign-out.png" 
           />登出</a
         >
       </li>
@@ -39,5 +39,11 @@
 <script>
 export default {
   name: "NavBar",
+    methods: {
+    logout () {   
+      this.$store.commit('revokeAuthentication')
+      this.$router.push('/signin')
+    }
+  }
 };
 </script>
