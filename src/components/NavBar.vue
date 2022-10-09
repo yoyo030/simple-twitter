@@ -40,8 +40,7 @@
 export default {
   name: "NavBar",
     methods: {
-    logout () {
-      alert('123')
+    logout () {   
       this.$store.commit('revokeAuthentication')
       this.$router.push('/signin')
     }
