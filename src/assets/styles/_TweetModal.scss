@@ -1,3 +1,5 @@
+
+
 .modal-mask {
   position: fixed;
   z-index: 999;
@@ -15,11 +17,12 @@
 }
 
 .modal-container {
-  width: 600px;
+  width: 634px;
   height: 300px;
   margin: 0 auto;
   background-color: #ffffff;
   border-radius: 14px;
+  opacity: 1
 }
 
 .modal-header {
@@ -71,3 +74,4 @@
   height: 40px;
   @include font-setting(15px, 400, white, 22px);
 }
+

@@ -1,6 +1,5 @@
 <template>
   <div class="home-tweet-container">
-
     <div class="home-tweet-box">
       <div class="d-flex align-items-center">
         <img
@@ -24,7 +23,6 @@
       </div>
       <button class="home-tweet-button">推文</button>
     </div>
-
 
     <div class="tweet-list scrollbar">
       <div class="tweet d-flex" v-for="tweet in tweets" :key="tweet.id">
@@ -69,7 +67,9 @@
                 src="../assets/images/reply.png"
                 class="icon cursor-pointer"
                 alt=""
+                @click.stop.prevent="openModal ()"
               />
+
               <div class="tweet-reply-amount number-font">推特回應數</div>
             </div>
             <div class="tweet-like d-flex">
@@ -86,16 +86,14 @@
         </div>
       </div>
     </div>
+    <ReplyModal 
+    v-if="show" 
+    @close="closeModal" />
   </div>
+  
 </template>
 
-<style scoped>
-a,
-a:hover {
-  text-decoration: none;
-}
 
-</style>
 
 
 <script>
@@ -103,12 +101,19 @@ import { fromNowFilter } from "./../utils/mixins";
 import { mapState } from "vuex";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
+import ReplyModal from "../components/ReplyModal.vue";
+
 export default {
   name: "TweetList",
   mixins: [fromNowFilter],
+
+  components: {
+    ReplyModal,
+  },
   data() {
     return {
       tweets: [],
+      show: false,
     };
   },
   filters: {
@@ -121,6 +126,22 @@ export default {
     },
   },
   methods: {
+    //Modal操作
+    openModal () {
+      this.show = true
+    },
+    closeModal() {
+      this.show = false;
+    },
+
+    // 點擊回覆時將該筆推文發給modal
+    clickOnReply(tweetId) {
+      this.show = true;
+      this.tweetForModal = this.tweets.filter((tweet) => tweet.id === tweetId);
+      console.log(tweetId);
+      console.log(this.tweetForModal);
+    },
+
     async fetchTweets() {
       try {
         const response = await authorizationAPI.getTweets();
@@ -132,7 +153,7 @@ export default {
         this.tweets = data;
       } catch (error) {
         console.log(error);
-          Toast.fire({
+        Toast.fire({
           icon: "warning",
           title: `資料載入失敗 !`,
         });
@@ -148,3 +169,11 @@ export default {
   },
 };
 </script>
+
+
+<style scoped>
+a,
+a:hover {
+  text-decoration: none;
+}
+</style>
