@@ -104,11 +104,13 @@ export default {
           throw new Error(data.message);
         }
 
+        Toast.fire({
+          icon: "success",
+          title: `登入成功，歡迎 ${data.data.user.name} !`,
+        });
         // 將 token 存放在 localStorage 內
         localStorage.setItem("token", data.data.token);
 
-        //先放一張假資料
-        data.data.user.cover="https://miro.medium.com/max/720/1*XEgA1TTwXa5AvAdw40GFow.png";
         //set vuex
         this.$store.commit('setCurrentUser',data.data.user)
 

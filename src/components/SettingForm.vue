@@ -7,7 +7,7 @@
       <div class="form-label-group mb-2">
         <label for="account">帳號</label>
         <input
-          v-model="user.account"
+          v-model="currentUserTemp.account"
           id="account"
           name="account"
           type="text"
@@ -21,7 +21,7 @@
       <div class="form-label-group mb-2">
         <label for="name">名稱</label>
         <input
-          v-model="user.name"
+          v-model="currentUserTemp.name"
           id="name"
           name="name"
           type="text"
@@ -36,7 +36,7 @@
       <div class="form-label-group mb-2">
         <label for="email">Email</label>
         <input
-          v-model="user.email"
+          v-model="currentUserTemp.email"
           id="email"
           name="email"
           type="email"
@@ -50,7 +50,7 @@
       <div class="form-label-group mb-3">
         <label for="password">密碼</label>
         <input
-          v-model="user.password"
+          v-model="currentUserTemp.password"
           id="password"
           name="password"
           type="password"
@@ -64,7 +64,7 @@
       <div class="form-label-group mb-3">
         <label for="password-check">密碼確認</label>
         <input
-          v-model="user.passwordCheck"
+          v-model="currentUserTemp.passwordCheck"
           id="password-check"
           name="passwordCheck"
           type="password"
@@ -82,27 +82,79 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
 export default {
-  name: 'SettingForm',
-  
+  name: "SettingForm",
   data() {
     return {
-      user: {
-        account: '',
-      name: '',
-      email: '',
-      password: '',
-      checkPassword: ''
-      }
-      
-    }
+      currentUserTemp: {},
+    };
   },
   methods: {
-    submitSetting(e) {
-      const form = e.target
-      const formData = new FormData(form)
-      this.$emit('after-submit-setting', formData)
-    }
-  }
-}
+    async submitSetting(e) {
+      if (
+        this.currentUserTemp.password !== this.currentUserTemp.passwordCheck
+      ) {
+        Toast.fire({
+          icon: "warning",
+          title: "兩次輸入的密碼需相同",
+        });
+        this.passwordCheck = "";
+        return;
+      }
+
+      const form = e.target;
+      const formData = new FormData(form);
+      //刪除passwordCheck,因為後端沒有接
+      formData.delete("passwordCheck");
+
+      try {
+        //兩次輸入的密碼需相同
+        const response = await authorizationAPI.settingSave(
+          this.currentUser.id,
+          formData
+        );
+        const data = response.data;
+        console.log(data);
+
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: `修改成功 !`,
+        });
+
+        let user = {
+          ...this.currentUser,
+          name: data.data.name,
+          account: data.data.account,
+          email: data.data.email,
+        };
+
+        this.$store.commit("setCurrentUser", user);
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "error",
+          title: error.message,
+        });
+      }
+    },
+    fetchCurrentUser() {
+      this.currentUserTemp = JSON.parse(JSON.stringify(this.currentUser));
+    },
+  },
+  computed: {
+    //把vuex資料拿出來,得到currentUser
+    ...mapState(["currentUser", "isAuthenticated"]),
+  },
+  created() {   
+    //把得到的currentUser複製一份給currentUser.Temp
+    this.fetchCurrentUser();
+  },
+};
 </script>
