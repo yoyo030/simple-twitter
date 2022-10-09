@@ -38,22 +38,35 @@
         </div>
       </div>
 
-      <div class="nav-group">
-        <ul class="nav-ul-group">
-          <li class="nav-li nav-user-tweets cursor-pointer">推文</li>
-          <li class="nav-li nav-user-replies cursor-pointer">推文與回覆</li>
-          <li class="nav-li nav-user-likes cursor-pointer">喜歡的內容</li>
-        </ul>
+      <div class="user-nav-group d-flex">
+        <router-link
+          class="nav-user-link nav-user-tweets cursor-pointer"
+          :to="{ name: 'user-tweets', params: { id: $route.params.id } }"
+        >
+          推文
+        </router-link>
+
+        <router-link
+          class="nav-user-link nav-user-replies cursor-pointer"
+          :to="{ name: 'user-replies', params: { id: $route.params.id } }"
+        >
+          推文與回覆
+        </router-link>
+        <router-link
+          class="nav-user-link nav-user-likes cursor-pointer"
+          :to="{ name: 'user-like', params: { id: $route.params.id } }"
+        >
+          喜歡的內容
+        </router-link>
+
       </div>
       <!--透過點擊li決定顯示樣板-->
-      <UserTweets/>
-      <UserReplies/>
+      <UserTweets />
+      <UserReplies />
       <UserLike />
-
     </div>
     <div class="w100 rightSection">
       <RecommandedList />
-
     </div>
   </div>
 </template>
@@ -66,9 +79,6 @@ import RecommandedList from "../components/RecommandedList.vue";
 import UserTweets from "../components/UserTweets.vue";
 import UserReplies from "../components/UserReplies.vue";
 import UserLike from "../components/UserLike.vue";
-
-
-
 
 const dummyUser = {
   currentUser: {
@@ -90,7 +100,7 @@ export default {
     RecommandedList,
     UserTweets,
     UserReplies,
-    UserLike
+    UserLike,
   },
   data() {
     return {

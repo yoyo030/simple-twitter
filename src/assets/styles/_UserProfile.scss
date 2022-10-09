@@ -53,27 +53,24 @@
   margin-right: 20px;
 }
 
-.nav-ul-group {
+.user-nav-group {
   list-style: none;
   /* 移除項目符號 */
   margin: 0;
   padding: 51px  50px 0 0;
   position: relative;
-  display: flex;
-  flex-direction: row;
   border-bottom: 1px solid $border;
-
 }
-.nav-ul-group > li {
+.nav-user-link {
   text-decoration: none;/* 移除超連結底線 */
-  display: block;/* 讓 <a> 填滿 <li> */
   padding: 0 50px 15px 50px;
   @include font-setting(15px, 700, #657786, 23px);
 }
 
-/* 滑鼠移到 <a> 時變成深底淺色 */
-.nav-li:hover {
-  color: $brand;
-  border-bottom: solid $brand 1px;
+
+.user-nav-group :hover {
+  border-bottom: 1px solid #FF6600;
+  color: #FF6600;
+  padding-bottom: 13px;
 }
 
