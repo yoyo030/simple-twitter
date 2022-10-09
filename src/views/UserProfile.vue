@@ -21,7 +21,7 @@
           編輯個人資料
         </button>
 
-        <div style="padding-left: 16.13px">
+        <div class="user-profile-main">
           <h5 class="user-title">{{ currentUser.name }}</h5>
           <div class="tweet-user-account">
             {{ currentUser.account | addPrefix }}
@@ -38,22 +38,21 @@
         </div>
       </div>
 
-      <div class="nav-group">
-        <ul class="nav-ul-group">
-          <li class="nav-li nav-user-tweets cursor-pointer">推文</li>
-          <li class="nav-li nav-user-replies cursor-pointer">推文與回覆</li>
-          <li class="nav-li nav-user-likes cursor-pointer">喜歡的內容</li>
+      <div class="user-profile-nav ">
+        <ul class="user-nav-group cursor-pointer d-flex">
+          <li class="nav-user-link"
+           v-for="nav in navs"
+           :key="nav.id"
+           @click.stop.prevent="handleNav(nav.id)">
+            {{nav.title}}
+          </li>
         </ul>
       </div>
       <!--透過點擊li決定顯示樣板-->
-      <UserTweets/>
-      <UserReplies/>
-      <UserLike />
-
+      <UserProfileNav :navID="navID"/>
     </div>
     <div class="w100 rightSection">
       <RecommandedList />
-
     </div>
   </div>
 </template>
@@ -63,13 +62,10 @@
 <script>
 import NavBar from "../components/NavBar.vue";
 import RecommandedList from "../components/RecommandedList.vue";
-import UserTweets from "../components/UserTweets.vue";
-import UserReplies from "../components/UserReplies.vue";
-import UserLike from "../components/UserLike.vue";
+import UserProfileNav from "../components/UserProfileNav.vue";
 
 
-
-
+//UserProfile上半部顯示登入者資訊用
 const dummyUser = {
   currentUser: {
     id: 1,
@@ -83,18 +79,29 @@ const dummyUser = {
   },
 };
 
+
 export default {
   name: "UserProfile",
   components: {
     NavBar,
     RecommandedList,
-    UserTweets,
-    UserReplies,
-    UserLike
+    UserProfileNav
   },
   data() {
     return {
-      currentUser: "",
+      currentUser: {},
+      navID: 1,
+      navs: [
+        { id: 1,
+         title: '推文'
+         },
+        { id: 2,
+        title: '推文與回覆'
+         },
+        { id: 3,
+         title: '喜歡的內容'
+         },
+      ]
     };
   },
   created() {
@@ -103,8 +110,10 @@ export default {
   methods: {
     fetchCurrentUser() {
       this.currentUser = dummyUser.currentUser;
-      console.log(this.currentUser);
     },
+    handleNav(navID) {
+      this.navID = navID
+    } 
   },
   filters: {
     addPrefix(account) {
@@ -115,5 +124,6 @@ export default {
       }
     },
   },
-};
+}
+
 </script>
