@@ -199,3 +199,9 @@ export default {
 
 
 
+<style scoped>
+.form-label-group {
+  width: 602px;
+  margin: 0 16px 30px 16px;
+}
+</style>

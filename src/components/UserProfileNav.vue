@@ -151,7 +151,6 @@ export default {
       tweets: [],
       replies: [],
       likes: [],
-      showList: false
     };
   },
   created() {

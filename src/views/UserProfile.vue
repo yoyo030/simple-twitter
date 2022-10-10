@@ -32,18 +32,28 @@
           </div>
           <div class="tweet-contentText">{{ currentUser.introduction }}</div>
           <div class="user-follow-count d-flex">
-            <div class="user-following">
+          <router-link
+            class="to-user-follow"
+            :to="{ name: 'user-follow', params: { id: currentUser.id } }"
+          >
+            <div class="user-following cursor-pointer">
               {{ `${currentUser.following} 個跟隨中` }}
             </div>
-            <div class="user-follower">
+          </router-link>
+           <router-link
+            class="to-user-follow"
+            :to="{ name: 'user-follow', params: {id: currentUser.id} }"
+          >
+            <div class="user-follower cursor-pointer">
               {{ `${currentUser.follower} 位跟隨者` }}
             </div>
+            </router-link>
           </div>
         </div>
       </div>
 
-      <div class="user-profile-nav">
-        <ul class="user-nav-group cursor-pointer d-flex">
+
+        <ul class="user-profile-nav user-nav-group cursor-pointer d-flex">
           <li
             class="nav-user-link"
             v-for="nav in navs"
@@ -53,7 +63,7 @@
             {{ nav.title }}
           </li>
         </ul>
-      </div>
+
       <!--透過點擊li決定顯示樣板-->
       <UserProfileNav :navID="navID" />
     </div>
@@ -112,6 +122,8 @@ export default {
     };
   },
   created() {
+    //待串接API後動態抓取使用者id，改變路由
+    //const { id } = this.$route.params
     this.fetchCurrentUser();
   },
   methods: {
@@ -150,3 +162,5 @@ export default {
   },
 };
 </script>
+
+

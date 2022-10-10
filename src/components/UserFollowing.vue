@@ -1,0 +1,63 @@
+<template>
+    <div class="profile-nav-list scrollbar">
+      <div class="reply d-flex" 
+        v-for="following in followings" :key="following.id">
+        <!--待串接後用v-bind改為使用者img-->
+        <img src="../assets/images/logo-gray.png" class="user-img" alt="" />
+
+        <div class="reply-list-text d-flex flex-column">
+          <div class="tweet-list-tweet-top d-flex align-items-center">
+            <div class="tweet-user-name">
+              {{ following.name }}
+            </div>
+            <div class="tweet-user-account">
+              {{ following.account | addPrefix }}
+            </div>
+          </div>
+
+          <div class="tweet-contentText">
+            {{ following.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+</template>
+
+<script>
+
+export default {
+  name: "userFollower",
+  props: {
+    //從views/ReplyList帶入dummydata，待串接API以及點擊功能id===id
+    initialFollowing: {
+      type: Array,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      followings: this.initialFollowing,
+    };
+  },
+
+  filters: {
+    addPrefix(account) {
+      if (!account) {
+        return "未提供帳號資訊";
+      } else {
+        return `@${account}`;
+      }
+    },
+  },
+};
+</script>
+
+
+
+<style scoped>
+/*追蹤者樣板專用可視區域設定，用來控制scrollbar*/ 
+.profile-nav-list {
+  height: 80vh;
+}
+
+</style>

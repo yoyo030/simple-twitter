@@ -17,8 +17,8 @@
 }
 
 .user-profile-info {
-  padding-top: 72px ;
-  height: 195px;
+  padding-top: 60px ;
+  height: 200px;
   position: relative;
 
 }
@@ -60,7 +60,7 @@
   list-style: none;
   /* 移除項目符號 */
   margin: 0;
-  padding: 51px  45px 0 0;
+  padding: 20px  45px 0 0;
   position: relative;
   border-bottom: 1px solid $border;
 }
@@ -78,7 +78,7 @@
 }
 
 .profile-nav-list {
-  height: 35vh;
+  height: 40vh;
   overflow-y: scroll;
 }
 
@@ -89,4 +89,12 @@
 .profile-nav-list::-webkit-scrollbar-thumb {
   background-color: lightgray;
   border-radius: 50px;
+}
+
+.to-user-follow {
+  all: unset;
+  text-decoration: none;
+}
+.to-user-follow:hover {
+  color: $brand
 }
