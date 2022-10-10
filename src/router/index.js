@@ -30,6 +30,16 @@ const routes = [
     component: AdminLogIn,
   },
   {
+    path: '/admin/userlist',
+    name: 'admin-user-list',
+    component: () => import('../views/AdminUserList.vue'),
+  },
+  {
+    path: '/admin/tweets',
+    name: 'admin-tweets',
+    component: () => import('../views/AdminTweets.vue'),
+  },
+  {
     path: '/setting',
     name: 'setting',
     component: () => import('../views/Setting.vue'),
