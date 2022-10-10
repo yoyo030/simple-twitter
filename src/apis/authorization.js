@@ -40,4 +40,17 @@ export default {
       headers: { Authorization: `Bearer ${getToken()}` },
     });
   },
+
+    // getTweet api 成功 獲取一篇貼文(沒有抓到此貼文的回覆)
+    getTweet(id) {
+      return apiHelper.get(`/tweets/${id}`, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      });
+    },
+    //api未完成
+    getTweetsReplies(id) {
+      return apiHelper.get(`/tweets/${id}/replies`, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      });
+    },
 };

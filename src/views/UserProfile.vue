@@ -6,7 +6,7 @@
         <img
           src="../assets/images/back.png"
           alt=""
-          class="user-back back-icon cursor-pointer"
+          class="user-back back-icon cursor-pointer" @click="$router.back()"
         />
         <div class="d-flex flex-column">
           <!--待串接使用者資料與貼文總數-->

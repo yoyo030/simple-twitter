@@ -5,10 +5,11 @@
     </div>
     <div class="w100 centerSection">
       <div class="reply-list-top d-flex align-items-center">
-        <img src="../assets/images/back.png" alt="" class="back-icon cursor-pointer" />
+        
+        <img src="../assets/images/back.png" alt="" class="back-icon cursor-pointer" @click="$router.back()"/>
         <h4 class="setting-title reply-main-title">推文</h4>
       </div>
-      <Replies :initial-tweet="tweet" />
+      <Replies :initial-tweet="tweet" :key=key />
     </div>
     <div class="w100 rightSection">
       <RecommandedList />
@@ -21,48 +22,9 @@
 import NavBar from "../components/NavBar.vue";
 import RecommandedList from "../components/RecommandedList.vue";
 import Replies from "../components/Replies.vue";
+import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
 
-const dummyData = {
-  tweet: 
-    {
-      id: 1,
-      account: "apple123",
-      name: "Apple",
-      img: "../assets/images/logo-gray.png",
-      contentText: "一袋米要扛幾樓?",
-      createdAt: "2022-10-08",
-      reply: [
-        {
-          id: 2,
-          account: "aaa123",
-          name: "aaa",
-          img: "../assets/images/logo-gray.png",
-          contentText: "一樓",
-          createdAt: "2022-10-08",
-        },
-        {
-          id: 3,
-          account: "bbb123",
-          name: "bbb",
-          img: "../assets/images/logo-gray.png",
-          contentText: "二樓",
-          createdAt: "2022-10-08",
-        },
-
-        {
-          id: 4,
-          account: "ccc123",
-          name: "ccc",
-          img: "../assets/images/logo-gray.png",
-          contentText: "三樓",
-          createdAt: "2022-10-08",
-        },
-      ],
-
-      likeAmount: 520,
-    },
-  
-};
 
 export default {
   name: "ReplyList",
@@ -74,16 +36,39 @@ export default {
 
   data() {
     return {
-      tweet: [],
+      tweet:{},key:0
     };
   },
   created() {
     this.fetchTweets();
   },
   methods: {
-    fetchTweets() {
-      this.tweet = dummyData.tweet;
+
+        async fetchTweets() {
+              
+   
+   
+     
+      try {
+        const response = await authorizationAPI.getTweet(this.$route.params.id);
+        const data = response.data;
+        console.log(data);
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+       this.tweet = data;this.key=2
+      
+        
+      } catch (error) {
+        console.log(error);
+          Toast.fire({
+          icon: "warning",
+          title: `資料載入失敗 !`,
+        });
+      }
     },
+
   },
+
 };
 </script>
