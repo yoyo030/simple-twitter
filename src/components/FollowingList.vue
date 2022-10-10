@@ -10,9 +10,18 @@
             <div class="tweet-user-name">
               {{ following.name }}
             </div>
-            <div class="tweet-user-account">
-              {{ following.account | addPrefix }}
-            </div>
+             <button
+           v-if="following.isFollowed"
+           class="btn-isFollowed"
+           @click.stop.prevent="unFollowed(following.id)"> 
+           正在跟隨
+          </button>
+          <button
+           v-else
+            class="btn-unFollow"
+            @click.stop.prevent="followed(following.id)">
+            跟隨
+          </button>
           </div>
 
           <div class="tweet-contentText">
@@ -39,6 +48,33 @@ export default {
       followings: this.initialFollowing,
     };
   },
+  methods: {
+     //用map找出被點擊按鈕所屬id，切換狀態(失敗中)
+    followed (followingId) {
+      this.followings = this.followings.map((following) => {
+       if (following.id === followingId) {
+            return {
+              ...following,
+              isFollowed: true,
+            };
+          }
+          return following;
+        })
+    },
+     //用map找出被點擊按鈕所屬id，切換狀態(失敗中)
+    unFollowed (followingId) {
+      this.followings = this.followings.map((following) => {
+          if (following.id === followingId) {
+            return {
+              ...following,
+              isFollowed: false,
+            };
+          }
+          return following;
+        });
+    }
+
+  },
 
   filters: {
     addPrefix(account) {
@@ -58,6 +94,12 @@ export default {
 /*追蹤者樣板專用可視區域設定，用來控制scrollbar*/ 
 .profile-nav-list {
   height: 80vh;
+}
+.btn-isFollowed {
+ margin-left: 290px;
+}
+.btn-unFollow {
+  margin-left: 320px; 
 }
 
 </style>

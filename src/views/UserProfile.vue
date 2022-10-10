@@ -34,18 +34,18 @@
           <div class="user-follow-count d-flex">
           <router-link
             class="to-user-follow"
-            :to="{ name: 'user-follow', params: { id: currentUser.id } }"
+            :to="{ name: 'user-follower', params: { id: currentUser.id } }"
           >
-            <div class="user-following cursor-pointer">
-              {{ `${currentUser.following} 個跟隨中` }}
+            <div class="user-follower cursor-pointer">
+              {{ `${currentUser.follower} 個跟隨中` }}
             </div>
           </router-link>
            <router-link
             class="to-user-follow"
-            :to="{ name: 'user-follow', params: {id: currentUser.id} }"
+            :to="{ name: 'user-following', params: {id: currentUser.id} }"
           >
-            <div class="user-follower cursor-pointer">
-              {{ `${currentUser.follower} 位跟隨者` }}
+            <div class="user-following cursor-pointer">
+              {{ `${currentUser.following} 位跟隨者` }}
             </div>
             </router-link>
           </div>
@@ -96,8 +96,8 @@ const dummyUser = {
     introduction:
       "青花椰菜該如何料理，才能吃出美味及營養呢？青花椰菜爽脆可口，透過清蒸方式來烹調，是保留營養價值最好的烹調方式。",
     cover: "../assets/images/bg-img.png",
-    following: "34",
-    follower: "59",
+    follower: "34",
+    following: "59",
   },
 };
 
@@ -163,4 +163,4 @@ export default {
 };
 </script>
 
-
+<style scoped>

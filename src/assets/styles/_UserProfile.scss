@@ -52,7 +52,7 @@
 .user-follow-count {
   @include font-setting(14px, 400, $secondary, 22px);
 }
-.user-following {
+.user-follower {
   margin-right: 20px;
 }
 
@@ -64,19 +64,17 @@
   position: relative;
   border-bottom: 1px solid $border;
 }
-.nav-user-link {
-  text-decoration: none;/* 移除超連結底線 */
-  padding: 0 45px 15px 50px;
-  @include font-setting(15px, 700, #657786, 23px);
-}
-
 
 .user-nav-group :hover {
   border-bottom: 1px solid #FF6600;
   color: #FF6600;
   padding-bottom: 13px;
 }
-
+.nav-user-link {
+  text-decoration: none;/* 移除超連結底線 */
+  padding: 0 45px 15px 50px;
+  @include font-setting(15px, 700, #657786, 23px);
+}
 .profile-nav-list {
   height: 40vh;
   overflow-y: scroll;

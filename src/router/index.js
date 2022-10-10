@@ -45,9 +45,14 @@ const routes = [
     component: () => import('../views/ReplyList.vue'),
   },
   {
-    path: '/userfollow/:id',
-    name: 'user-follow',
-    component: () => import('../views/UserFollow.vue'),
+    path: '/userfollower/:id',
+    name: 'user-follower',
+    component: () => import('../views/UserFollower.vue'),
+  },
+  {
+    path: '/userfollowing/:id',
+    name: 'user-following',
+    component: () => import('../views/UserFollowing.vue'),
   },
   {
     path: '/userprofile',
