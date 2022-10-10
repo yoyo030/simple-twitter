@@ -2,26 +2,23 @@
   <div class="reply-tweet-container">
     <div class="reply-tweet-box">
       <div class="reply-tweet-title d-flex">
-       <!--待串接後改為使用者img-->
-        <img class="user-img" 
-          src="../assets/images/logo-gray.png" />
+        <!--待串接後改為使用者img-->
+        <img class="user-img" src="../assets/images/logo-gray.png" />
         <span class="info">
-          <div class="name">{{ tweet.name }}</div>
-          <div class="account">{{ tweet.account }}</div>
+          <div class="name">{{ tweet.User.name }}</div>
+          <div class="account">{{ tweet.User.account | addPrefix  }}</div>
         </span>
       </div>
       <div class="d-flex align-items-center">
-        <div class="tweet-list-contentText">{{ tweet.contentText }}</div>
+        <div class="tweet-list-contentText">{{ tweet.description }}</div>
       </div>
       <div class="reply-tweet-date">
-        上午10:05
-        <span>・</span>
-        {{ tweet.createdAt }}
+        {{ tweet.createdAt | replyListTime}}
       </div>
       <div class="line"></div>
       <div class="reply-action-amount d-flex">
-        <div class="amount number-font d-flex ">
-          {{ `${tweet.reply.length}` }}
+        <div class="amount number-font d-flex">
+          <!-- {{ `${tweet.reply.length}` }} -->
           <p>回覆</p>
         </div>
         <div class="amount number-font d-flex">
@@ -32,13 +29,13 @@
       <div class="reply-action d-flex">
         <img
           src="../assets/images/reply.png"
-          class="reply-reply-icon  cursor-pointer"
+          class="reply-reply-icon cursor-pointer"
           alt=""
         />
         <img
           src="../assets/images/like.png"
           alt=""
-          class="reply-like-icon  cursor-pointer"
+          class="reply-like-icon cursor-pointer"
         />
       </div>
     </div>
@@ -102,5 +99,6 @@ export default {
       }
     },
   },
+
 };
 </script>
