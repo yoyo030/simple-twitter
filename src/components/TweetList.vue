@@ -113,7 +113,7 @@ export default {
   data() {
     return {
       tweets: [],
-      show: false,
+      show: false, //控制modal用
     };
   },
   filters: {

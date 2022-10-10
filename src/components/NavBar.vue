@@ -68,7 +68,7 @@ export default {
 
   data () {
     return {
-      show: false
+      show: false //控制modal用
     }
   },
   methods: {

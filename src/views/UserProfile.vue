@@ -17,7 +17,11 @@
       <img class="user-profile-bg" src="../assets/images/bg-img.png" />
       <div class="user-profile-info">
         <img class="user-profile-img" src="../assets/images/logo-gray.png" />
-        <button type="button" style="float: right" class="edit-button">
+        <button
+          type="button"
+          style="float: right"
+          class="edit-button"
+          @click.stop.prevent="openModal">
           編輯個人資料
         </button>
 
@@ -38,22 +42,27 @@
         </div>
       </div>
 
-      <div class="user-profile-nav ">
+      <div class="user-profile-nav">
         <ul class="user-nav-group cursor-pointer d-flex">
-          <li class="nav-user-link"
-           v-for="nav in navs"
-           :key="nav.id"
-           @click.stop.prevent="handleNav(nav.id)">
-            {{nav.title}}
+          <li
+            class="nav-user-link"
+            v-for="nav in navs"
+            :key="nav.id"
+            @click.stop.prevent="handleNav(nav.id)"
+          >
+            {{ nav.title }}
           </li>
         </ul>
       </div>
       <!--透過點擊li決定顯示樣板-->
-      <UserProfileNav :navID="navID"/>
+      <UserProfileNav :navID="navID" />
     </div>
     <div class="w100 rightSection">
       <RecommandedList />
     </div>
+    <EditModal 
+     v-if="show"
+     @close="closeModal" />
   </div>
 </template>
 
@@ -63,9 +72,9 @@
 import NavBar from "../components/NavBar.vue";
 import RecommandedList from "../components/RecommandedList.vue";
 import UserProfileNav from "../components/UserProfileNav.vue";
+import EditModal from "../components/EditModal.vue";
 
-
-//UserProfile上半部顯示登入者資訊用
+//UserProfile上半部顯示登入者資訊用，待串接
 const dummyUser = {
   currentUser: {
     id: 1,
@@ -79,29 +88,24 @@ const dummyUser = {
   },
 };
 
-
 export default {
   name: "UserProfile",
   components: {
     NavBar,
     RecommandedList,
-    UserProfileNav
+    UserProfileNav,
+    EditModal,
   },
   data() {
     return {
       currentUser: {},
       navID: 1,
       navs: [
-        { id: 1,
-         title: '推文'
-         },
-        { id: 2,
-        title: '推文與回覆'
-         },
-        { id: 3,
-         title: '喜歡的內容'
-         },
-      ]
+        { id: 1, title: "推文" },
+        { id: 2, title: "推文與回覆" },
+        { id: 3, title: "喜歡的內容" },
+      ],
+      show: false //控制modal用
     };
   },
   created() {
@@ -111,9 +115,17 @@ export default {
     fetchCurrentUser() {
       this.currentUser = dummyUser.currentUser;
     },
+    //透過點擊控制nav下方欲顯示樣板
     handleNav(navID) {
-      this.navID = navID
-    } 
+      this.navID = navID;
+    },
+    //Modal操作
+    openModal () {
+      this.show = true
+    },
+    closeModal() {
+      this.show = false;
+    },
   },
   filters: {
     addPrefix(account) {
@@ -124,6 +136,5 @@ export default {
       }
     },
   },
-}
-
+};
 </script>

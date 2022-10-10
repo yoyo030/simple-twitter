@@ -2,55 +2,63 @@
   <div class="modal-mask">
     <div class="modal-wrapper">
       <form class="modal-container" @submit.stop.prevent="handleSubmit">
-        <div class="modal-header">
+        <div class="modal-header d-flex align-items-center">
           <img
             class="btn-close"
             src="../assets/images/error.png"
             alt=""
             @click="$emit('close')"
           />
+           <h5 class="modal-title">編輯個人資料</h5>
+            <button
+              class="btn-save modal-tweet-button"
+              type="submit"
+              :disabled="isProcessing">
+              儲存
+            </button>
         </div>
         <div class="modal-body">
           <!--擷取點擊該推文資訊-->
-          <div class="reply">
+          <div class="edit-modal-img">
             <!--待串接後用v-bind改為使用者img-->
-            <div class="d-flex">
-            <img src="../assets/images/logo-gray.png" class="user-img" alt="" />
+<img class="user-profile-bg" src="../assets/images/bg-img.png" />
+      <div class="user-profile-info">
+        <img class="user-profile-img" src="../assets/images/logo-gray.png" />
+
 
             <div class="reply-list-text d-flex flex-column">
-              <div class="tweet-list-tweet-top d-flex align-items-center">
-                <div class="tweet-user-name">
-                  {{ tweet.name }}
-                </div>
-                <div class="tweet-user-account">
-                  {{ tweet.account | addPrefix }}
-                </div>
-                <span>・</span>
-                <div class="tweet-user-createdAt">
-                  {{ tweet.createdAt | fromNow }}
-                </div>
-              </div>
 
-              <div class="tweet-contentText">
-                {{ tweet.description }}
-                <div class="tweet-account">
-                  <span class="reply-span">回覆給</span>
-                  {{ tweet.account | addPrefix }}
-                </div>
-              </div>
-            </div>
-            </div>
-             <div class="reply-content d-flex">
-            <img src="../assets/images/ac-logo.png" alt="" class="avatar" />
-            <textarea class="tweet" placeholder="推你的回覆" v-model="text">
-            </textarea>
-          </div>
+    <div class="form-label-group mb-2">
+        <label for="name">名稱</label>
+        <input
+          v-model="currentUserTemp.name"
+          id="name"
+          name="name"
+          type="text"
+          class="form-control"
+          placeholder="待傳入父層資料"
+          autocomplete="username"
+          required
+          autofocus/>
+      </div>
+          <div class="form-label-group mb-2">
+        <label for="name">自我介紹</label>
+        <input
+          v-model="currentUserTemp.name"
+          id="description"
+          name="description"
+          type="text"
+          class="form-control"
+          placeholder="待傳入父層資料"
+          autocomplete="username"
+          required
+          autofocus/>
+      </div>
+
           <div class="modal-footer d-flex justify-content-end">
             <div class="warn" v-show="textWarn">字數不可超過140字</div>
             <div class="warn" v-show="noInputWarn">內容不可空白</div>
-            <button class="modal-tweet-button" :disabled="isLoading">
-              回覆
-            </button>
+
           </div>
          
           </div>
@@ -80,7 +88,7 @@ export default {
   data() {
     return {
       text: "",
-      isLoading: false,
+      isProcessing: false,
       textWarn: false,
       noInputWarn: false,
       tweet: dummyData.tweet, //待解決
@@ -93,15 +101,15 @@ export default {
   methods: {
     //提交推文事件，待完成(僅寫出送出條件)
     handleSubmit() {
-      this.isLoading = true;
+      this.isProcessing = true;
       if (this.text.trim().length > 140) {
-        this.isLoading = false;
+        this.isProcessing = false;
         this.noInputWarn = false;
         return (this.textWarn = true);
       }
       if (this.text.trim().length === 0) {
         this.textWarn = false;
-        this.isLoading = false;
+        this.isProcessing = false;
         return (this.noInputWarn = true);
       }
     },
@@ -112,8 +120,14 @@ export default {
 
 
 <style scoped>
-
 /* Modal專用樣式 */
+.modal-header {
+  position: relative;
+}
+.btn-save {
+  right: 16px;
+  top: 8px;
+}
 .modal-body {
   all: unset;
 }
@@ -138,10 +152,9 @@ export default {
   bottom: 20px;
 }
 .warn {
- position: absolute;
- bottom: 20px;
- right: 120px;
+  position: absolute;
+  bottom: 20px;
+  right: 120px;
 }
-
 </style>
 
