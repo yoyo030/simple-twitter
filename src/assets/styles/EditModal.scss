@@ -1,0 +1,96 @@
+/* EditModal專用樣式 */
+.modal-header {
+  position: relative;
+}
+
+.btn-save {
+  right: 16px;
+  top: 8px;
+}
+
+.modal-body {
+  all: unset;
+}
+
+.modal-container {
+  position: relative;
+  width: 634px;
+  height: 625px;
+}
+
+.form-label-group {
+  width: 602px;
+  margin: 0 16px 30px 16px;
+}
+
+.description {
+  height: 147px;
+}
+
+.modal-body {
+  padding: 16px;
+}
+
+.user-img-edit {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  bottom: 185px;
+  left: 56px;
+}
+
+.user-img-edit:hover {
+  opacity: 0.5;
+}
+
+.bg-edit {
+  position: absolute;
+  bottom: 250px;
+  left: 210px;
+}
+
+.bg-cancel {
+  width: 15px;
+  height: 15px;
+  left: 130px;
+  margin-bottom: 2px;
+}
+
+.edit-description {
+  font-size: 15px;
+  resize: none;
+  width: 580px;
+  height: 149px;
+  border: none;
+  background-color: #F5F8FA;
+}
+
+.modal-tweet-button {
+  position: absolute;
+  bottom: 20px;
+}
+
+.count-description {
+  position: absolute;
+  top: 305px;
+  right: 16px;
+}
+
+.name-count {
+  position: absolute;
+  top: 130px;
+  right: 16px;
+}
+
+.warn,
+.warn-intro {
+  margin: 0;
+  position: absolute;
+  top: 305px;
+  left: 16px;
+}
+
+.warn {
+  top: 125px
+}
+

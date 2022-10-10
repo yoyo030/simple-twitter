@@ -30,7 +30,7 @@
           <div class="tweet-user-account">
             {{ currentUser.account | addPrefix }}
           </div>
-          <div class="tweet-contentText">{{ currentUser.contentText }}</div>
+          <div class="tweet-contentText">{{ currentUser.introduction }}</div>
           <div class="user-follow-count d-flex">
             <div class="user-following">
               {{ `${currentUser.following} 個跟隨中` }}
@@ -60,9 +60,11 @@
     <div class="w100 rightSection">
       <RecommandedList />
     </div>
-    <EditModal 
+    <EditModal @after-submit="afterSubmit" 
      v-if="show"
-     @close="closeModal" />
+     @close="closeModal"
+     :initialUser="currentUser"
+      />
   </div>
 </template>
 
@@ -81,8 +83,9 @@ const dummyUser = {
     account: "heyjoin",
     name: "John Doe",
     img: "../assets/images/logo-gray.png",
-    contentText:
+    introduction:
       "青花椰菜該如何料理，才能吃出美味及營養呢？青花椰菜爽脆可口，透過清蒸方式來烹調，是保留營養價值最好的烹調方式。",
+    cover: "../assets/images/bg-img.png",
     following: "34",
     follower: "59",
   },
@@ -126,6 +129,15 @@ export default {
     closeModal() {
       this.show = false;
     },
+    //接收編輯資料後傳送後端儲存
+    afterSubmit(formData) {
+      console.log(formData);
+      // 透過 API 將表單資料送到伺服器
+      for (let [name, value] of formData.entries()) {
+        console.log(name + ": " + value);
+      }
+
+    }
   },
   filters: {
     addPrefix(account) {
