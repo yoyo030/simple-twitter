@@ -61,7 +61,7 @@
             :to="{ name: 'reply-list', params: { id: tweet.id } }"
           >
             <div class="tweet-contentText">
-              {{ tweet.description }}
+              {{ tweet.description | sliceTweet }}
             </div>
           </router-link>
           <div class="tweet-action d-flex">
@@ -127,6 +127,13 @@ export default {
         return `@${account}`;
       }
     },
+    //首頁顯示推文字數超過95字，後面隱藏(待確認是否需要此功能)
+    sliceTweet(description) {
+      if(description.length > 95) {
+        return `${description.slice(0,95)}...`
+      }
+      return description
+    }
   },
   methods: {
     //Modal操作
