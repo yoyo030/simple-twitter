@@ -12,79 +12,137 @@
           <h5 class="modal-title">編輯個人資料</h5>
           <button
             class="btn-save modal-tweet-button"
-            type="submit"
             :disabled="isProcessing"
-            @click.stop.prevent="btnclick"
+            @click.stop.prevent="handleSubmit"
           >
             儲存
           </button>
         </div>
-        <form  @submit.stop.prevent="handleSubmit">
-        <div class="modal-body">
-          <div class="edit-modal-img">
+        <form ref="form">
+          <div class="modal-body">
+            <div class="edit-modal-img">
+              <!--待串接API後用v-bind背景圖cover跟使用者img-->
 
-            <!--待串接API後用v-bind背景圖cover跟使用者img-->
-            <img 
-              class="user-profile-bg" 
-              src="../assets/images/bg-img.png" />
-             <div class="bg-edit">
-              <img
-              class="user-img-edit cursor-pointer"
-              src="../assets/images/add-photo.png"
-            />
-            <img
-              class="user-img-edit bg-cancel cursor-pointer"
-              src="../assets/images/cancel.png"
-            />
-              </div> 
-          
-            <div class="user-profile-info">            
-              <img
-              class="user-profile-img "
-              src="../assets/images/logo-gray.png"
-            />
-             <img
-              class="user-img-edit cursor-pointer"
-              src="../assets/images/add-photo.png"
-            />
-              <div class="form-label-group">
-                <label for="name">名稱</label>
-                <input
-                  v-model="currentUser.name"
-                  id="name"
-                  name="name"
-                  type="text"
-                  class="form-control"
-                /> 
-              <h6 class="name-count">{{`${currentUser.name.length}/50`}}</h6>             
-              <span class="warn" v-show="nameLengthWarn">字數不可超過50字</span>
-              <span class="warn" v-show="noInputWarn">此處不可空白</span>
+              <div style="position: relative; width: 100%; height: 100%">
+                <img
+                  v-if="currentUserTemp.cover == ''"
+                  class="user-profile-bg"
+                  src="../assets/images/bg-img.png"
+                />
+
+                <img
+                  v-else
+                  :src="currentUserTemp.cover"
+                  class="user-profile-bg"
+                  style="width: 634px; height: 198px; object-fit: none"
+                />
               </div>
-              <div class="form-label-group description">
-                
-                <label for="description">自我介紹</label>
-                <textarea
-                  v-model="currentUser.introduction"
-                  id="description"
-                  class="form-control edit-description"
-                  type="text">
-                </textarea>
-               <h6 class="count-description">{{ `${currentUser.introduction.length}/160`}}</h6> 
-              <span class="warn warn-intro" v-show="introLengthWarn">字數不可超過160字</span>
-              <span class="warn warn-intro" v-show="noInputWarn">此處不可空白</span> 
+              <div class="bg-edit">
+                <img
+                  @click.stop.prevent="clickCoverUpload"
+                  class="user-img-edit cursor-pointer"
+                  src="../assets/images/add-photo.png"
+                />
+                <img
+                  @click.stop.prevent="currentUserTemp.cover = ''"
+                  class="user-img-edit bg-cancel cursor-pointer"
+                  src="../assets/images/cancel.png"
+                />
+              </div>
+
+              <div class="user-profile-info">
+                <img
+                  v-if="currentUserTemp.avatar == ''"
+                  class="user-profile-img"
+                  src="../assets/images/logo-gray.png"
+                />
+
+                <img
+                  v-else
+                  :src="currentUserTemp.avatar"
+                  class="user-profile-img"
+                  style=""
+                />
+                <img
+                  @click.stop.prevent="clickAvatarUpload"
+                  class="user-img-edit cursor-pointer"
+                  src="../assets/images/add-photo.png"
+                />
+
+                <div class="form-label-group">
+                  <label for="name">名稱</label>
+                  <input
+                    v-model="currentUser.name"
+                    id="name"
+                    name="name"
+                    type="text"
+                    class="form-control"
+                  />
+                  <h6 class="name-count">
+                    {{ `${currentUserTemp.name.length}/50` }}
+                  </h6>
+                  <span class="warn" v-show="nameLengthWarn"
+                    >字數不可超過50字</span
+                  >
+                  <span class="warn" v-show="noInputWarn">此處不可空白</span>
+                </div>
+                <div class="form-label-group description">
+                  <label for="description">自我介紹</label>
+                  <textarea
+                    v-model="currentUserTemp.introduction"
+                    id="description"
+                    class="form-control edit-description"
+                    type="text"
+                  >
+                  </textarea>
+                  <h6 class="count-description">
+                    {{
+                      `${
+                        !currentUserTemp.introduction
+                          ? 0
+                          : currentUserTemp.introduction.length
+                      }/160`
+                    }}
+                  </h6>
+                  <span class="warn warn-intro" v-show="introLengthWarn"
+                    >字數不可超過160字</span
+                  >
+                  <span class="warn warn-intro" v-show="noInputWarn"
+                    >此處不可空白</span
+                  >
+
+                  <input
+                    id="image1"
+                    type="file"
+                    name="cover"
+                    accept="image/*"
+                    class="form-control-file d-none"
+                    ref="coverFileInput"
+                    @change="handleCoverFileChange"
+                  />
+                  <input
+                    id="image2"
+                    type="file"
+                    name="avatar"
+                    accept="image/*"
+                    class="form-control-file d-none"
+                    ref="avatarFileInput"
+                    @change="handleAvatarFileChange"
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>
 
-
 <script>
-
+import { mapState } from "vuex";
+import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
 export default {
   name: "EditModal",
 
@@ -94,53 +152,38 @@ export default {
       type: Object,
       required: true,
     },
-
   },
 
   data() {
     return {
-      currentUser: {
-        name: "",
-        img: "",
-        introduction: "",     
-        cover: "",
-      },
+      currentUserTemp: {},
       inputForm: {},
       nameLengthWarn: false,
       introLengthWarn: false,
-      noInputWarn: false,      
+      noInputWarn: false,
       isProcessing: false,
     };
   },
 
   created() {
-    this.fetchuser();
+    this.fetchCurrentUser();
   },
 
-  methods: { 
+  methods: {
     // 帶入編輯資料
-     fetchuser() {
-      const { 
-        name,
-        introduction,
-        img,
-        cover, 
-        } = { ...this.initialUser };
-      this.currentUser = {
-        name,
-        introduction,
-        img,
-        cover,
-      };
-     },
+    fetchCurrentUser() {
+      this.currentUserTemp = JSON.parse(JSON.stringify(this.currentUser));
+    },
     // 一、表單編輯送出前的檢查條件
     checkForm() {
-      const { name, introduction } = { ...this.currentUser };
+      const { name, introduction } = { ...this.currentUserTemp };
+
       const { username, nameLength, introLength } = {
         username: name,
         nameLength: name ? name.length : 0,
         introLength: introduction ? introduction.length : 0,
       };
+
       //檢查名稱是否空白
       if (!username) {
         this.noInputWarn = true;
@@ -155,7 +198,7 @@ export default {
       } else {
         this.nameLengthWarn = false;
       }
-       //檢查介紹是否空白
+      //檢查介紹是否空白
       if (!introLength) {
         this.noInputWarn = true;
         return true;
@@ -173,31 +216,85 @@ export default {
     },
 
     // 二、執行表單送出功能(尚未成功傳遞資料QQ)
-    handleSubmit() {
+    async handleSubmit() {
       //確認表單通過條件審核，並帶入編輯後資料
-      if (this.checkForm()) 
-        return;
-      this.inputForm = {
-        ...this.initialUser,
-        ...this.currentUser,
-      };
-      //傳向父層接收編輯後資料
-      const formData = this.inputForm;
-      console.log(formData)
-      this.$emit("after-submit", formData);
+      if (this.checkForm()) return;
+      const formData = new FormData(this.$refs.form);
+      try {
+
+        const response = await authorizationAPI.settingSave(
+          this.currentUser.id,
+          formData
+        );
+
+        const data = response.data;
+        //console.log(data.data);
+
+        if (data.status && data.status !== "success") {
+          //console.log(data);
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: `修改成功 !`,
+        });
+
+        this.currentUser.name = this.currentUserTemp.name
+        this.currentUser.account = data.data.account
+        this.currentUser.introduction = this.currentUserTemp.introduction
+        this.currentUser.cover = data.data.cover
+        this.currentUser.avatar = data.data.avatar
+
+
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "error",
+          title: error.message,
+        });
+      }
     },
     // 三、取消編輯
     clickCancel() {
       this.inputForm = {};
       this.$emit("close");
     },
+    clickCoverUpload() {
+      this.$refs.coverFileInput.click();
+    },
+    clickAvatarUpload() {
+      this.$refs.avatarFileInput.click();
+    },
+    handleCoverFileChange(e) {
+      const { files } = e.target;
 
+      if (files.length === 0) {
+        // 使用者沒有選擇上傳的檔案
+        this.currentUserTemp.cover = "";
+      } else {
+        // 否則產生預覽圖
+        this.currentUserTemp.cover = window.URL.createObjectURL(files[0]);
+      }
+    },
+    handleAvatarFileChange(e) {
+      const { files } = e.target;
+
+      if (files.length === 0) {
+        // 使用者沒有選擇上傳的檔案
+        this.currentUserTemp.avatar = "";
+      } else {
+        // 否則產生預覽圖
+        this.currentUserTemp.avatar = window.URL.createObjectURL(files[0]);
+      }
+    },
+  },
+  computed: {
+    //把vuex資料拿出來,得到currentUser
+    ...mapState(["currentUser", "isAuthenticated"]),
   },
 };
 </script>
-
-
-
 
 <style scoped>
 .form-label-group {
@@ -212,3 +309,4 @@ export default {
   height: 625px;
 }
 </style>
+

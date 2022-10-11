@@ -53,4 +53,20 @@ export default {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
     },
+
+    getUserInfo(id) {      
+      return apiHelper.get(`/users/${id}`, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      });
+    },
+    getUserFollowers(id) {      
+      return apiHelper.get(`/users/${id}/followers`, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      });
+    },
+    getUserFollowing(id) {      
+      return apiHelper.get(`/users/${id}/followings`, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      });
+    },
 };

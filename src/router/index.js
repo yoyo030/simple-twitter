@@ -65,7 +65,7 @@ const routes = [
     component: () => import('../views/UserFollowing.vue'),
   },
   {
-    path: '/userprofile',
+    path: '/userprofile/:id',
     name: 'user-profile',
     component: () => import('../views/UserProfile.vue'),
   },

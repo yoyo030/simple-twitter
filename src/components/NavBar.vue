@@ -11,7 +11,7 @@
         </router-link>
       </li>
       <li class="userprofile">
-        <router-link to="/userprofile" class=""
+        <router-link :to="{ name: 'user-profile', params: { id: currentUser.id }}" class=""
           ><img
             class="navbar-icon"
             src="../assets/images/info.png"
@@ -57,7 +57,7 @@
 
 <script>
 import TweetModal from "../components/TweetModal.vue";
-
+import { mapState } from "vuex";
 
 export default {
   name: "NavBar",
@@ -82,6 +82,10 @@ export default {
     closeModal () {
       this.show = false
     }
+  },
+   computed: {
+    //把vuex資料拿出來,得到currentUser
+    ...mapState(["currentUser", "isAuthenticated"]),
   },
 };
 </script>
