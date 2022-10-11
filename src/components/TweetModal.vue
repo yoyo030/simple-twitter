@@ -1,6 +1,6 @@
 <template>
   <div class="modal-mask">
-    <div class="modal-wrapper d-flex justify-content">
+    <div class="modal-wrapper d-flex ">
       <form class="modal-container" @submit.stop.prevent="handleSubmit">
         <div class="modal-header">
             <img 
@@ -62,3 +62,4 @@ data() {
   },
 };
 </script>
+

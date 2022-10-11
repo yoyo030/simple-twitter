@@ -204,4 +204,11 @@ export default {
   width: 602px;
   margin: 0 16px 30px 16px;
 }
+.modal-body {
+  all: unset;
+  padding: 16px;
+}
+.modal-container {
+  height: 625px;
+}
 </style>
