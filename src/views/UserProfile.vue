@@ -4,6 +4,7 @@
     <div class="w100 centerSection">
       <div class="user-profile-title d-flex align-items-center">
         <img
+        @click.stop.prevent="$router.push({path:'/home'})"
           src="../assets/images/back.png"
           alt=""
           class="user-back back-icon cursor-pointer" @click="$router.back()"
@@ -32,18 +33,30 @@
           </div>
           <div class="tweet-contentText">{{ userInfo.introduction }}</div>
           <div class="user-follow-count d-flex">
-            <div class="user-following">
+
+          <router-link
+            class="to-user-follow"
+            :to="{ name: 'user-follower', params: { id: currentUser.id } }"
+          >
+            <div class="user-follower cursor-pointer">
               {{ `${userInfoFollowings>0?userInfoFollowings.length:0} 個跟隨中` }}
             </div>
-            <div class="user-follower">
+          </router-link>
+           <router-link
+            class="to-user-follow"
+            :to="{ name: 'user-following', params: {id: currentUser.id} }"
+          >
+            <div class="user-following cursor-pointer">
               {{ `${userInfoFollowers>0?userInfoFollowers.length:0} 位跟隨者` }}
+
             </div>
+            </router-link>
           </div>
         </div>
       </div>
 
-      <div class="user-profile-nav">
-        <ul class="user-nav-group cursor-pointer d-flex">
+
+        <ul class="user-profile-nav user-nav-group cursor-pointer d-flex">
           <li
             class="nav-user-link"
             v-for="nav in navs"
@@ -53,7 +66,7 @@
             {{ nav.title }}
           </li>
         </ul>
-      </div>
+
       <!--透過點擊li決定顯示樣板-->
       <UserProfileNav :navID="navID" />
     </div>
@@ -79,8 +92,6 @@ import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
 import { mapState } from "vuex";
 //UserProfile上半部顯示登入者資訊用，待串接
-
-
 export default {
   name: "UserProfile",
   components: {
@@ -207,3 +218,5 @@ export default {
   },
 };
 </script>
+
+<style scoped>

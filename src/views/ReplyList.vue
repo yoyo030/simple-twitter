@@ -5,8 +5,11 @@
     </div>
     <div class="w100 centerSection">
       <div class="reply-list-top d-flex align-items-center">
-        
-        <img src="../assets/images/back.png" alt="" class="back-icon cursor-pointer" @click="$router.back()"/>
+        <img
+          @click.stop.prevent="$router.push({path:'/home'})"
+          src="../assets/images/back.png" 
+          alt=""
+          class="back-icon cursor-pointer" />
         <h4 class="setting-title reply-main-title">推文</h4>
       </div>
       <Replies :initial-tweet="tweet" :key=key />

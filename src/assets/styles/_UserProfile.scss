@@ -17,8 +17,8 @@
 }
 
 .user-profile-info {
-  padding-top: 72px ;
-  height: 195px;
+  padding-top: 60px ;
+  height: 200px;
   position: relative;
 
 }
@@ -52,7 +52,7 @@
 .user-follow-count {
   @include font-setting(14px, 400, $secondary, 22px);
 }
-.user-following {
+.user-follower {
   margin-right: 20px;
 }
 
@@ -60,25 +60,23 @@
   list-style: none;
   /* 移除項目符號 */
   margin: 0;
-  padding: 51px  45px 0 0;
+  padding: 20px  45px 0 0;
   position: relative;
   border-bottom: 1px solid $border;
 }
-.nav-user-link {
-  text-decoration: none;/* 移除超連結底線 */
-  padding: 0 45px 15px 50px;
-  @include font-setting(15px, 700, #657786, 23px);
-}
-
 
 .user-nav-group :hover {
   border-bottom: 1px solid #FF6600;
   color: #FF6600;
   padding-bottom: 13px;
 }
-
+.nav-user-link {
+  text-decoration: none;/* 移除超連結底線 */
+  padding: 0 45px 15px 50px;
+  @include font-setting(15px, 700, #657786, 23px);
+}
 .profile-nav-list {
-  height: 35vh;
+  height: 40vh;
   overflow-y: scroll;
 }
 
@@ -89,4 +87,12 @@
 .profile-nav-list::-webkit-scrollbar-thumb {
   background-color: lightgray;
   border-radius: 50px;
+}
+
+.to-user-follow {
+  all: unset;
+  text-decoration: none;
+}
+.to-user-follow:hover {
+  color: $brand
 }

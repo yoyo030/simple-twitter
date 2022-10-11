@@ -30,6 +30,16 @@ const routes = [
     component: AdminLogIn,
   },
   {
+    path: '/admin/userlist',
+    name: 'admin-user-list',
+    component: () => import('../views/AdminUserList.vue'),
+  },
+  {
+    path: '/admin/tweets',
+    name: 'admin-tweets',
+    component: () => import('../views/AdminTweets.vue'),
+  },
+  {
     path: '/setting',
     name: 'setting',
     component: () => import('../views/Setting.vue'),
@@ -45,9 +55,14 @@ const routes = [
     component: () => import('../views/ReplyList.vue'),
   },
   {
-    path: '/userfollow',
-    name: 'user-follow',
-    component: () => import('../views/UserFollow.vue'),
+    path: '/userfollower/:id',
+    name: 'user-follower',
+    component: () => import('../views/UserFollower.vue'),
+  },
+  {
+    path: '/userfollowing/:id',
+    name: 'user-following',
+    component: () => import('../views/UserFollowing.vue'),
   },
   {
     path: '/userprofile/:id',
