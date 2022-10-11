@@ -27,7 +27,8 @@
     <div class="tweet-list scrollbar">
       <div class="tweet d-flex" v-for="tweet in tweets" :key="tweet.id">
         <!--待串接後用v-bind改為使用者img-->
-        <img
+        <router-link :to="{ name: 'user-profile', params: { id: tweet.User.id }}" class=""
+          ><img
           v-if="tweet.User.avatar != undefined"
           :src="tweet.User.avatar"
           class="tweet-list-tweet-img"
@@ -38,7 +39,9 @@
           src="../assets/images/logo-gray.png"
           class="tweet-list-tweet-img"
           alt=""
-        />
+        /></router-link
+        >
+       
 
         <div class="tweet-list-text d-flex flex-column">
           <div class="tweet-list-tweet-top d-flex align-items-center">

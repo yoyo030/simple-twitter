@@ -8,10 +8,10 @@
         <div class="reply-list-text d-flex flex-column">
           <div class="tweet-list-tweet-top d-flex align-items-center">
             <div class="tweet-user-name">
-              {{ reply.name }}
+              {{ reply.User.name }}
             </div>
             <div class="tweet-user-account">
-              {{ reply.account | addPrefix }}
+              {{ reply.User.account | addPrefix }}
             </div>
             <span>・</span>
             <div class="tweet-user-createdAt">
@@ -20,10 +20,10 @@
           </div>
           <div class="tweet-account">
             <span class="reply-span">回覆</span>
-            {{ reply.account | addPrefix }}
+            {{ reply.User.account | addPrefix }}
           </div>
           <div class="tweet-contentText">
-            {{ reply.contentText }}
+            {{ reply.comment }}
           </div>
         </div>
       </div>

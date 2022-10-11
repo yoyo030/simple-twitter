@@ -240,13 +240,11 @@ export default {
           title: `修改成功 !`,
         });
 
-        this.currentUser.name = this.currentUserTemp.name
-        this.currentUser.account = data.data.account
-        this.currentUser.introduction = this.currentUserTemp.introduction
-        this.currentUser.cover = data.data.cover
-        this.currentUser.avatar = data.data.avatar
+        this.currentUserTemp.cover = data.data.cover
+        this.currentUserTemp.avatar = data.data.avatar
 
-
+        this.$store.commit("setCurrentUser", this.currentUserTemp);
+        this.$router.go(this.$router.currentRoute)
       } catch (error) {
         console.log(error);
         Toast.fire({

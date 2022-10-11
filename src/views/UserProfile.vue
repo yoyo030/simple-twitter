@@ -15,9 +15,37 @@
           <p class="tweet-amount">25則推文</p>
         </div>
       </div>
-      <img class="user-profile-bg" :src="userInfo.cover" />
+    
+
+<img
+                  v-if="userInfo.cover == undefined"
+                  class="user-profile-bg"
+                  src="../assets/images/bg-img.png"
+                />
+
+                <img
+                  v-else
+                  :src="userInfo.cover"
+                  class="user-profile-bg"
+                />
+
       <div class="user-profile-info">
-        <img class="user-profile-img"  :src="userInfo.avatar" />
+
+
+       
+<img
+                  v-if="userInfo.avatar == undefined"
+                  class="user-profile-img"
+                  src="../assets/images/logo-gray.png"
+                />
+
+                <img
+                  v-else
+                  :src="userInfo.avatar"
+                  class="user-profile-img"
+                  style=""
+                />
+
         <button v-if="this.$route.params.id==currentUser.id"
           type="button"
           style="float: right"
@@ -126,7 +154,7 @@ export default {
         //兩次輸入的密碼需相同
         const response = await authorizationAPI.getUserInfo(this.$route.params.id);
         const data = response.data;
-        console.log(data);
+        //console.log(data);
         this.userInfo = data;
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
@@ -147,7 +175,7 @@ export default {
         //兩次輸入的密碼需相同
         const response = await authorizationAPI.getUserFollowing(this.$route.params.id);
         const data = response.data;
-        console.log(data);
+        //console.log(data);
         this.userInfoFollowings = data;
 
 
@@ -156,7 +184,7 @@ export default {
         }
 
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
       
     },
@@ -166,14 +194,14 @@ export default {
         //兩次輸入的密碼需相同
         const response = await authorizationAPI.getUserFollowers(this.$route.params.id);
         const data = response.data;
-        console.log(data);
+        //console.log(data);
         this.userInfoFollowers = data;
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
 
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
       
     },
