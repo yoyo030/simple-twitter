@@ -29,7 +29,8 @@
 </template>
 
 <script>
-
+    import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
 
 export default {
 
@@ -45,7 +46,12 @@ data() {
   methods: {
     //提交推文事件，待完成(僅寫出送出條件)
     
-    handleSubmit() {
+    async handleSubmit() {
+
+  try {
+
+
+      
       this.isLoading = true;
       if (this.text.trim().length > 140) {
         this.isLoading = false;
@@ -56,6 +62,29 @@ data() {
         this.textWarn = false;
         this.isLoading = false;
         return (this.noInputWarn = true);
+      }
+
+              //兩次輸入的密碼需相同
+        const response = await authorizationAPI.insertTweets(this.text);
+        const data = response.data;
+        console.log(data);
+
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: `推文成功 !`,
+        });
+       this.$router.go(this.$router.currentRoute)
+
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "error",
+          title: error.message,
+        });
       }
      
     },

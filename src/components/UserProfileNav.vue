@@ -2,8 +2,8 @@
  
       <!--透過點擊li決定顯示樣板-->
       <div>
-      <UserTweets :initial-tweets="tweets"  v-if="navID === 1"/>
-      <UserReplies :initial-replies="replies" v-if="navID === 2" />
+      <UserTweets :initial-tweets="tweets" :key="tweetsKey"  v-if="navID === 1"/>
+      <UserReplies :initial-replies="replies" :key="repliesKey" v-if="navID === 2" />
       <UserLike :initial-likes="likes"  v-if="navID === 3" />
       </div>   
 </template>
@@ -15,7 +15,8 @@
 import UserTweets from "../components/UserTweets.vue";
 import UserReplies from "../components/UserReplies.vue";
 import UserLike from "../components/UserLike.vue";
-
+import authorizationAPI from "./../apis/authorization";
+//import { Toast } from "./../utils/helpers";
 
 
 //UserTweets用假資料(預設顯示貼文的內容)
@@ -85,52 +86,7 @@ const dummyData = {
   ],
 };
 
-//UserReplies用假資料(點按回覆)
-const dummyData2 = {
-  reply: [
-    {
-      id: 2,
-      account: "aaa123",
-      name: "aaa",
-      img: "../assets/images/logo-gray.png",
-      contentText: "一樓",
-      createdAt: "2022-10-08",
-    },
-    {
-      id: 3,
-      account: "bbb123",
-      name: "bbb",
-      img: "../assets/images/logo-gray.png",
-      contentText: "二樓",
-      createdAt: "2022-10-08",
-    },
 
-    {
-      id: 4,
-      account: "ccc123",
-      name: "ccc",
-      img: "../assets/images/logo-gray.png",
-      contentText: "三樓",
-      createdAt: "2022-10-08",
-    },
-    {
-      id: 5,
-      account: "ccc123",
-      name: "ccc",
-      img: "../assets/images/logo-gray.png",
-      contentText: "四樓",
-      createdAt: "2022-10-08",
-    },
-    {
-      id: 6,
-      account: "ccc123",
-      name: "ccc",
-      img: "../assets/images/logo-gray.png",
-      contentText: "五樓",
-      createdAt: "2022-10-08",
-    },
-  ],
-};
 
 
 export default {
@@ -149,7 +105,9 @@ export default {
   data() {
     return {
       tweets: [],
+      tweetsKey:0,
       replies: [],
+      repliesKey:0,
       likes: [],
     };
   },
@@ -159,17 +117,69 @@ export default {
     this.fetchTweets();
   },
   methods: {
-    fetchTweets() {
-      this.tweets = dummyData.tweets;
+    async fetchTweets() {
+
+    
+        try {
+        //兩次輸入的密碼需相同
+        const response = await authorizationAPI.getUserTweets(this.$route.params.id);
+        const data = response.data;
+        console.log(data);
+
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+
+       this.tweets = data;
+       this.tweetsKey = this.tweetsKey + 1
+      } catch (error) {
+        //console.log(error);
+        this.tweets = [];
+        // Toast.fire({
+        //   icon: "error",
+        //   title: error.message,
+        // });
+      }
+    this.tweetsKey = this.tweetsKey + 1
+    
     },
-    fetchReplies() {
-      this.replies = dummyData2.reply;
+    async fetchReplies() {
+
+              try {
+        //兩次輸入的密碼需相同
+        const response = await authorizationAPI.getUserReplies(this.$route.params.id);
+        const data = response.data;
+        console.log(data);
+
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+
+       this.replies = data;
+   
+      } catch (error) {
+      this.replies = [];
+       
+        // Toast.fire({
+        //   icon: "error",
+        //   title: error.message,
+        // });
+      }
+this.repliesKey = this.repliesKey + 1
     },
     fetchLikesTweets() {
+
+    
       this.likes = dummyData.tweets;
     },
 
   },
-
+  watch: {
+    '$route.params.id': function () {
+     this.fetchReplies();
+     this.fetchLikesTweets();
+     this.fetchTweets();
+    }
+  },
 };
 </script>

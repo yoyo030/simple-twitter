@@ -5,7 +5,7 @@
     <div class="w100 centerSection">
       <div class="user-profile-title d-flex align-items-center">
         <img
-          @click.stop.prevent="$router.push({path:'/userprofile'})"
+          @click="$router.back()"
           src="../assets/images/back.png"
           alt=""
           class="user-back back-icon cursor-pointer"

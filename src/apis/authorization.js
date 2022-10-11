@@ -47,7 +47,7 @@ export default {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
     },
-    //api未完成
+    //串api尚未成功
     getTweetsReplies(id) {
       return apiHelper.get(`/tweets/${id}/replies`, {
         headers: { Authorization: `Bearer ${getToken()}` },
@@ -69,4 +69,49 @@ export default {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
     },
+
+    getTopUser() {      
+      return apiHelper.get(`/followships/followers/top10`, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      });
+    },
+
+    //api一直串不過
+    followed() {
+      return apiHelper.post(`/followships`, {
+        headers: { Authorization: `Bearer ${getToken()}` , 'Content-Type': 'application/json' },
+      });
+    },
+
+
+    unfollowed(id) {
+      return apiHelper.delete(`/followships/${id}`, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      });
+    },
+
+    getUserTweets(id) {
+      return apiHelper.get(`/users/${id}/tweets`, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      });
+    },
+    getUserReplies(id) {
+      return apiHelper.get(`/users/${id}/replied_tweets`, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      });
+    },
+ 
+    insertTweets(description) {
+      return apiHelper.post(
+        "/tweets",
+        {
+          description, // req.body.description
+        },
+        {
+          headers: { Authorization: `Bearer ${getToken()}` },
+        }
+      );
+    },
+
+    
 };
