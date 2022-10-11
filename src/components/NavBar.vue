@@ -2,12 +2,12 @@
   <nav>
     <img class="navbar-logo" src="../assets/images/ac-logo.png" />
     <ul>
-      <li class="home">
+      <li class="home ">
         <router-link to="/home" class="">
         <img
             class="navbar-icon"
             src="../assets/images/home.png"/>
-            首頁
+          首頁
         </router-link>
       </li>
       <li class="userprofile">
@@ -15,7 +15,9 @@
           ><img
             class="navbar-icon"
             src="../assets/images/info.png"
-          />個人資料</router-link
+          />
+          個人資料
+          </router-link
         >
       </li>
       <li class="setting">
@@ -89,3 +91,5 @@ export default {
   },
 };
 </script>
+
+<style scoped>

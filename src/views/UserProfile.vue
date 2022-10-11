@@ -25,6 +25,13 @@
           @click.stop.prevent="openModal">
           編輯個人資料
         </button>
+         <button v-else
+          type="button"
+          style="float: right"
+          class="edit-button"
+          @click.stop.prevent="openModal">
+          正在追蹤
+        </button>
 
         <div class="user-profile-main">
           <h5 class="user-title">{{ userInfo.name }}</h5>
@@ -206,6 +213,7 @@ export default {
         return `@${account}`;
       }
     },
+  
   },
   computed: {
     //把vuex資料拿出來,得到currentUser

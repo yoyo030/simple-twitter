@@ -21,11 +21,12 @@ nav > ul {
   content:url("../assets/images/setting-active.png");
 }
 nav a {
-  color: inherit; /* 移除超連結顏色 */
+  color: #44444F;
   display: block; /* 讓 <a> 填滿 <li> */
   font-size: 1rem;
   padding: 10px;
   text-decoration: none; /* 移除超連結底線 */
+  font-weight: 700;
 }
 button {
   all: unset;
