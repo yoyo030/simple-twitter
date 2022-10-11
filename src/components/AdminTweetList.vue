@@ -330,9 +330,12 @@ export default {
 
 
 
-<style scoped>
-/*AdminUserList限定樣式^^*/
+
+
+<style  lang="scss" scoped>
+/*AdminTweetList限定樣式^^*/
 .admin-main {
+  width: 80%;
   border-right: 1px solid #e6ecf0;
   border-left: 1px solid #e6ecf0;
 }

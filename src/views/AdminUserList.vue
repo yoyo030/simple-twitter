@@ -27,17 +27,17 @@
     </nav>
   </div>
 
-    <AdminUsersCard />
+    <AdminUserCard />
 
   </div>
 </template>
 
 <script>
-import AdminUsersCard from "../components/AdminUsersCard.vue";
+import AdminUserCard from "../components/AdminUserCard.vue";
 
 export default {
   components: {
-    AdminUsersCard,
+    AdminUserCard,
   },
   methods: {
     logout() {
@@ -55,7 +55,7 @@ export default {
 }
 
 .admin-side-bar {
-  width: 178px;
+  width: 200px;
   height: 100%;
 }
 
@@ -107,7 +107,5 @@ button {
   bottom: 0px;
   margin-right: 17.62px;
 }
-.admin-main {
-  width: 85%;  
-}
+
 </style>

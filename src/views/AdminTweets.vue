@@ -59,12 +59,8 @@ export default {
 }
 
 .admin-side-bar {
-  width: 178px;
+  width: 200px;
   height: 100%;
-}
-
-.admin-main {
-    width: 85%;
 }
 
 nav > ul {
