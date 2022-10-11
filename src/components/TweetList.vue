@@ -160,6 +160,7 @@ export default {
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
+        console.log(data.status)
         this.tweets = data;
       } catch (error) {
         console.log(error);
