@@ -47,10 +47,6 @@
         </div>
       </div>
     </div>
-
-    <form id="form" ref="form">
-      <input type="text" name="id" value="14" />
-    </form>
   </div>
 </template>
 
