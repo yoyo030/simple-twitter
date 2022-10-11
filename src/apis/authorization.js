@@ -20,6 +20,13 @@ export default {
       checkPassword,
     });
   },
+  // 後台登入功能(待後端解決)
+  adminLogin({ account, password }) {
+    return apiHelper.post("/admin/login", {
+      account,
+      password,
+    });
+  },
 
   // GetUserData api 成功串接 有拿到資料
   Test(id) {

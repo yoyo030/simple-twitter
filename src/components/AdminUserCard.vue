@@ -52,67 +52,9 @@
 
 
 <script>
+import adminAPI from "./../apis/admin.js";
+import { Toast } from "./../utils/helpers";
 
-
-const dummyData = {
-  UserList: [
-    {
-      id: 1,
-      name: "agjjaa",
-      account: "ahklaa",
-      avatar: "../assets/images/delete.png",
-      cover: "../assets/images/bg-img.png",
-      tweetCount: "1.5k",
-      likeCount: "20k",
-      followerCount: "34",
-      followingCount: "59",
-    },
-    {
-      id: 2,
-      name: "bbjkb",
-      account: "bbgfb",
-      avatar: "../assets/images/delete.png",
-      cover: "../assets/images/bg-img.png",
-      tweetCount: "1.5k",
-      likeCount: "20k",
-      followerCount: "34",
-      followingCount: "59",
-    },
-    {
-      id: 3,
-      name: "ccc",
-      account: "ccioc",
-      avatar: "../assets/images/delete.png",
-      cover: "../assets/images/bg-img.png",
-      tweetCount: "1.5k",
-      likeCount: "20k",
-      followerCount: "34",
-      followingCount: "59",
-    },
-    {
-      id: 4,
-      name: "cc566c",
-      account: "ccfdic",
-      avatar: "../assets/images/delete.png",
-      cover: "../assets/images/bg-img.png",
-      tweetCount: "1.5k",
-      likeCount: "20k",
-      followerCount: "34",
-      followingCount: "59",
-    },
-    {
-      id: 5,
-      name: "crticc",
-      account: "cclllc",
-      avatar: "../assets/images/delete.png",
-      cover: "../assets/images/bg-img.png",
-      tweetCount: "1.5k",
-      likeCount: "20k",
-      followerCount: "34",
-      followingCount: "59",
-    },
-  ],
-};
 
 export default {
   name: "adminUsersCard",
@@ -125,23 +67,28 @@ export default {
     this.fetchUser();
   },
   methods: {
-    //等API串接待改程式碼
-    fetchUser() {
-      this.users = dummyData.UserList
-    },
- },
     //待串接API後抓取所有user資料
-    //async fetchUser() {
-    //  try {
-    //    const { data } = await adminAPI.users.get();
-    //    this.users = data;
-    //  } catch (error) {
-    //     Toast2.fire({
-    //      title: "無法取得使用者資料，請稍後再試",
-    //    });
-    //  }
-    // },
-    // },
+    async fetchUser() {
+      try {
+        const response  = await adminAPI.getUsers()
+        console.log(response)
+        const data = response.data;       
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+        this.users = data;
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "warning",
+          title: `無法載入使用者資訊，請稍後再試!`,
+        });
+      }
+     },
+   
+ },
+ 
+   
 
   filters: {
     addPrefix(account) {
