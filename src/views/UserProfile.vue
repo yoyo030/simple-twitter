@@ -10,14 +10,14 @@
         />
         <div class="d-flex flex-column">
           <!--待串接使用者資料與貼文總數-->
-          <h5 class="user-title">{{ currentUser.name }}</h5>
+          <h5 class="user-title">{{ userInfo.name }}</h5>
           <p class="tweet-amount">25則推文</p>
         </div>
       </div>
-      <img class="user-profile-bg" src="../assets/images/bg-img.png" />
+      <img class="user-profile-bg" :src="userInfo.cover" />
       <div class="user-profile-info">
-        <img class="user-profile-img" src="../assets/images/logo-gray.png" />
-        <button
+        <img class="user-profile-img"  :src="userInfo.avatar" />
+        <button v-if="this.$route.params.id==currentUser.id"
           type="button"
           style="float: right"
           class="edit-button"
@@ -26,17 +26,17 @@
         </button>
 
         <div class="user-profile-main">
-          <h5 class="user-title">{{ currentUser.name }}</h5>
+          <h5 class="user-title">{{ userInfo.name }}</h5>
           <div class="tweet-user-account">
-            {{ currentUser.account | addPrefix }}
+            {{ userInfo.account | addPrefix }}
           </div>
-          <div class="tweet-contentText">{{ currentUser.introduction }}</div>
+          <div class="tweet-contentText">{{ userInfo.introduction }}</div>
           <div class="user-follow-count d-flex">
             <div class="user-following">
-              {{ `${currentUser.following} 個跟隨中` }}
+              {{ `${userInfoFollowings>0?userInfoFollowings.length:0} 個跟隨中` }}
             </div>
             <div class="user-follower">
-              {{ `${currentUser.follower} 位跟隨者` }}
+              {{ `${userInfoFollowers>0?userInfoFollowers.length:0} 位跟隨者` }}
             </div>
           </div>
         </div>
@@ -75,21 +75,11 @@ import NavBar from "../components/NavBar.vue";
 import RecommandedList from "../components/RecommandedList.vue";
 import UserProfileNav from "../components/UserProfileNav.vue";
 import EditModal from "../components/EditModal.vue";
-
+import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
+import { mapState } from "vuex";
 //UserProfile上半部顯示登入者資訊用，待串接
-const dummyUser = {
-  currentUser: {
-    id: 1,
-    account: "heyjoin",
-    name: "John Doe",
-    img: "../assets/images/logo-gray.png",
-    introduction:
-      "青花椰菜該如何料理，才能吃出美味及營養呢？青花椰菜爽脆可口，透過清蒸方式來烹調，是保留營養價值最好的烹調方式。",
-    cover: "../assets/images/bg-img.png",
-    following: "34",
-    follower: "59",
-  },
-};
+
 
 export default {
   name: "UserProfile",
@@ -101,7 +91,9 @@ export default {
   },
   data() {
     return {
-      currentUser: {},
+      userInfo: {},
+      userInfoFollowers:[],
+      userInfoFollowings:[],
       navID: 1,
       navs: [
         { id: 1, title: "推文" },
@@ -112,11 +104,67 @@ export default {
     };
   },
   created() {
-    this.fetchCurrentUser();
+    this.fetchUserInfo();
+    this.fetchUserInfoFollowers();
+    this.fetchUserInfoFollowing();
   },
   methods: {
-    fetchCurrentUser() {
-      this.currentUser = dummyUser.currentUser;
+    async fetchUserInfo() {
+
+ try {
+        //兩次輸入的密碼需相同
+        const response = await authorizationAPI.getUserInfo(this.$route.params.id);
+        const data = response.data;
+        console.log(data);
+        this.userInfo = data;
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "error",
+          title: error.message,
+        });
+      }
+      
+    },
+     async fetchUserInfoFollowing() {
+
+ try {
+        //兩次輸入的密碼需相同
+        const response = await authorizationAPI.getUserFollowing(this.$route.params.id);
+        const data = response.data;
+        console.log(data);
+        this.userInfoFollowings = data;
+
+
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
+      
+    },
+    async fetchUserInfoFollowers() {
+
+ try {
+        //兩次輸入的密碼需相同
+        const response = await authorizationAPI.getUserFollowers(this.$route.params.id);
+        const data = response.data;
+        console.log(data);
+        this.userInfoFollowers = data;
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
+      
     },
     //透過點擊控制nav下方欲顯示樣板
     handleNav(navID) {
@@ -147,6 +195,15 @@ export default {
         return `@${account}`;
       }
     },
+  },
+  computed: {
+    //把vuex資料拿出來,得到currentUser
+    ...mapState(["currentUser", "isAuthenticated"]),
+  },
+    watch: {
+    '$route.params.id': function () {
+      this.fetchUserInfo();
+    }
   },
 };
 </script>
