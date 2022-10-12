@@ -1,9 +1,8 @@
 <template>
   <div class="profile-nav-list scrollbar">
     <div class="tweet d-flex" v-for="tweet in tweets" :key="tweet.id">
-      <!--待串接後用v-bind改為使用者img-->
       <img
-        src="../assets/images/logo-gray.png"
+        :src="tweet.User.avatar | emptyImage"
         class="tweet-list-tweet-img"
         alt=""
       />
@@ -57,7 +56,11 @@
                 @click="unlike(tweet)"
               />
             <div class="tweet-like-amount number-font">
+<<<<<<< HEAD
                {{ tweet.likeCount }}
+=======
+              {{ tweet.likeCount }} 
+>>>>>>> feature/mixins公式帶入
             </div>
           </div>
         </div>
@@ -69,13 +72,17 @@
 
 <script>
 import { fromNowFilter } from "../utils/mixins";
+<<<<<<< HEAD
 import ReplyModal from "../components/ReplyModal.vue";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
 import { mapState } from "vuex";
+=======
+import { emptyImageFilter } from "./../utils/mixins";
+>>>>>>> feature/mixins公式帶入
 export default {
   name: "userTweets",
-  mixins: [fromNowFilter],
+  mixins: [fromNowFilter, emptyImageFilter],
   props: {
     //從views/ReplyList帶入dummydata，待串接API以及點擊功能id===id
     initialTweets: {

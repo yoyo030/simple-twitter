@@ -7,19 +7,13 @@
       <div v-for="user in userList" :key="user.id">
         <div class="user-container d-flex">
 
-           <router-link :to="{ name: 'user-profile', params: { id: user.id }}" class=""
-          ><img
-          v-if="user.avatar != undefined"
-          :src="user.avatar"
+           <router-link :to="{ name: 'user-profile', params: { id: user.id } }" class=""
+          ><img 
+          :src="user.avatar | emptyImage"
           class="user-img"
           alt=""
         />
-        <img
-          v-else
-          src="../assets/images/logo-gray.png"
-          class="user-img"
-          alt=""
-        /></router-link
+</router-link
         >
          
           <span class="info">
@@ -53,7 +47,11 @@
 <script>
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
+import { emptyImageFilter } from "./../utils/mixins";
+
 export default {
+  name: "recommandedList",
+  mixins: [emptyImageFilter],
   data() {
     return {
       userList: [],

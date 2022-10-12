@@ -13,8 +13,10 @@
         <div class="modal-body">
           <!--擷取點擊該推文資訊-->
           <div class="reply">
-            <!--待串接後用v-bind改為使用者img-->
+            
             <div class="d-flex">
+            <!--待串接後用v-bind改為該推文作者img-->
+            <!--:src="tweet.avatar | emptyImage"-->
             <img src="../assets/images/logo-gray.png" class="user-img" alt="" />
 
             <div class="reply-list-text d-flex flex-column">
@@ -41,6 +43,8 @@
             </div>
             </div>
              <div class="reply-content d-flex">
+              <!--待串接後用v-bind改為該推文作者img-->
+            <!--:src="取得目前使用者.avatar | emptyImage"-->
             <img src="../assets/images/ac-logo.png" alt="" class="avatar" />
             <textarea class="tweet" placeholder="推你的回覆" v-model="text">
             </textarea>
@@ -62,6 +66,7 @@
 
 
 <script>
+import { emptyImageFilter } from "./../utils/mixins";
 //嘗試將TweetList資料點擊後帶入失敗，待解決
 // const dummyData = {
 //   tweet: {
@@ -79,6 +84,7 @@ import { fromNowFilter } from "../utils/mixins";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
 export default {
+<<<<<<< HEAD
     mixins: [fromNowFilter],
       filters: {
     addPrefix(account) {
@@ -90,6 +96,10 @@ export default {
     },
   
   },
+=======
+  name: "ReplyModal",
+  mixins: [emptyImageFilter],
+>>>>>>> feature/mixins公式帶入
   data() {
     return {
       text: "",

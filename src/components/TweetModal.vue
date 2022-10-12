@@ -9,7 +9,10 @@
               @click="$emit('close')"/>
         </div>
         <div class="modal-body">
-          <img src="../assets/images/ac-logo.png" alt="" class="avatar" />
+          <img
+          :src="currentUser.avatar | emptyImage"
+           alt=""
+           class="avatar" />
           <textarea
             class="tweet"
             placeholder="有什麼新鮮事?"
@@ -29,11 +32,14 @@
 </template>
 
 <script>
-    import authorizationAPI from "./../apis/authorization";
+import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
+import { mapState } from "vuex";
+import { emptyImageFilter } from "./../utils/mixins";
 
 export default {
-
+  name: "TweetModal",
+  mixins: [emptyImageFilter],
 data() {
     return {
       text: "",
@@ -44,14 +50,10 @@ data() {
   },
 
   methods: {
-    //提交推文事件，待完成(僅寫出送出條件)
-    
+    //提交推文事件，待完成(僅寫出送出條件)   
     async handleSubmit() {
 
-  try {
-
-
-      
+  try {  
       this.isLoading = true;
       if (this.text.trim().length > 140) {
         this.isLoading = false;
@@ -88,6 +90,10 @@ data() {
       }
      
     },
+  },
+  computed: {
+    //把vuex資料拿出來,得到currentUser
+    ...mapState(["currentUser", "isAuthenticated"]),
   },
 };
 </script>

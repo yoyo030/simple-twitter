@@ -1,24 +1,10 @@
-
-
-
-
-
-
-
-
 <template>
   <div class="home-tweet-container">
     <div class="home-tweet-box">
       <div class="d-flex align-items-center">
+        <!--目前使用者的大頭貼-->
         <img
-          v-if="currentUser.avatar != undefined"
-          :src="currentUser.avatar"
-          class="tweet-list-tweet-img"
-          alt=""
-        />
-        <img
-          v-else
-          src="../assets/images/logo-gray.png"
+          :src="currentUser.avatar | emptyImage"
           class="tweet-list-tweet-img"
           alt=""
         />
@@ -39,16 +25,11 @@
           :to="{ name: 'user-profile', params: { id: tweet.User.id } }"
           class=""
           ><img
-            v-if="tweet.User.avatar != undefined"
-            :src="tweet.User.avatar"
-            class="tweet-list-tweet-img"
-            alt="" />
-          <img
-            v-else
-            src="../assets/images/logo-gray.png"
+            :src="tweet.User.avatar | emptyImage"
             class="tweet-list-tweet-img"
             alt=""
-        /></router-link>
+          />
+        </router-link>
 
         <div class="tweet-list-text d-flex flex-column">
           <div class="tweet-list-tweet-top d-flex align-items-center">
@@ -118,10 +99,11 @@ import { mapState } from "vuex";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
 import ReplyModal from "../components/ReplyModal.vue";
+import { emptyImageFilter } from "./../utils/mixins";
 
 export default {
   name: "TweetList",
-  mixins: [fromNowFilter],
+  mixins: [fromNowFilter, emptyImageFilter],
 
   components: {
     ReplyModal,
@@ -161,7 +143,6 @@ export default {
       this.show = false;
     },
     async like(t) {
-     
       try {
         t.islike = true;
         t.likeCount = t.likeCount + 1;
@@ -174,21 +155,17 @@ export default {
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
-          Toast.fire({
-           icon: "success",
-           title: "按讚成功!",
-         });
-      
-     
+        Toast.fire({
+          icon: "success",
+          title: "按讚成功!",
+        });
       } catch (error) {
         console.log(error);
-         Toast.fire({
-           icon: "warning",
-           title: error.message,
-         });
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
       }
-
-
     },
     async unlike(t) {
       try {
@@ -203,17 +180,16 @@ export default {
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
-          Toast.fire({
-           icon: "success",
-           title: "成功收回讚!",
-         });
-        
+        Toast.fire({
+          icon: "success",
+          title: "成功收回讚!",
+        });
       } catch (error) {
-         console.log(error);
-         Toast.fire({
-           icon: "warning",
-           title: error.message,
-         });
+        console.log(error);
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
       }
     },
 

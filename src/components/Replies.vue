@@ -42,8 +42,10 @@
 
     <div class="tweet-reply-list scrollbar">
       <div class="reply d-flex" v-for="reply in tweet.reply" :key="reply.id">
-        <!--待串接後用v-bind改為使用者img-->
-        <img src="../assets/images/logo-gray.png" class="user-img" alt="" />
+ 
+        <img
+         :src="reply.avatar | emptyImage"
+         class="user-img" alt="" />
 
         <div class="reply-list-text d-flex flex-column">
           <div class="tweet-list-tweet-top d-flex align-items-center">
@@ -75,12 +77,17 @@
 
 <script>
 import { fromNowFilter } from "../utils/mixins";
+<<<<<<< HEAD
 import ReplyModal from "../components/ReplyModal.vue";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
+=======
+import { emptyImageFilter } from "./../utils/mixins";
+
+>>>>>>> feature/mixins公式帶入
 export default {
   name: "ReplyList",
-  mixins: [fromNowFilter],
+  mixins: [fromNowFilter, emptyImageFilter],
   props: {
     //從views/ReplyList帶入dummydata，待串接API以及點擊功能id===id
     initialTweet: {

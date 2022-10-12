@@ -24,15 +24,9 @@
               <!--待串接API後用v-bind背景圖cover跟使用者img-->
 
               <div style="position: relative; width: 100%; height: 100%">
-                <img
-                  v-if="currentUserTemp.cover == ''"
-                  class="user-profile-bg"
-                  src="../assets/images/bg-img.png"
-                />
 
                 <img
-                  v-else
-                  :src="currentUserTemp.cover"
+                  :src="currentUserTemp.cover | emptybgImage"
                   class="user-profile-bg"
                   style="width: 634px; height: 198px; object-fit: none"
                 />
@@ -52,14 +46,7 @@
 
               <div class="user-profile-info">
                 <img
-                  v-if="currentUserTemp.avatar == ''"
-                  class="user-profile-img"
-                  src="../assets/images/logo-gray.png"
-                />
-
-                <img
-                  v-else
-                  :src="currentUserTemp.avatar"
+                  :src="currentUserTemp.avatar | emptyImage"
                   class="user-profile-img"
                   style=""
                 />
@@ -72,7 +59,7 @@
                 <div class="form-label-group">
                   <label for="name">名稱</label>
                   <input
-                    v-model="currentUser.name"
+                    v-model="currentUserTemp.name"
                     id="name"
                     name="name"
                     type="text"
@@ -141,12 +128,13 @@
 </template>
 
 <script>
+import { emptyImageFilter } from "./../utils/mixins";
 import { mapState } from "vuex";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
 export default {
   name: "EditModal",
-
+  mixins: [emptyImageFilter],
   props: {
     //接收父層的使用者資料
     initialUser: {
@@ -216,7 +204,7 @@ export default {
       return false;
     },
 
-    // 二、執行表單送出功能(尚未成功傳遞資料QQ)
+    // 二、執行表單送出功能
     async handleSubmit() {
       //確認表單通過條件審核，並帶入編輯後資料
       if (this.checkForm()) return;
@@ -232,7 +220,7 @@ export default {
         );
 
         const data = response.data;
-        //console.log(data.data);
+        console.log(data.data);
 
         if (data.status && data.status !== "success") {
           //console.log(data);

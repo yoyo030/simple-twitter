@@ -5,14 +5,7 @@
       <div class="tweet d-flex" v-for="tweet in tweets" :key="tweet.id">
         <!--待串接後用v-bind改為使用者img-->
         <img
-          v-if="tweet.User.avatar != undefined"
-          :src="tweet.User.avatar"
-          class="tweet-list-tweet-img"
-          alt=""
-        />
-        <img
-          v-else
-          src="../assets/images/logo-gray.png"
+          :src="tweet.User.avatar  | emptyImage "
           class="tweet-list-tweet-img"
           alt=""
         />
@@ -49,6 +42,7 @@
 
 
 <script>
+import { emptyImageFilter } from "./../utils/mixins";
 import { fromNowFilter } from "./../utils/mixins";
 import { mapState } from "vuex";
 import adminAPI from "./../apis/admin.js";
@@ -56,7 +50,7 @@ import { Toast } from "./../utils/helpers";
 
 export default {
   name: "AdminTweetList",
-  mixins: [fromNowFilter],
+  mixins: [fromNowFilter, emptyImageFilter],
 
   data() {
     return {

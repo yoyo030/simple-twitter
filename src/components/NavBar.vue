@@ -11,7 +11,7 @@
         </router-link>
       </li>
       <li class="userprofile">
-        <router-link :to="{ name: 'user-profile', params: { id: currentUser.id }}" class=""
+        <router-link :to="{ name: 'user-profile', params: { id: currentUser.id } }" class=""
           ><img
             class="navbar-icon"
             src="../assets/images/info.png"
