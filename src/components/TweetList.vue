@@ -11,11 +11,12 @@
         <textarea
           class="home-tweet-input"
           type="text"
+          v-model="text"
           name="home-tweet-input"
           placeholder="有什麼新鮮事？"
         />
       </div>
-      <button class="home-tweet-button">推文</button>
+      <button class="home-tweet-button" @click="handleSubmit">推文</button>
     </div>
 
     <div class="tweet-list scrollbar">
@@ -89,7 +90,12 @@
         </div>
       </div>
     </div>
-    <ReplyModal v-if="show" @close="closeModal" :tweet="tweet" :key ="tweetKey"/>
+    <ReplyModal
+      v-if="show"
+      @close="closeModal"
+      :tweet="tweet"
+      :key="tweetKey"
+    />
   </div>
 </template>
 
@@ -113,7 +119,8 @@ export default {
       tweets: [],
       show: false, //控制modal用
       tweet: {},
-      tweetKey:0
+      tweetKey: 0,
+      text: "",
     };
   },
   filters: {
@@ -135,9 +142,8 @@ export default {
   methods: {
     //Modal操作
     openModal(tweet) {
-      this.tweet = tweet
-      this.tweetKey = this.tweetKey + 1,
-      this.show = true;
+      this.tweet = tweet;
+      (this.tweetKey = this.tweetKey + 1), (this.show = true);
     },
     closeModal() {
       this.show = false;
@@ -215,6 +221,42 @@ export default {
         Toast.fire({
           icon: "warning",
           title: `資料載入失敗 !`,
+        });
+      }
+    },
+    async handleSubmit() {
+      try {
+        // this.isLoading = true;
+        // if (this.text.trim().length > 140) {
+        //   this.isLoading = false;
+        //   this.noInputWarn = false;
+        //   return (this.textWarn = true);
+        // }
+        // if (this.text.trim().length === 0) {
+        //   this.textWarn = false;
+        //   this.isLoading = false;
+        //   return (this.noInputWarn = true);
+        // }
+
+        //兩次輸入的密碼需相同
+        const response = await authorizationAPI.insertTweets(this.text);
+        const data = response.data;
+        console.log(data);
+
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: `推文成功 !`,
+        });
+        this.$router.go(this.$router.currentRoute);
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "error",
+          title: error.message,
         });
       }
     },

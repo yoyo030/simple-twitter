@@ -18,7 +18,7 @@
          
           <span class="info">
             <div class="name">
-              {{ user.name }}
+              {{ user.name }} 
             </div>
             <div class="account">
               {{ user.account | addPrefix }}
@@ -27,14 +27,14 @@
           <button
             v-if="user.isFollowed"
             class="btn-isFollowed"
-            @click.stop.prevent="unFollowed(user.id)"
+            @click.stop.prevent="unFollowed(user)"
           >
-            正在跟隨
+            正在跟隨 
           </button>
           <button
             v-else
             class="btn-unFollow"
-            @click.stop.prevent="followed(user.id)"
+            @click.stop.prevent="followed(user)"
           >
             跟隨
           </button>
@@ -70,6 +70,13 @@ export default {
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
+
+         //假資料
+         this.userList = this.userList.map((user) => {          
+          return {...user,
+          isFollowed:false};
+        });
+
       } catch (error) {
         console.log(error);
         Toast.fire({
@@ -78,25 +85,27 @@ export default {
         });
       }
     },
-    async followed(userId) {
+    async followed(user) {
       try {
-        let followedResponse = await authorizationAPI.followed();
+
+  
+        let followedResponse = await authorizationAPI.followed(user.id);
         let followedData = followedResponse.data;
-        //console.log(followedData);
+        console.log(followedData);
 
         if (followedData.status && followedData.status !== "success") {
           throw new Error(followedData.message);
         }
-
-        this.userList = this.userList.map((user) => {
-          if (user.id === userId) {
-            return {
-              ...user,
-              isFollowed: true,
-            };
-          }
-          return user;
-        });
+        user.isFollowed = true;      
+        // this.userList = this.userList.map((user) => {
+        //   if (user.id === userId) {
+        //     return {
+        //       ...user,
+        //       isFollowed: true,
+        //     };
+        //   }
+        //   return user;
+        // });
       } catch (error) {
         console.log(error);
         Toast.fire({
@@ -105,25 +114,25 @@ export default {
         });
       }
     },
-    async unFollowed(userId) {
+    async unFollowed(user) {
       try {
-        let unfollowedResponse = await authorizationAPI.unfollowed(userId);
+        let unfollowedResponse = await authorizationAPI.unfollowed(user.id);
         let unfollowedData = unfollowedResponse.data;
         console.log(unfollowedData);
 
         if (unfollowedData.status && unfollowedData.status !== "success") {
           throw new Error(unfollowedData.message);
         }
-
-        this.userList = this.userList.map((user) => {
-          if (user.id === userId) {
-            return {
-              ...user,
-              isFollowed: false,
-            };
-          }
-          return user;
-        });
+        user.isFollowed = false;   
+        // this.userList = this.userList.map((user) => {
+        //   if (user.id === userId) {
+        //     return {
+        //       ...user,
+        //       isFollowed: false,
+        //     };
+        //   }
+        //   return user;
+        // });
       } catch (error) {
         console.log(error);
         Toast.fire({

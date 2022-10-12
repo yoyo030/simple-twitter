@@ -83,14 +83,17 @@ export default {
       });
     },
 
-    //api一直串不過
-    followed() {
-      return apiHelper.post(`/followships`, {
-        headers: { Authorization: `Bearer ${getToken()}` , 'Content-Type': 'application/json' },
-      });
+  
+
+    followed(id) {
+      return apiHelper.post(
+        `/followships`,
+        { id },
+        {
+          headers: { Authorization: `Bearer ${getToken()}` },
+        }
+      );
     },
-
-
     unfollowed(id) {
       return apiHelper.delete(`/followships/${id}`, {
         headers: { Authorization: `Bearer ${getToken()}` },
@@ -162,5 +165,22 @@ export default {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
     },
+
+
+
+
+
+    //尚未串到頁面
+    getFollowings(userId) {
+      return apiHelper.get(`/users/${userId}/followings`, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      });
+    },
+    getFollowers(userId) {
+      return apiHelper.get(`/users/${userId}/followers`, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      });
+    },
+
 
 };
