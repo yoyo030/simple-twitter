@@ -3,7 +3,7 @@
     <div class="tweet d-flex" v-for="tweet in likedTweets" :key="tweet.id">
       
       <img
-        :src="tweet.Tweet.avatar | emptyImage"
+        :src="tweet.Tweet.User.avatar | emptyImage"
         class="tweet-list-tweet-img"
         alt=""
       />
@@ -15,7 +15,7 @@
              {{ tweet.Tweet.User.name }}
           </div>
           <div class="tweet-user-account">
-            {{ tweet.Tweet.User.account }}
+            {{ tweet.Tweet.User.account | addPrefix  }}
 
           </div>
           <span>・</span>
