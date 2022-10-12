@@ -11,17 +11,12 @@
       <div class="tweet-list-text d-flex flex-column">
         <div class="tweet-list-tweet-top d-flex align-items-center">
           <div class="tweet-user-name">
-<<<<<<< HEAD
+
              {{ tweet.Tweet.User.name }}
           </div>
           <div class="tweet-user-account">
             {{ tweet.Tweet.User.account }}
-=======
-            {{ tweet.Tweet.name }}
-          </div>
-          <div class="tweet-user-account">
-            {{ tweet.Tweet.account | addPrefix }}
->>>>>>> feature/mixins公式帶入
+
           </div>
           <span>・</span>
           <div class="tweet-user-createdAt">
@@ -66,12 +61,9 @@
 
 <script>
 import { fromNowFilter } from "../utils/mixins";
-<<<<<<< HEAD
 import ReplyModal from "../components/ReplyModal.vue";
-=======
 import { emptyImageFilter } from "./../utils/mixins";
 
->>>>>>> feature/mixins公式帶入
 export default {
   name: "userLike",
   mixins: [fromNowFilter, emptyImageFilter],

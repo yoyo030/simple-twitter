@@ -77,14 +77,11 @@
 
 <script>
 import { fromNowFilter } from "../utils/mixins";
-<<<<<<< HEAD
 import ReplyModal from "../components/ReplyModal.vue";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
-=======
 import { emptyImageFilter } from "./../utils/mixins";
 
->>>>>>> feature/mixins公式帶入
 export default {
   name: "ReplyList",
   mixins: [fromNowFilter, emptyImageFilter],

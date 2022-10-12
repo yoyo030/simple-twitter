@@ -56,11 +56,8 @@
                 @click="unlike(tweet)"
               />
             <div class="tweet-like-amount number-font">
-<<<<<<< HEAD
                {{ tweet.likeCount }}
-=======
-              {{ tweet.likeCount }} 
->>>>>>> feature/mixins公式帶入
+
             </div>
           </div>
         </div>
@@ -72,14 +69,11 @@
 
 <script>
 import { fromNowFilter } from "../utils/mixins";
-<<<<<<< HEAD
 import ReplyModal from "../components/ReplyModal.vue";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
 import { mapState } from "vuex";
-=======
 import { emptyImageFilter } from "./../utils/mixins";
->>>>>>> feature/mixins公式帶入
 export default {
   name: "userTweets",
   mixins: [fromNowFilter, emptyImageFilter],
