@@ -1,6 +1,5 @@
 .user-profile-title {
   height: 75px;
-  margin-bottom: 20px;
 }
 .user-back {
   margin-right: 19px
@@ -10,11 +9,16 @@
   @include font-setting(13px, 500, $secondary, 18px);
 }
 
+.bg-container {
+  width: 100%;
+  height: 200px;
+}
 
 .user-profile-bg {
- max-width: 100%; 
- max-height: 100%; 
- margin-bottom: 0px
+ margin-bottom: 0px;
+  height: inherit;
+  object-fit: cover;
+  width: inherit;
 }
 
 .user-profile-info {
@@ -24,7 +28,7 @@
 
 }
 .tweet-contentText {
-  height: 50px;
+  word-break: break-word;
 }
 
 .user-profile-img {
@@ -64,7 +68,7 @@
   list-style: none;
   /* 移除項目符號 */
   margin: 0;
-  padding: 20px  45px 0 0;
+  padding: 10px  45px 0 0;
   position: relative;
   border-bottom: 1px solid $border;
 }

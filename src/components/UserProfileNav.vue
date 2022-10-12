@@ -141,10 +141,3 @@ this.repliesKey = this.repliesKey + 1
 };
 </script>
 
-<style scoped>
-
-.profile-nav-list {
-   height: 55vh;
-}
-
-</style>
