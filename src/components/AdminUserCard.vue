@@ -8,13 +8,14 @@
      :key="user.id">
       <div class="background-img">
         <img
-          src="../assets/images/bg-img.png"
+          :src="user.cover  | emptybgImage "
           class="card-img-background"
           alt=""
         />
       </div>
       <div class="avatar">
-        <img src="../assets/images/logo-gray.png"
+        <img 
+         :src="user.avatar  | emptyImage"
          class="card-img-avatar"
          alt="" />
       </div>
@@ -54,10 +55,11 @@
 <script>
 import adminAPI from "./../apis/admin.js";
 import { Toast } from "./../utils/helpers";
-
+import { emptyImageFilter } from "./../utils/mixins";
 
 export default {
   name: "adminUsersCard",
+  mixins: [emptyImageFilter],
   data() {
     return {
       users: [],
@@ -126,9 +128,16 @@ export default {
   position: relative;
   width: 249px;
   margin: 0 16px 16px 0;
-  .card-img-background {
+
+  .background-img {
     width: 245px;
     height: 140px;
+    border-radius: 10px 10px 0px 0px;
+  }
+  .card-img-background {
+    height: inherit;
+    object-fit: cover;
+    width: inherit;
     border-radius: 10px 10px 0px 0px;
   }
   .card-img-avatar {

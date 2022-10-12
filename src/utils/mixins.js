@@ -1,5 +1,17 @@
 import moment from 'moment'
 
+//使用者沒有照片的時候
+export const emptyImageFilter = {
+  filters: {
+    emptyImage(src) {
+      return src || require('../assets/images/logo-gray.png') 
+    },
+    emptybgImage(src) {
+      return src || require('../assets/images/no-bg.jpg') 
+    },
+  }
+}
+
 export const fromNowFilter = {
   filters: {
     fromNow(datetime) {

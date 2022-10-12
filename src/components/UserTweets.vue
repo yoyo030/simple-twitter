@@ -1,9 +1,8 @@
 <template>
   <div class="profile-nav-list scrollbar">
     <div class="tweet d-flex" v-for="tweet in tweets" :key="tweet.id">
-      <!--待串接後用v-bind改為使用者img-->
       <img
-        src="../assets/images/logo-gray.png"
+        :src="tweet.User.avatar | emptyImage"
         class="tweet-list-tweet-img"
         alt=""
       />
@@ -37,7 +36,7 @@
               alt=""
             />
             <div class="tweet-reply-amount number-font">
-              <!-- {{ tweet.reply.length }} -->回應數
+              {{ tweet.replyCount }} 
             </div>
           </div>
           <div class="tweet-like d-flex">
@@ -47,7 +46,7 @@
               class="icon cursor-pointer"
             />
             <div class="tweet-like-amount number-font">
-              <!-- {{ tweet.likeAmount }} -->喜歡數
+              {{ tweet.likeCount }} 
             </div>
           </div>
         </div>
@@ -58,10 +57,10 @@
 
 <script>
 import { fromNowFilter } from "../utils/mixins";
-
+import { emptyImageFilter } from "./../utils/mixins";
 export default {
   name: "userTweets",
-  mixins: [fromNowFilter],
+  mixins: [fromNowFilter, emptyImageFilter],
   props: {
     //從views/ReplyList帶入dummydata，待串接API以及點擊功能id===id
     initialTweets: {
