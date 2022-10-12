@@ -99,7 +99,7 @@ export default {
 <style scoped>
 /*追蹤者樣板專用可視區域設定，用來控制scrollbar*/ 
 .profile-nav-list {
-  height: 85vh;
+  height: 82vh;
 }
 .btn-isFollowed {
   position: absolute;
