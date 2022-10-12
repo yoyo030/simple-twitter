@@ -153,3 +153,26 @@ export default {
   // },
 };
 </script>
+
+<style scoped>
+
+
+.user-container   {
+  position: relative;
+}
+
+.btn-isFollowed {
+ position: absolute;
+ right: 5px;
+ top: 8px
+}
+
+.btn-unFollow {
+ position: absolute;
+ right: 20px;
+ top: 8px
+
+}
+
+
+</style>
