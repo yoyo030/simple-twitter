@@ -12,27 +12,15 @@
         <div class="d-flex flex-column">
           <!--待串接使用者資料與貼文總數-->
           <h5 class="user-title">{{ userInfo.name }}</h5>
-          <p class="tweet-amount">25則推文</p>
+          <p class="tweet-amount">{{ tweetAmount + ' 則推文'}}</p>
         </div>
       </div>
-<div class="bg-container" v-if="userInfo.cover == undefined">
-      <img
-        
-        class="user-profile-bg"
-        src="../assets/images/bg-img.png"
-      />
-</div>
-    <div class="bg-container" v-else >
-      <img :src="userInfo.cover" class="user-profile-bg" />
-  </div>
-      <div class="user-profile-info">
-        <img
-          v-if="userInfo.avatar == undefined"
-          class="user-profile-img"
-          src="../assets/images/logo-gray.png"
-        />
+      <div class="bg-container">
+        <img class="user-profile-bg" :src="userInfo.cover | emptybgImage" />
+      </div>
 
-        <img v-else :src="userInfo.avatar" class="user-profile-img" style="" />
+      <div class="user-profile-info">
+        <img class="user-profile-img" :src="userInfo.avatar | emptyImage" />
 
         <button
           v-if="this.$route.params.id == currentUser.id"
@@ -100,7 +88,7 @@
       </ul>
 
       <!--透過點擊li決定顯示樣板-->
-      <UserProfileNav :navID="navID" />
+      <UserProfileNav :navID="navID"  @tweetCount="tweetCount"/>
     </div>
     <div class="w100 rightSection">
       <RecommandedList />
@@ -124,9 +112,12 @@ import EditModal from "../components/EditModal.vue";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
 import { mapState } from "vuex";
-//UserProfile上半部顯示登入者資訊用，待串接
+import { emptyImageFilter } from "./../utils/mixins";
+
+
 export default {
   name: "UserProfile",
+  mixins: [emptyImageFilter],
   components: {
     NavBar,
     RecommandedList,
@@ -145,6 +136,7 @@ export default {
         { id: 3, title: "喜歡的內容" },
       ],
       show: false, //控制modal用
+      tweetAmount: ''
     };
   },
   created() {
@@ -160,7 +152,7 @@ export default {
           this.$route.params.id
         );
         const data = response.data;
-        //console.log(data);
+        console.log(data);
         this.userInfo = data;
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
@@ -225,6 +217,10 @@ export default {
         console.log(name + ": " + value);
       }
     },
+    //接收子元件上傳tweetCount數量，帶入標題
+    tweetCount(count) {
+      this.tweetAmount = count
+    }
   },
   filters: {
     addPrefix(account) {

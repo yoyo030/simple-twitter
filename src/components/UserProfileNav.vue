@@ -76,6 +76,7 @@ export default {
         // });
       }
     this.tweetsKey = this.tweetsKey + 1
+    this.$emit('tweetCount', this.tweets.length)
     
     },
     async fetchReplies() {
