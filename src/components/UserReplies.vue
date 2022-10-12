@@ -5,9 +5,14 @@
 
       <div class="reply-list-text d-flex flex-column">
         <div class="tweet-list-tweet-top d-flex align-items-center">
+          <router-link
+            :to="{ name: 'user-profile', params: { id: reply.id } }"
+            class=""
+          >
           <div class="tweet-user-name">
             {{ reply.User.name }}
           </div>
+          </router-link>
           <div class="tweet-user-account">
             {{ reply.User.account | addPrefix }}
           </div>

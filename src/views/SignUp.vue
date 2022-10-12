@@ -164,3 +164,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.cancel {
+  text-decoration: underline;
+  color: #0062FF
+  }
+a:hover {
+  color: #FF6600;
+}
+</style>

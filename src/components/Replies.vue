@@ -20,7 +20,7 @@
         {{ tweet.createdAt | replyListTime }}
       </div>
       <div class="line"></div>
-      <div class="reply-action-amount d-flex">
+      <div class="reply-action-amount d-flex ">
         <div class="amount number-font d-flex">
           {{ `${tweet.replyCount}` }}
           <p>回覆</p>
@@ -50,9 +50,14 @@
 
         <div class="reply-list-text d-flex flex-column">
           <div class="tweet-list-tweet-top d-flex align-items-center">
+            <router-link
+            :to="{ name: 'user-profile', params: { id: reply.id } }"
+            class=""
+            >
             <div class="tweet-user-name">
               {{ reply.User.name }}
             </div>
+            </router-link>
             <div class="tweet-user-account">
               {{ reply.User.account | addPrefix }}
             </div>
@@ -178,3 +183,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+p {
+  margin-left: 5px;
+}
+</style>

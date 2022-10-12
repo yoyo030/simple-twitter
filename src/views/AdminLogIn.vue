@@ -51,7 +51,7 @@
 
       <div class="login-footer-link">
         <span>
-          <router-link to="/login" class=""> 前台登入 </router-link>
+          <router-link to="/login" class="user-login"> 前台登入 </router-link>
         </span>
       </div>
     </div>
@@ -129,3 +129,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+a {
+  text-decoration: underline;
+  color: #0062FF
+  }
+a:hover {
+  color: #FF6600;
+}
+</style>

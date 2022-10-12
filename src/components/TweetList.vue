@@ -34,9 +34,14 @@
 
         <div class="tweet-list-text d-flex flex-column">
           <div class="tweet-list-tweet-top d-flex align-items-center">
-            <div class="tweet-user-name">
-              {{ tweet.User.name }}
-            </div>
+            <router-link
+              :to="{ name: 'user-profile', params: { id: tweet.User.id } }"
+              class=""
+            >
+              <div class="tweet-user-name">
+                {{ tweet.User.name }}
+              </div>
+            </router-link>
             <div class="tweet-user-account">
               {{ tweet.User.account | addPrefix }}
             </div>

@@ -127,3 +127,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+a {
+  text-decoration: underline;
+  color: #0062FF
+  }
+a:hover {
+  color: #FF6600;
+}
+</style>

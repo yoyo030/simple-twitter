@@ -9,9 +9,14 @@
 
       <div class="tweet-list-text d-flex flex-column">
         <div class="tweet-list-tweet-top d-flex align-items-center">
-          <div class="tweet-user-name">
-            {{ tweet.Tweet.User.name }}
-          </div>
+          <router-link
+            :to="{ name: 'user-profile', params: { id: tweet.id } }"
+            class=""
+          >
+            <div class="tweet-user-name">
+              {{ tweet.Tweet.User.name }}
+            </div>
+          </router-link>
 
           <div class="tweet-user-account">
             {{ tweet.Tweet.User.account | addPrefix }}
@@ -82,7 +87,7 @@ export default {
   },
   data() {
     return {
-      likedTweets: '',
+      likedTweets: "",
       show: false, //控制modal用
       tweet: {},
       tweetKey: 0,
@@ -99,11 +104,11 @@ export default {
     },
   },
   created() {
-    this.fetchlikedTweets()
+    this.fetchlikedTweets();
   },
   methods: {
     fetchlikedTweets() {
-      this.likedTweets = this.initialLikes
+      this.likedTweets = this.initialLikes;
     },
     openModal(tweet) {
       this.tweet = tweet;
@@ -113,7 +118,6 @@ export default {
       this.show = false;
     },
   },
-  
 };
 </script>
 

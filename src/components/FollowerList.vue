@@ -7,9 +7,13 @@
 
       <div class="reply-list-text d-flex flex-column">
         <div class="tweet-list-tweet-top d-flex align-items-center">
-          <div class="tweet-user-name">
-            {{ follower.name }}
-          </div>
+          <router-link
+            :to="{ name: 'user-profile', params: { id: follower.id } }"
+          >
+            <div class="tweet-user-name">
+              {{ follower.name }}
+            </div>
+          </router-link>
           <button
             v-if="follower.isFollowed"
             class="btn-isFollowed"

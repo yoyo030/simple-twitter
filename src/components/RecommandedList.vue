@@ -13,9 +13,14 @@
           </router-link>
 
           <span class="info">
-            <div class="name">
-              {{ user.name }}
-            </div>
+            <router-link
+              :to="{ name: 'user-profile', params: { id: user.id } }"
+              class=""
+            >
+              <div class="name">
+                {{ user.name }}
+              </div>
+            </router-link>
             <div class="account">
               {{ user.account | addPrefix }}
             </div>
@@ -154,6 +159,9 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+}
 .user-container {
   position: relative;
 }
