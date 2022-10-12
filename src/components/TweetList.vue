@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 <template>
   <div class="home-tweet-container">
     <div class="home-tweet-box">
@@ -27,21 +35,20 @@
     <div class="tweet-list scrollbar">
       <div class="tweet d-flex" v-for="tweet in tweets" :key="tweet.id">
         <!--待串接後用v-bind改為使用者img-->
-        <router-link :to="{ name: 'user-profile', params: { id: tweet.User.id }}" class=""
+        <router-link
+          :to="{ name: 'user-profile', params: { id: tweet.User.id } }"
+          class=""
           ><img
-          v-if="tweet.User.avatar != undefined"
-          :src="tweet.User.avatar"
-          class="tweet-list-tweet-img"
-          alt=""
-        />
-        <img
-          v-else
-          src="../assets/images/logo-gray.png"
-          class="tweet-list-tweet-img"
-          alt=""
-        /></router-link
-        >
-       
+            v-if="tweet.User.avatar != undefined"
+            :src="tweet.User.avatar"
+            class="tweet-list-tweet-img"
+            alt="" />
+          <img
+            v-else
+            src="../assets/images/logo-gray.png"
+            class="tweet-list-tweet-img"
+            alt=""
+        /></router-link>
 
         <div class="tweet-list-text d-flex flex-column">
           <div class="tweet-list-tweet-top d-flex align-items-center">
@@ -70,34 +77,40 @@
                 src="../assets/images/reply.png"
                 class="icon cursor-pointer"
                 alt=""
-                @click.stop.prevent="openModal ()"
+                @click.stop.prevent="openModal()"
               />
 
-              <div class="tweet-reply-amount number-font">推特回應數</div>
+              <div class="tweet-reply-amount number-font">
+                {{ tweet.replyCount }}
+              </div>
             </div>
             <div class="tweet-like d-flex">
               <img
+                v-if="!tweet.islike"
                 src="../assets/images/like.png"
                 alt=""
                 class="icon cursor-pointer"
+                @click="like(tweet)"
               />
+              <img
+                v-else
+                src="../assets/images/isliked.png"
+                alt=""
+                class="icon cursor-pointer"
+                @click="unlike(tweet)"
+              />
+
               <div class="tweet-like-amount number-font">
-                {{ tweet.likeAmount }}
+                {{ tweet.likeCount }}
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <ReplyModal 
-    v-if="show" 
-    @close="closeModal" />
+    <ReplyModal v-if="show" @close="closeModal" />
   </div>
-  
 </template>
-
-
-
 
 <script>
 import { fromNowFilter } from "./../utils/mixins";
@@ -129,19 +142,75 @@ export default {
     },
     //首頁顯示推文字數超過95字，後面隱藏(待確認是否需要此功能)
     sliceTweet(description) {
-      if(description.length > 95) {
-        return `${description.slice(0,95)}...`
+      if (description.length > 95) {
+        return `${description.slice(0, 95)}...`;
       }
-      return description
-    }
+      return description;
+    },
   },
   methods: {
     //Modal操作
-    openModal () {
-      this.show = true
+    openModal() {
+      this.show = true;
     },
     closeModal() {
       this.show = false;
+    },
+    async like(t) {
+     
+      try {
+        t.islike = true;
+        t.likeCount = t.likeCount + 1;
+        const response = await authorizationAPI.likeTweets(
+          this.currentUser.id,
+          t.id
+        );
+        const data = response.data;
+        //console.log(data);
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+          Toast.fire({
+           icon: "success",
+           title: "按讚成功!",
+         });
+      
+     
+      } catch (error) {
+        console.log(error);
+         Toast.fire({
+           icon: "warning",
+           title: error.message,
+         });
+      }
+
+
+    },
+    async unlike(t) {
+      try {
+        t.islike = false;
+        t.likeCount = t.likeCount - 1;
+        const response = await authorizationAPI.unlikeTweets(
+          this.currentUser.id,
+          t.id
+        );
+        const data = response.data;
+        //console.log(data);
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+          Toast.fire({
+           icon: "success",
+           title: "成功收回讚!",
+         });
+        
+      } catch (error) {
+         console.log(error);
+         Toast.fire({
+           icon: "warning",
+           title: error.message,
+         });
+      }
     },
 
     // 點擊回覆時將該筆推文發給modal
@@ -160,7 +229,6 @@ export default {
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
-        console.log(data.status)
         this.tweets = data;
       } catch (error) {
         console.log(error);
@@ -180,7 +248,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 a,
