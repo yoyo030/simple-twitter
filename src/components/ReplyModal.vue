@@ -73,23 +73,11 @@
 
 <script>
 import { emptyImageFilter } from "./../utils/mixins";
-//嘗試將TweetList資料點擊後帶入失敗，待解決
-// const dummyData = {
-//   tweet: {
-//     id: 1,
-//     account: "apple123",
-//     name: "apple",
-//     img: "../assets/images/logo-gray.png",
-//     description: "滿員御禮!滿員御禮!",
-//     createdAt: "2022-10-08",
-//     reply: ["good", "good", "good"],
-//     likeAmount: 520,
-//   },
-// };
 import { fromNowFilter } from "../utils/mixins";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
-export default {    
+
+export default {
   name: "ReplyModal",
   mixins: [fromNowFilter, emptyImageFilter],
   data() {
@@ -108,10 +96,9 @@ export default {
       } else {
         return `@${account}`;
       }
-    },  
+    },
   },
   props: {
-    //從views/ReplyList帶入dummydata，待串接API以及點擊功能id===id
     tweet: {
       type: Object,
       required: true,
@@ -119,7 +106,7 @@ export default {
   },
 
   methods: {
-    //提交推文事件，待完成(僅寫出送出條件)
+    //提交推文事件
     async handleSubmit() {
       this.isLoading = true;
       if (this.text.trim().length > 140) {
@@ -173,7 +160,6 @@ export default {
 .modal-container {
   height: 100%;
   position: relative;
-
 }
 .reply {
   border-bottom: 0;

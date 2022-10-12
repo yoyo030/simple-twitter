@@ -1,10 +1,9 @@
 <template>
- 
-      <!--透過點擊li決定顯示樣板-->
-      <div>
-      <FollowerList :initial-follower="follower"  v-if="navID === 1"/>
-      <FollowingList :initial-following="following" v-if="navID === 2" />
-      </div>   
+  <!--透過點擊li決定顯示樣板-->
+  <div>
+    <FollowerList :initial-follower="follower" v-if="navID === 1" />
+    <FollowingList :initial-following="following" v-if="navID === 2" />
+  </div>
 </template>
 
 
@@ -21,186 +20,208 @@ const dummyData = {
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: true
+      isFollowed: true,
     },
-       {
+    {
       id: 2,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: true
-    },   {
+      isFollowed: true,
+    },
+    {
       id: 3,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: true
-    
+      isFollowed: true,
     },
-       {
+    {
       id: 4,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: true
+      isFollowed: true,
     },
-       {
+    {
       id: 5,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: false
+      isFollowed: false,
     },
-       {
+    {
       id: 6,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: false
+      isFollowed: false,
     },
-       {
+    {
       id: 7,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: false
-    },   {
+      isFollowed: false,
+    },
+    {
       id: 8,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: false
+      isFollowed: false,
     },
-       {
+    {
       id: 9,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: false
+      isFollowed: false,
     },
-       {
+    {
       id: 10,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: false
+      isFollowed: false,
     },
-  ]
-}
+  ],
+};
 //待API串接後傳遞正確 正在追蹤 資料
 const dummyData2 = {
-  following:[
+  following: [
     {
       id: 1,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: true
+      isFollowed: true,
     },
-       {
+    {
       id: 2,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: true
-    },   {
+      isFollowed: true,
+    },
+    {
       id: 3,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: true
-    
+      isFollowed: true,
     },
-       {
+    {
       id: 4,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: true
+      isFollowed: true,
     },
-       {
+    {
       id: 5,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: false
+      isFollowed: false,
     },
-       {
+    {
       id: 6,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: false
+      isFollowed: false,
     },
-       {
+    {
       id: 7,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: false
-    },   {
+      isFollowed: false,
+    },
+    {
       id: 8,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: false
+      isFollowed: false,
     },
-       {
+    {
       id: 9,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: false
+      isFollowed: false,
     },
-       {
+    {
       id: 10,
       account: "aaa123",
       name: "aaa",
       img: "../assets/images/logo-gray.png",
-      description: "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
+      description:
+        "請嘗試使用目標網頁可能出現的字詞進行搜尋。例如，如果你原本搜尋的是「如何烤蛋糕」，可以改為搜尋「蛋糕食譜」。",
       createdAt: "2022-10-08",
-      isFollowed: false
+      isFollowed: false,
     },
-  ]
-}
+  ],
+};
 
 export default {
   name: "UserProfileNav",
@@ -208,10 +229,10 @@ export default {
     FollowerList,
     FollowingList,
   },
-   props: {
+  props: {
     navID: {
       type: Number,
-      required: true
+      required: true,
     },
   },
   data() {
@@ -223,7 +244,6 @@ export default {
   created() {
     this.fetchFollower();
     this.fetchFollowing();
-
   },
   methods: {
     fetchFollower() {
@@ -232,8 +252,6 @@ export default {
     fetchFollowing() {
       this.following = dummyData2.following;
     },
-
   },
-
 };
 </script>

@@ -21,7 +21,7 @@
           class="to-user-follow"
           :to="{ name: 'user-follower', params: { id: currentUser.id } }"
         >
-           <div class="user-following cursor-pointer">
+          <div class="user-following cursor-pointer">
             <li class="nav-user-link">追蹤者</li>
           </div>
         </router-link>
@@ -76,7 +76,6 @@ export default {
     handleNav(navID) {
       this.navID = navID;
     },
-
   },
 };
 </script>
@@ -87,11 +86,11 @@ export default {
 }
 .follow-nav {
   padding-top: 15px;
-  border-bottom:1px solid #E6ECF0;
+  border-bottom: 1px solid #e6ecf0;
 }
 .user-following :hover {
-  border-bottom: 1px solid #FF6600;
-  color: #FF6600;
+  border-bottom: 1px solid #ff6600;
+  color: #ff6600;
   padding-bottom: 14px;
 }
 </style>

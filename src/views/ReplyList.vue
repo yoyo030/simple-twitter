@@ -6,13 +6,14 @@
     <div class="w100 centerSection">
       <div class="reply-list-top d-flex align-items-center">
         <img
-          @click.stop.prevent="$router.push({path:'/home'})"
-          src="../assets/images/back.png" 
+          @click.stop.prevent="$router.push({ path: '/home' })"
+          src="../assets/images/back.png"
           alt=""
-          class="back-icon cursor-pointer" />
+          class="back-icon cursor-pointer"
+        />
         <h4 class="setting-title reply-main-title">推文</h4>
       </div>
-      <Replies :initial-tweet="tweet" :key=key />
+      <Replies :initial-tweet="tweet" :key="key" />
     </div>
     <div class="w100 rightSection">
       <RecommandedList />
@@ -28,7 +29,6 @@ import Replies from "../components/Replies.vue";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
 
-
 export default {
   name: "ReplyList",
   components: {
@@ -39,19 +39,15 @@ export default {
 
   data() {
     return {
-      tweet:{},key:0
+      tweet: {},
+      key: 0,
     };
   },
   created() {
     this.fetchTweets();
   },
   methods: {
-
-        async fetchTweets() {
-              
-   
-   
-     
+    async fetchTweets() {
       try {
         const response = await authorizationAPI.getTweet(this.$route.params.id);
         const data = response.data;
@@ -59,25 +55,25 @@ export default {
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
-       this.tweet = data;
-        
+        this.tweet = data;
       } catch (error) {
         console.log(error);
-          Toast.fire({
+        Toast.fire({
           icon: "warning",
           title: `資料載入失敗 !`,
         });
       }
 
-        try {
-        const response1 = await authorizationAPI.getTweetReplies(this.$route.params.id);
+      try {
+        const response1 = await authorizationAPI.getTweetReplies(
+          this.$route.params.id
+        );
         const data1 = response1.data;
         console.log(data1);
         if (data1.status && data1.status !== "success") {
           throw new Error(data1.message);
         }
-       this.tweet.reply = data1
- 
+        this.tweet.reply = data1;
       } catch (error) {
         console.log(error);
         //   Toast.fire({
@@ -86,10 +82,8 @@ export default {
         // });
       }
 
-      this.key= this.key +1
+      this.key = this.key + 1;
     },
-
   },
-
 };
 </script>

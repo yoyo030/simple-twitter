@@ -6,19 +6,15 @@
       </div>
       <div v-for="user in userList" :key="user.id">
         <div class="user-container d-flex">
+          <router-link
+            :to="{ name: 'user-profile', params: { id: user.id } }"
+            class=""
+            ><img :src="user.avatar | emptyImage" class="user-img" alt="" />
+          </router-link>
 
-           <router-link :to="{ name: 'user-profile', params: { id: user.id } }" class=""
-          ><img 
-          :src="user.avatar | emptyImage"
-          class="user-img"
-          alt=""
-        />
-</router-link
-        >
-         
           <span class="info">
             <div class="name">
-              {{ user.name }} 
+              {{ user.name }}
             </div>
             <div class="account">
               {{ user.account | addPrefix }}
@@ -29,7 +25,7 @@
             class="btn-isFollowed"
             @click.stop.prevent="unFollowed(user)"
           >
-            正在跟隨 
+            正在跟隨
           </button>
           <button
             v-else
@@ -71,12 +67,10 @@ export default {
           throw new Error(data.message);
         }
 
-         //假資料
-         this.userList = this.userList.map((user) => {          
-          return {...user,
-          isFollowed:false};
+        //假資料
+        this.userList = this.userList.map((user) => {
+          return { ...user, isFollowed: false };
         });
-
       } catch (error) {
         console.log(error);
         Toast.fire({
@@ -87,8 +81,6 @@ export default {
     },
     async followed(user) {
       try {
-
-  
         let followedResponse = await authorizationAPI.followed(user.id);
         let followedData = followedResponse.data;
         console.log(followedData);
@@ -96,7 +88,7 @@ export default {
         if (followedData.status && followedData.status !== "success") {
           throw new Error(followedData.message);
         }
-        user.isFollowed = true;      
+        user.isFollowed = true;
         // this.userList = this.userList.map((user) => {
         //   if (user.id === userId) {
         //     return {
@@ -123,7 +115,7 @@ export default {
         if (unfollowedData.status && unfollowedData.status !== "success") {
           throw new Error(unfollowedData.message);
         }
-        user.isFollowed = false;   
+        user.isFollowed = false;
         // this.userList = this.userList.map((user) => {
         //   if (user.id === userId) {
         //     return {
@@ -162,24 +154,19 @@ export default {
 </script>
 
 <style scoped>
-
-
-.user-container   {
+.user-container {
   position: relative;
 }
 
 .btn-isFollowed {
- position: absolute;
- right: 5px;
- top: 8px
+  position: absolute;
+  right: 5px;
+  top: 8px;
 }
 
 .btn-unFollow {
- position: absolute;
- right: 20px;
- top: 8px
-
+  position: absolute;
+  right: 20px;
+  top: 8px;
 }
-
-
 </style>

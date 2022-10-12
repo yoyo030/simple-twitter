@@ -1,7 +1,6 @@
 <template>
   <div class="profile-nav-list scrollbar">
     <div class="tweet d-flex" v-for="tweet in likedTweets" :key="tweet.id">
-      
       <img
         :src="tweet.Tweet.User.avatar | emptyImage"
         class="tweet-list-tweet-img"
@@ -11,12 +10,11 @@
       <div class="tweet-list-text d-flex flex-column">
         <div class="tweet-list-tweet-top d-flex align-items-center">
           <div class="tweet-user-name">
-             {{ tweet.Tweet.User.name }}
+            {{ tweet.Tweet.User.name }}
           </div>
 
           <div class="tweet-user-account">
-            {{ tweet.Tweet.User.account | addPrefix  }}
-
+            {{ tweet.Tweet.User.account | addPrefix }}
           </div>
           <span>・</span>
           <div class="tweet-user-createdAt">
@@ -39,7 +37,7 @@
               @click.stop.prevent="openModal(tweet.Tweet)"
             />
             <div class="tweet-reply-amount number-font">
-            <!-- {{ tweet.reply.length }}-->
+              <!-- {{ tweet.reply.length }}-->
             </div>
           </div>
           <div class="tweet-like d-flex">
@@ -49,13 +47,18 @@
               class="icon cursor-pointer"
             />
             <div class="tweet-like-amount number-font">
-               {{ tweet.isLike }}
+              {{ tweet.isLike }}
             </div>
           </div>
         </div>
       </div>
     </div>
-      <ReplyModal v-if="show" @close="closeModal" :tweet="tweet" :key ="tweetKey"/>
+    <ReplyModal
+      v-if="show"
+      @close="closeModal"
+      :tweet="tweet"
+      :key="tweetKey"
+    />
   </div>
 </template>
 
@@ -68,21 +71,21 @@ export default {
   name: "userLike",
   mixins: [fromNowFilter, emptyImageFilter],
   props: {
-    //從views/ReplyList帶入dummydata，待串接API以及點擊功能id===id
+    //從userProfileNav父層 串接API資料傳入
     initialLikes: {
       type: Array,
       required: true,
     },
   },
-   components: {
+  components: {
     ReplyModal,
   },
   data() {
     return {
-      likedTweets: this.initialLikes,
-       show: false, //控制modal用
-       tweet:{},
-       tweetKey:0
+      likedTweets: '',
+      show: false, //控制modal用
+      tweet: {},
+      tweetKey: 0,
     };
   },
 
@@ -95,16 +98,22 @@ export default {
       }
     },
   },
-   methods:{
-      openModal(tweet) {    
-      this.tweet = tweet
-      this.tweetKey = this.tweetKey + 1,
-      this.show = true;
+  created() {
+    this.fetchlikedTweets()
+  },
+  methods: {
+    fetchlikedTweets() {
+      this.likedTweets = this.initialLikes
     },
-     closeModal() {
+    openModal(tweet) {
+      this.tweet = tweet;
+      (this.tweetKey = this.tweetKey + 1), (this.show = true);
+    },
+    closeModal() {
       this.show = false;
     },
-}
+  },
+  
 };
 </script>
 

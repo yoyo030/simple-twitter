@@ -5,20 +5,24 @@
         <!--待串接後改為使用者img-->
         <img class="user-img" src="../assets/images/logo-gray.png" />
         <span class="info">
-          <div v-if ="tweet.User!=null" class="name">{{ tweet.User.name }}</div>
-          <div v-if ="tweet.User!=null" class="account">{{ tweet.User.account | addPrefix  }}</div>
+          <div v-if="tweet.User != null" class="name">
+            {{ tweet.User.name }}
+          </div>
+          <div v-if="tweet.User != null" class="account">
+            {{ tweet.User.account | addPrefix }}
+          </div>
         </span>
       </div>
       <div class="d-flex align-items-center">
         <div class="tweet-list-contentText">{{ tweet.description }}</div>
       </div>
       <div class="reply-tweet-date">
-        {{ tweet.createdAt | replyListTime}}
+        {{ tweet.createdAt | replyListTime }}
       </div>
       <div class="line"></div>
       <div class="reply-action-amount d-flex">
         <div class="amount number-font d-flex">
-           {{ `${tweet.replyCount}` }} 
+          {{ `${tweet.replyCount}` }}
           <p>回覆</p>
         </div>
         <div class="amount number-font d-flex">
@@ -29,8 +33,8 @@
       <div class="reply-action d-flex">
         <img
           src="../assets/images/reply.png"
-          class="reply-reply-icon cursor-pointer"     
-        @click.stop.prevent="openModal(tweet)"
+          class="reply-reply-icon cursor-pointer"
+          @click.stop.prevent="openModal(tweet)"
         />
         <img
           src="../assets/images/like.png"
@@ -42,10 +46,7 @@
 
     <div class="tweet-reply-list scrollbar">
       <div class="reply d-flex" v-for="reply in tweet.reply" :key="reply.id">
- 
-        <img
-         :src="reply.avatar | emptyImage"
-         class="user-img" alt="" />
+        <img :src="reply.avatar | emptyImage" class="user-img" alt="" />
 
         <div class="reply-list-text d-flex flex-column">
           <div class="tweet-list-tweet-top d-flex align-items-center">
@@ -69,9 +70,13 @@
           </div>
         </div>
       </div>
-         <ReplyModal v-if="show" @close="closeModal" :tweet="tweet" :key ="tweetKey"/>
+      <ReplyModal
+        v-if="show"
+        @close="closeModal"
+        :tweet="tweet"
+        :key="tweetKey"
+      />
     </div>
-
   </div>
 </template>
 
@@ -98,7 +103,7 @@ export default {
   data() {
     return {
       tweet: this.initialTweet,
-     show: false, //控制modal用
+      show: false, //控制modal用
     };
   },
 
@@ -111,18 +116,16 @@ export default {
       }
     },
   },
-methods:{
-      openModal(tweet) {  
-      this.tweet = tweet
-      this.tweetKey = this.tweetKey + 1,
-      this.show = true;
+  methods: {
+    openModal(tweet) {
+      this.tweet = tweet;
+      (this.tweetKey = this.tweetKey + 1), (this.show = true);
     },
     closeModal() {
       this.show = false;
     },
     //尚未綁定按鈕
-   async like(t) {
-     
+    async like(t) {
       try {
         t.islike = true;
         t.likeCount = t.likeCount + 1;
@@ -135,21 +138,17 @@ methods:{
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
-          Toast.fire({
-           icon: "success",
-           title: "按讚成功!",
-         });
-      
-     
+        Toast.fire({
+          icon: "success",
+          title: "按讚成功!",
+        });
       } catch (error) {
         console.log(error);
-         Toast.fire({
-           icon: "warning",
-           title: error.message,
-         });
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
       }
-
-
     },
     async unlike(t) {
       try {
@@ -164,23 +163,18 @@ methods:{
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
-          Toast.fire({
-           icon: "success",
-           title: "成功收回讚!",
-         });
-        
+        Toast.fire({
+          icon: "success",
+          title: "成功收回讚!",
+        });
       } catch (error) {
-         console.log(error);
-         Toast.fire({
-           icon: "warning",
-           title: error.message,
-         });
+        console.log(error);
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
       }
     },
-
-}
-   
- 
-
+  },
 };
 </script>

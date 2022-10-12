@@ -77,7 +77,6 @@ export default {
   methods: {
     async handleSubmit() {
       try {
-
         //檢查必填欄位
         if (!this.account || !this.password) {
           Toast.fire({
@@ -89,14 +88,13 @@ export default {
         //鎖定登入鍵
         this.isProcessing = true;
 
-
-
         // 使用 authorizationAPI 的 signIn 方法
         // 並且帶入使用者填寫的 email 和 password
         const response = await authorizationAPI.signIn({
-           account: this.account, password: this.password 
+          account: this.account,
+          password: this.password,
         });
-        let data = response.data
+        let data = response.data;
         //console.log(data)
 
         //await跑完才會來這裡,判斷身分認證是否成功
@@ -112,11 +110,10 @@ export default {
         localStorage.setItem("token", data.data.token);
 
         //set vuex
-        this.$store.commit('setCurrentUser',data.data.user)
+        this.$store.commit("setCurrentUser", data.data.user);
 
         // 成功登入後轉址到餐聽首頁
         this.$router.push("/home");
-
       } catch (error) {
         this.password = "";
         this.isProcessing = false;

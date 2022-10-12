@@ -1,27 +1,27 @@
 <template>
- 
-      <!--透過點擊li決定顯示樣板-->
-      <div>
-      <UserTweets :initial-tweets="tweets" :key="tweetsKey"  v-if="navID === 1"/>
-      <UserReplies :initial-replies="replies" :key="repliesKey" v-if="navID === 2" />
-      <UserLike :initial-likes="likes" :key ="likesKey" v-if="navID === 3" />
-      </div>   
+  <!--透過點擊li決定顯示樣板-->
+  <div>
+    <UserTweets :initial-tweets="tweets" :key="tweetsKey" v-if="navID === 1" />
+    <UserReplies
+      :initial-replies="replies"
+      :key="repliesKey"
+      v-if="navID === 2"
+    />
+    <UserLike :initial-likes="likes" :key="likesKey" v-if="navID === 3" />
+  </div>
 </template>
 
 
 
 <script>
-
 import UserTweets from "../components/UserTweets.vue";
 import UserReplies from "../components/UserReplies.vue";
 import UserLike from "../components/UserLike.vue";
 import authorizationAPI from "./../apis/authorization";
 //import { Toast } from "./../utils/helpers";
 
-
 //UserTweets用假資料(預設顯示貼文的內容)
 //Userlikes用假資料(點按喜歡的內容)
-
 
 export default {
   name: "UserProfileNav",
@@ -30,20 +30,20 @@ export default {
     UserReplies,
     UserLike,
   },
-   props: {
+  props: {
     navID: {
       type: Number,
-      required: true
+      required: true,
     },
   },
   data() {
     return {
       tweets: [],
-      tweetsKey:0,
+      tweetsKey: 0,
       replies: [],
-      repliesKey:0,
+      repliesKey: 0,
       likes: [],
-      likesKey:0,
+      likesKey: 0,
     };
   },
   created() {
@@ -53,11 +53,11 @@ export default {
   },
   methods: {
     async fetchTweets() {
-
-    
-        try {
+      try {
         //兩次輸入的密碼需相同
-        const response = await authorizationAPI.getUserTweets(this.$route.params.id);
+        const response = await authorizationAPI.getUserTweets(
+          this.$route.params.id
+        );
         const data = response.data;
         console.log(data);
 
@@ -65,8 +65,7 @@ export default {
           throw new Error(data.message);
         }
 
-       this.tweets = data;
-   
+        this.tweets = data;
       } catch (error) {
         //console.log(error);
         this.tweets = [];
@@ -75,69 +74,62 @@ export default {
         //   title: error.message,
         // });
       }
-    this.tweetsKey = this.tweetsKey + 1
-    this.$emit('tweetCount', this.tweets.length)
-    
+      this.tweetsKey = this.tweetsKey + 1;
+      this.$emit("tweetCount", this.tweets.length);
     },
     async fetchReplies() {
-
-              try {
+      try {
         //兩次輸入的密碼需相同
-        const response = await authorizationAPI.getUserReplies(this.$route.params.id);
+        const response = await authorizationAPI.getUserReplies(
+          this.$route.params.id
+        );
         const data = response.data;
         console.log(data);
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
 
-       this.replies = data;
-   
+        this.replies = data;
       } catch (error) {
-      this.replies = [];
-       
+        this.replies = [];
+
         // Toast.fire({
         //   icon: "error",
         //   title: error.message,
         // });
       }
-this.repliesKey = this.repliesKey + 1
+      this.repliesKey = this.repliesKey + 1;
     },
     async fetchLikesTweets() {
-
-        try {
+      try {
         //兩次輸入的密碼需相同
-        const response = await authorizationAPI.getlikeTweets(this.$route.params.id);
+        const response = await authorizationAPI.getlikeTweets(
+          this.$route.params.id
+        );
         const data = response.data;
         console.log(data);
-
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
-
-       this.likes = data;
-   
+        this.likes = data;
       } catch (error) {
-      this.likes = [];
-       
+        this.likes = [];
+
         // Toast.fire({
         //   icon: "error",
         //   title: error.message,
         // });
-     
       }
-
-   this.likesKey = this.likesKey + 1
-  
-   
+      this.likesKey = this.likesKey + 1;
     },
-
   },
   watch: {
-    '$route.params.id': function () {
-     this.fetchReplies();
-     this.fetchLikesTweets();
-     this.fetchTweets();
-    }
+    "$route.params.id": function () {
+      this.fetchReplies();
+      this.fetchLikesTweets();
+      this.fetchTweets();
+    },
+
   },
 };
 </script>

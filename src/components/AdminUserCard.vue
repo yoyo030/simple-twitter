@@ -2,52 +2,53 @@
   <div class="admin-main">
     <h4 class="setting-title main-title">使用者列表</h4>
     <div class="tweet-list scrollbar d-flex">
-    <div
-     class="card"
-     v-for="user in users"
-     :key="user.id">
-      <div class="background-img">
-        <img
-          :src="user.cover  | emptybgImage "
-          class="card-img-background"
-          alt=""
-        />
-      </div>
-      <div class="avatar">
-        <img 
-         :src="user.avatar  | emptyImage"
-         class="card-img-avatar"
-         alt="" />
-      </div>
-      <div class="card-body">
-        <h5 class="card-title cursor-pointer">{{ user.name }}</h5>
-        <p class="card-text">{{ user.account | addPrefix }}</p>
-        <div class="click-on-condition">
-          <div class="tweet-count ">
-            <img src="../assets/images/tweet.png" alt="" class="reply__card cursor-pointer" />
-            {{ user.tweetCount }}
-          </div>
-          <div class="like-count ">
-            <img src="../assets/images/like.png" alt="" class="like__card cursor-pointer" />
-            {{ user.likeCount }}
-          </div>
+      <div class="card" v-for="user in users" :key="user.id">
+        <div class="background-img">
+          <img
+            :src="user.cover | emptybgImage"
+            class="card-img-background"
+            alt=""
+          />
         </div>
-        <div class="follow-condition">
-          <div class="following-count">
-            <span class="following-count__number"
-              >{{ user.followingCount }}個</span
-            >跟隨中
+        <div class="avatar">
+          <img :src="user.avatar | emptyImage" class="card-img-avatar" alt="" />
+        </div>
+        <div class="card-body">
+          <h5 class="card-title cursor-pointer">{{ user.name }}</h5>
+          <p class="card-text">{{ user.account | addPrefix }}</p>
+          <div class="click-on-condition">
+            <div class="tweet-count">
+              <img
+                src="../assets/images/tweet.png"
+                alt=""
+                class="reply__card cursor-pointer"
+              />
+              {{ user.tweetCount }}
+            </div>
+            <div class="like-count">
+              <img
+                src="../assets/images/like.png"
+                alt=""
+                class="like__card cursor-pointer"
+              />
+              {{ user.likeCount }}
+            </div>
           </div>
-          <div class="follows-count">
-            <span class="follows-count__number"
-              >{{ user.followerCount }}位</span
-            >跟隨者
+          <div class="follow-condition">
+            <div class="following-count">
+              <span class="following-count__number"
+                >{{ user.followingCount }}個</span
+              >跟隨中
+            </div>
+            <div class="follows-count">
+              <span class="follows-count__number"
+                >{{ user.followerCount }}位</span
+              >跟隨者
+            </div>
           </div>
         </div>
       </div>
     </div>
-    </div>
-    
   </div>
 </template>
 
@@ -72,9 +73,9 @@ export default {
     //待串接API後抓取所有user資料
     async fetchUser() {
       try {
-        const response  = await adminAPI.getUsers()
-        console.log(response)
-        const data = response.data;       
+        const response = await adminAPI.getUsers();
+        console.log(response);
+        const data = response.data;
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
@@ -86,21 +87,18 @@ export default {
           title: `無法載入使用者資訊，請稍後再試!`,
         });
       }
-     },
-   
- },
- 
-   
+    },
+  },
 
   filters: {
     addPrefix(account) {
       if (!account) {
-          return "未提供帳號資訊";
+        return "未提供帳號資訊";
       } else {
-         return `@${account}`;
-        }
-      },
+        return `@${account}`;
+      }
     },
+  },
 };
 </script>
 

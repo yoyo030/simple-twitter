@@ -1,34 +1,36 @@
 <template>
   <div class="container d-flex justify-content-center">
-  <div class="admin-side-bar">
-    <nav>
-      <img class="navbar-logo" src="../assets/images/ac-logo.png" />
-      <ul>
-        <li class="home d-flex">
-          <router-link to="/admin/tweets" class="adminTweets">
-            <img class="admin-navbar-icon" src="../assets/images/home.png" />
-            <h5 class="nav-tweet">推文清單</h5>
-          </router-link>
-        </li>
-        <li class="userprofile">
-          <router-link to="/admin/userlist" class="adminUserlist"
-            ><img
+    <div class="admin-side-bar">
+      <nav>
+        <img class="navbar-logo" src="../assets/images/ac-logo.png" />
+        <ul>
+          <li class="home d-flex">
+            <router-link to="/admin/tweets" class="adminTweets">
+              <img class="admin-navbar-icon" src="../assets/images/home.png" />
+              <h5 class="nav-tweet">推文清單</h5>
+            </router-link>
+          </li>
+          <li class="userprofile">
+            <router-link to="/admin/userlist" class="adminUserlist"
+              ><img
+                class="admin-navbar-icon"
+                src="../assets/images/info-active.png"
+              />
+              <h5 class="nav-user">使用者列表</h5>
+            </router-link>
+          </li>
+          <li style="position: absolute; bottom: 0" @click="logout">
+            <img
               class="admin-navbar-icon"
-              src="../assets/images/info-active.png"
+              src="../assets/images/sign-out.png"
             />
-            <h5 class="nav-user">使用者列表</h5>
-          </router-link>
-        </li>
-        <li style="position: absolute; bottom: 0" @click="logout">
-          <img class="admin-navbar-icon" src="../assets/images/sign-out.png" />
-          登出
-        </li>
-      </ul>
-    </nav>
-  </div>
+            登出
+          </li>
+        </ul>
+      </nav>
+    </div>
 
     <AdminUserCard />
-
   </div>
 </template>
 
@@ -49,7 +51,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 .container {
   width: 95%;
 }
@@ -107,5 +108,4 @@ button {
   bottom: 0px;
   margin-right: 17.62px;
 }
-
 </style>

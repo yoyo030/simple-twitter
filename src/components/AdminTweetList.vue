@@ -5,7 +5,7 @@
       <div class="tweet d-flex" v-for="tweet in tweets" :key="tweet.id">
         <!--待串接後用v-bind改為使用者img-->
         <img
-          :src="tweet.User.avatar  | emptyImage "
+          :src="tweet.User.avatar | emptyImage"
           class="tweet-list-tweet-img"
           alt=""
         />
@@ -94,13 +94,13 @@ export default {
       try {
         this.isProcessing = true;
         const { data } = await adminAPI.deleteTweet({ tweetId });
-        console.log(data.status)
-       // 配合測試檔無status欄位 
-       // if (data.status !== "success") {
-       //   throw new Error(data.message);
-       // }       
+        console.log(data.status);
+        // 配合測試檔無status欄位
+        // if (data.status !== "success") {
+        //   throw new Error(data.message);
+        // }
         this.tweets = this.tweets.filter((tweet) => tweet.id !== tweetId);
-        console.log(this.tweets)
+        console.log(this.tweets);
         Toast.fire({
           icon: "success",
           title: "成功刪除推文",
@@ -112,7 +112,7 @@ export default {
           icon: "error",
           title: "無法刪除推文",
         });
-        console.log(error)
+        console.log(error);
       }
     },
   },

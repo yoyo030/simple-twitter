@@ -32,7 +32,6 @@
     </div>
 
     <AdminTweetList />
-
   </div>
 </template>
 
@@ -53,7 +52,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 .container {
   width: 95%;
 }

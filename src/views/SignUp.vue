@@ -139,9 +139,9 @@ export default {
           email: this.email,
           password: this.password,
           checkPassword: this.passwordCheck,
-        });        
-        const data = response.data
-        console.log(data)
+        });
+        const data = response.data;
+        console.log(data);
 
         if (data.status !== "success") {
           throw new Error(data.message);
@@ -153,7 +153,6 @@ export default {
         });
 
         this.$router.push("/login");
-
       } catch (error) {
         console.log(error);
         Toast.fire({

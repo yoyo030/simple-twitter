@@ -12,7 +12,7 @@
         <div class="d-flex flex-column">
           <!--待串接使用者資料與貼文總數-->
           <h5 class="user-title">{{ userInfo.name }}</h5>
-          <p class="tweet-amount">{{ tweetAmount + ' 則推文'}}</p>
+          <p class="tweet-amount">{{ tweetAmount + " 則推文" }}</p>
         </div>
       </div>
       <div class="bg-container">
@@ -36,8 +36,9 @@
           type="button"
           style="float: right"
           class="edit-button"
-          @click.stop.prevent="openModal"
+          @click.stop.prevent=""
         >
+          <!--待改為追蹤或不追蹤按鈕-->
           正在追蹤
         </button>
 
@@ -88,7 +89,7 @@
       </ul>
 
       <!--透過點擊li決定顯示樣板-->
-      <UserProfileNav :navID="navID"  @tweetCount="tweetCount"/>
+      <UserProfileNav :navID="navID" @tweetCount="tweetCount" />
     </div>
     <div class="w100 rightSection">
       <RecommandedList />
@@ -114,7 +115,6 @@ import { Toast } from "./../utils/helpers";
 import { mapState } from "vuex";
 import { emptyImageFilter } from "./../utils/mixins";
 
-
 export default {
   name: "UserProfile",
   mixins: [emptyImageFilter],
@@ -136,7 +136,7 @@ export default {
         { id: 3, title: "喜歡的內容" },
       ],
       show: false, //控制modal用
-      tweetAmount: ''
+      tweetAmount: "",
     };
   },
   created() {
@@ -219,8 +219,8 @@ export default {
     },
     //接收子元件上傳tweetCount數量，帶入標題
     tweetCount(count) {
-      this.tweetAmount = count
-    }
+      this.tweetAmount = count;
+    },
   },
   filters: {
     addPrefix(account) {

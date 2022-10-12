@@ -82,7 +82,7 @@ export default {
   name: "userTweets",
   mixins: [fromNowFilter, emptyImageFilter],
   props: {
-    //從views/ReplyList帶入dummydata，待串接API以及點擊功能id===id
+    //從userProfileNav父層 串接API資料傳入
     initialTweets: {
       type: Array,
       required: true,

@@ -1,39 +1,37 @@
 <template>
-    <div class="profile-nav-list scrollbar">
-      <div class="reply d-flex" 
-        v-for="follower in followers" :key="follower.id">
-        <!--待串接後用v-bind改為使用者img-->
- 
-        <img
-          :src="follower.avatar  | emptyImage "
-          class="user-img"
-          alt="" />
+  <div class="profile-nav-list scrollbar">
+    <div class="reply d-flex" v-for="follower in followers" :key="follower.id">
+      <!--待串接後用v-bind改為使用者img-->
 
-        <div class="reply-list-text d-flex flex-column">
-          <div class="tweet-list-tweet-top d-flex align-items-center">
-            <div class="tweet-user-name">
-              {{ follower.name }}
-            </div>
-             <button
-           v-if="follower.isFollowed"
-           class="btn-isFollowed"
-           @click.stop.prevent="unFollowed(follower.id)"> 
-           正在跟隨
+      <img :src="follower.avatar | emptyImage" class="user-img" alt="" />
+
+      <div class="reply-list-text d-flex flex-column">
+        <div class="tweet-list-tweet-top d-flex align-items-center">
+          <div class="tweet-user-name">
+            {{ follower.name }}
+          </div>
+          <button
+            v-if="follower.isFollowed"
+            class="btn-isFollowed"
+            @click.stop.prevent="unFollowed(follower.id)"
+          >
+            正在跟隨
           </button>
           <button
-           v-else
+            v-else
             class="btn-unFollow"
-            @click.stop.prevent="followed(follower.id)">
+            @click.stop.prevent="followed(follower.id)"
+          >
             跟隨
           </button>
-          </div>
+        </div>
 
-          <div class="tweet-contentText">
-            {{ follower.description }}
-          </div>
+        <div class="tweet-contentText">
+          {{ follower.description }}
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -54,32 +52,31 @@ export default {
       followers: this.initialFollower,
     };
   },
-methods: {
-   //用map找出被點擊按鈕所屬id，切換狀態(失敗中)
-    followed (followerId) {
+  methods: {
+    //用map找出被點擊按鈕所屬id，切換狀態(失敗中)
+    followed(followerId) {
       this.followers = this.followers.map((follower) => {
-       if ( follower.id === followerId) {
-            return {
-              ...follower,
-              isFollowed: true,
-            };
-          }
-          return this.follower;
-        })
+        if (follower.id === followerId) {
+          return {
+            ...follower,
+            isFollowed: true,
+          };
+        }
+        return this.follower;
+      });
     },
     //用map找出被點擊按鈕所屬id，切換狀態(失敗中)
-    unFollowed (followerId) {
+    unFollowed(followerId) {
       this.followers = this.followers.map((follower) => {
-       if (follower.id === followerId) {
-            return {
-              ...follower,
-              isFollowed: false,
-            };
-          }
-          return this.follower;
-        })
-    }
-  
+        if (follower.id === followerId) {
+          return {
+            ...follower,
+            isFollowed: false,
+          };
+        }
+        return this.follower;
+      });
+    },
   },
 
   filters: {
@@ -97,7 +94,7 @@ methods: {
 
 
 <style scoped>
-/*追蹤者樣板專用可視區域設定，用來控制scrollbar*/ 
+/*追蹤者樣板專用可視區域設定，用來控制scrollbar*/
 .profile-nav-list {
   height: 82vh;
 }
@@ -109,5 +106,4 @@ methods: {
   position: absolute;
   right: 35px;
 }
-
 </style>

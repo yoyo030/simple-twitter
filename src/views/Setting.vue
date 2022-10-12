@@ -1,21 +1,20 @@
 <template>
   <div class="container d-flex justify-content-center w100">
-      <div class="w100 leftSection">
-        <NavBar />
-      </div>
+    <div class="w100 leftSection">
+      <NavBar />
+    </div>
 
-      <div class="w100 centerSection">
-        <h4 class="setting-title main-title">帳戶設定</h4>
-        <div class="form-container">
-          <SettingForm @after-submit-setting="afterSubmitSetting" />
-        </div>
-      </div>
-
-      <div class="w100 rightSection">
-        <RecommandedList />
+    <div class="w100 centerSection">
+      <h4 class="setting-title main-title">帳戶設定</h4>
+      <div class="form-container">
+        <SettingForm @after-submit-setting="afterSubmitSetting" />
       </div>
     </div>
 
+    <div class="w100 rightSection">
+      <RecommandedList />
+    </div>
+  </div>
 </template>
 
 

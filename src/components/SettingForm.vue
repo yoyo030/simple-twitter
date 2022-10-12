@@ -152,7 +152,7 @@ export default {
     //把vuex資料拿出來,得到currentUser
     ...mapState(["currentUser", "isAuthenticated"]),
   },
-  created() {   
+  created() {
     //把得到的currentUser複製一份給currentUser.Temp
     this.fetchCurrentUser();
   },

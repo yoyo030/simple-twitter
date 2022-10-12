@@ -2,23 +2,19 @@
   <nav>
     <img class="navbar-logo" src="../assets/images/ac-logo.png" />
     <ul>
-      <li class="home ">
+      <li class="home">
         <router-link to="/home" class="">
-        <img
-            class="navbar-icon"
-            src="../assets/images/home.png"/>
+          <img class="navbar-icon" src="../assets/images/home.png" />
           首頁
         </router-link>
       </li>
       <li class="userprofile">
-        <router-link :to="{ name: 'user-profile', params: { id: currentUser.id } }" class=""
-          ><img
-            class="navbar-icon"
-            src="../assets/images/info.png"
-          />
+        <router-link
+          :to="{ name: 'user-profile', params: { id: currentUser.id } }"
+          class=""
+          ><img class="navbar-icon" src="../assets/images/info.png" />
           個人資料
-          </router-link
-        >
+        </router-link>
       </li>
       <li class="setting">
         <router-link to="/setting" class="">
@@ -27,29 +23,17 @@
         </router-link>
       </li>
       <li>
-        <button 
-          type="button" 
-          class="button"
-          @click.stop.prevent="openModal"
-        >
+        <button type="button" class="button" @click.stop.prevent="openModal">
           推文
         </button>
       </li>
 
-      <li style="position: absolute; bottom: 0"
-        
-         @click="logout">
-          <img
-            class="navbar-icon"
-            src="../assets/images/sign-out.png" />
-            登出
- 
+      <li style="position: absolute; bottom: 0" @click="logout">
+        <img class="navbar-icon" src="../assets/images/sign-out.png" />
+        登出
       </li>
     </ul>
-     <TweetModal
-        v-if="show"
-        @close="closeModal"
-      />
+    <TweetModal v-if="show" @close="closeModal" />
   </nav>
 </template>
 
@@ -64,28 +48,28 @@ import { mapState } from "vuex";
 export default {
   name: "NavBar",
 
-  components: { 
-   TweetModal
+  components: {
+    TweetModal,
   },
 
-  data () {
+  data() {
     return {
-      show: false //控制modal用
-    }
+      show: false, //控制modal用
+    };
   },
   methods: {
     logout() {
       this.$store.commit("revokeAuthentication");
       this.$router.push("/signin");
     },
-    openModal () {
-      this.show = true
+    openModal() {
+      this.show = true;
     },
-    closeModal () {
-      this.show = false
-    }
+    closeModal() {
+      this.show = false;
+    },
   },
-   computed: {
+  computed: {
     //把vuex資料拿出來,得到currentUser
     ...mapState(["currentUser", "isAuthenticated"]),
   },
