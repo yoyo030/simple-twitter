@@ -89,27 +89,9 @@ import { emptyImageFilter } from "./../utils/mixins";
 import { fromNowFilter } from "../utils/mixins";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
-<<<<<<< HEAD
-
-export default {
-  name: "ReplyModal",
-  mixins: [fromNowFilter, emptyImageFilter],
-
-  filters: {
-    addPrefix(account) {
-      if (!account) {
-        return "未提供帳號資訊";
-      } else {
-        return `@${account}`;
-      }
-    },
-  },
-
-=======
 export default {    
   name: "ReplyModal",
   mixins: [fromNowFilter, emptyImageFilter],
->>>>>>> d3a98a02c5702a7042700df523fd8e765f2d5957
   data() {
     return {
       text: "",
