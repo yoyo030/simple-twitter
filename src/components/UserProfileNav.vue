@@ -4,7 +4,7 @@
       <div>
       <UserTweets :initial-tweets="tweets" :key="tweetsKey"  v-if="navID === 1"/>
       <UserReplies :initial-replies="replies" :key="repliesKey" v-if="navID === 2" />
-      <UserLike :initial-likes="likes"  v-if="navID === 3" />
+      <UserLike :initial-likes="likes" :key ="likesKey" v-if="navID === 3" />
       </div>   
 </template>
 
@@ -21,72 +21,6 @@ import authorizationAPI from "./../apis/authorization";
 
 //UserTweets用假資料(預設顯示貼文的內容)
 //Userlikes用假資料(點按喜歡的內容)
-const dummyData = {
-  tweets: [
-    {
-      id: 1,
-      account: "apple123",
-      name: "apple",
-      img: "../assets/images/logo-gray.png",
-      contentText: "滿員御禮!",
-      createdAt: "2022-10-08",
-      reply: ["good", "good", "good"],
-      likeAmount: 520,
-    },
-    {
-      id: 2,
-      account: "apple123",
-      name: "apple",
-      img: "../assets/images/logo-gray.png",
-      contentText: "滿員御禮!",
-      createdAt: "2022-10-08",
-      reply: ["good", "good", "good"],
-      likeAmount: 520,
-    },
-    {
-      id: 3,
-      account: "apple123",
-      name: "apple",
-      img: "../assets/images/logo-gray.png",
-      contentText: "滿員御禮!",
-      createdAt: "2022-10-08",
-      reply: ["good", "good", "good"],
-      likeAmount: 520,
-    },
-    {
-      id: 4,
-      account: "apple123",
-      name: "apple",
-      img: "../assets/images/logo-gray.png",
-      contentText: "滿員御禮!",
-      createdAt: "2022-10-08",
-      reply: ["good", "good", "good"],
-      likeAmount: 520,
-    },
-    {
-      id: 5,
-      account: "apple123",
-      name: "apple",
-      img: "../assets/images/logo-gray.png",
-      contentText: "滿員御禮!",
-      createdAt: "2022-10-08",
-      reply: ["good", "good", "good"],
-      likeAmount: 520,
-    },
-    {
-      id: 6,
-      account: "apple123",
-      name: "apple",
-      img: "../assets/images/logo-gray.png",
-      contentText: "滿員御禮!",
-      createdAt: "2022-10-08",
-      reply: ["good", "good", "good"],
-      likeAmount: 520,
-    },
-  ],
-};
-
-
 
 
 export default {
@@ -109,6 +43,7 @@ export default {
       replies: [],
       repliesKey:0,
       likes: [],
+      likesKey:0,
     };
   },
   created() {
@@ -131,7 +66,7 @@ export default {
         }
 
        this.tweets = data;
-       this.tweetsKey = this.tweetsKey + 1
+   
       } catch (error) {
         //console.log(error);
         this.tweets = [];
@@ -150,7 +85,6 @@ export default {
         const response = await authorizationAPI.getUserReplies(this.$route.params.id);
         const data = response.data;
         console.log(data);
-
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
@@ -167,10 +101,33 @@ export default {
       }
 this.repliesKey = this.repliesKey + 1
     },
-    fetchLikesTweets() {
+    async fetchLikesTweets() {
 
-    
-      this.likes = dummyData.tweets;
+        try {
+        //兩次輸入的密碼需相同
+        const response = await authorizationAPI.getlikeTweets(this.$route.params.id);
+        const data = response.data;
+        console.log(data);
+
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+
+       this.likes = data;
+   
+      } catch (error) {
+      this.likes = [];
+       
+        // Toast.fire({
+        //   icon: "error",
+        //   title: error.message,
+        // });
+     
+      }
+
+   this.likesKey = this.likesKey + 1
+  
+   
     },
 
   },

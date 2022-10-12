@@ -137,5 +137,13 @@ export default {
         }
       );
     },
+    getlikeTweets(userId) {
+      return apiHelper.get(
+        `/users/${userId}/likes`,     
+        {
+          headers: { Authorization: `Bearer ${getToken()}` },
+        }
+      );
+    },
     
 };

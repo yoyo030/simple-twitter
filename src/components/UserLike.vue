@@ -11,10 +11,10 @@
       <div class="tweet-list-text d-flex flex-column">
         <div class="tweet-list-tweet-top d-flex align-items-center">
           <div class="tweet-user-name">
-            {{ tweet.name }}
+            <!-- {{ tweet.User.name }} -->
           </div>
           <div class="tweet-user-account">
-            {{ tweet.account | addPrefix }}
+            <!-- {{ tweet.User.account | addPrefix }} -->
           </div>
           <span>・</span>
           <div class="tweet-user-createdAt">
@@ -23,10 +23,10 @@
         </div>
         <router-link
           class="user-tweets"
-          :to="{ name: 'reply-list', params: { id: tweet.id } }"
+          :to="{ name: 'reply-list', params: { id: tweet.TweetId } }"
         >
           <div class="tweet-contentText">
-            {{ tweet.contentText }}
+            {{ tweet.Tweet.description }}
           </div>
         </router-link>
         <div class="tweet-action d-flex">
@@ -37,7 +37,7 @@
               alt=""
             />
             <div class="tweet-reply-amount number-font">
-              {{ tweet.reply.length }}
+              <!-- {{ tweet.reply.length }} -->
             </div>
           </div>
           <div class="tweet-like d-flex">
@@ -47,7 +47,7 @@
               class="icon cursor-pointer"
             />
             <div class="tweet-like-amount number-font">
-              {{ tweet.likeAmount }}
+              <!-- {{ tweet.likeAmount }} -->
             </div>
           </div>
         </div>
