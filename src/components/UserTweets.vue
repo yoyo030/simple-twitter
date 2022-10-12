@@ -57,7 +57,11 @@
               />
             <div class="tweet-like-amount number-font">
                {{ tweet.likeCount }}
+<<<<<<< HEAD
               {{ tweet.likeCount }} 
+=======
+
+>>>>>>> 547fb9ac22201ed541ed0d17a56fdd8b8c134d69
             </div>
           </div>
         </div>

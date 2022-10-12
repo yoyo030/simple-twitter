@@ -3,7 +3,7 @@
     <div class="tweet d-flex" v-for="tweet in likedTweets" :key="tweet.id">
       
       <img
-        :src="tweet.Tweet.avatar | emptyImage"
+        :src="tweet.Tweet.User.avatar | emptyImage"
         class="tweet-list-tweet-img"
         alt=""
       />
@@ -11,6 +11,7 @@
       <div class="tweet-list-text d-flex flex-column">
         <div class="tweet-list-tweet-top d-flex align-items-center">
           <div class="tweet-user-name">
+<<<<<<< HEAD
              {{ tweet.Tweet.User.name }}
           </div>
           <div class="tweet-user-account">
@@ -19,6 +20,14 @@
           </div>
           <div class="tweet-user-account">
             {{ tweet.Tweet.account | addPrefix }}
+=======
+
+             {{ tweet.Tweet.User.name }}
+          </div>
+          <div class="tweet-user-account">
+            {{ tweet.Tweet.User.account | addPrefix  }}
+
+>>>>>>> 547fb9ac22201ed541ed0d17a56fdd8b8c134d69
           </div>
           <span>・</span>
           <div class="tweet-user-createdAt">

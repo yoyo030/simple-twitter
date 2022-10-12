@@ -84,7 +84,11 @@ import { fromNowFilter } from "../utils/mixins";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
 export default {
+<<<<<<< HEAD
  
+=======
+    mixins: [fromNowFilter,emptyImageFilter],
+>>>>>>> 547fb9ac22201ed541ed0d17a56fdd8b8c134d69
       filters: {
     addPrefix(account) {
       if (!account) {
@@ -96,7 +100,11 @@ export default {
   
   },
   name: "ReplyModal",
+<<<<<<< HEAD
   mixins: [fromNowFilter, emptyImageFilter],
+=======
+
+>>>>>>> 547fb9ac22201ed541ed0d17a56fdd8b8c134d69
   data() {
     return {
       text: "",
