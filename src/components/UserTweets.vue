@@ -36,38 +36,37 @@
               @click.stop.prevent="openModal(tweet)"
             />
             <div class="tweet-reply-amount number-font">
-              {{ tweet.replyCount }} 
+              {{ tweet.replyCount }}
             </div>
           </div>
           <div class="tweet-like d-flex">
-          
-             <img
-                v-if="!tweet.isLike"
-                src="../assets/images/like.png"
-                alt=""
-                class="icon cursor-pointer"
-                @click="like(tweet)"
-              />
-              <img
-                v-else
-                src="../assets/images/isliked.png"
-                alt=""
-                class="icon cursor-pointer"
-                @click="unlike(tweet)"
-              />
+            <img
+              v-if="!tweet.isLike"
+              src="../assets/images/like.png"
+              alt=""
+              class="icon cursor-pointer"
+              @click="like(tweet)"
+            />
+            <img
+              v-else
+              src="../assets/images/isliked.png"
+              alt=""
+              class="icon cursor-pointer"
+              @click="unlike(tweet)"
+            />
             <div class="tweet-like-amount number-font">
-               {{ tweet.likeCount }}
-<<<<<<< HEAD
-              {{ tweet.likeCount }} 
-=======
-
->>>>>>> 547fb9ac22201ed541ed0d17a56fdd8b8c134d69
+              {{ tweet.likeCount }}
             </div>
           </div>
         </div>
       </div>
     </div>
-      <ReplyModal v-if="show" @close="closeModal" :tweet="tweet" :key ="tweetKey"/>
+    <ReplyModal
+      v-if="show"
+      @close="closeModal"
+      :tweet="tweet"
+      :key="tweetKey"
+    />
   </div>
 </template>
 
@@ -78,6 +77,7 @@ import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
 import { mapState } from "vuex";
 import { emptyImageFilter } from "./../utils/mixins";
+
 export default {
   name: "userTweets",
   mixins: [fromNowFilter, emptyImageFilter],
@@ -91,9 +91,9 @@ export default {
   data() {
     return {
       tweets: this.initialTweets,
-       show: false, //控制modal用
+      show: false, //控制modal用
     };
-  },  
+  },
   components: {
     ReplyModal,
   },
@@ -107,17 +107,15 @@ export default {
       }
     },
   },
-  methods:{
-      openModal(tweet) {  
-      this.tweet = tweet
-      this.tweetKey = this.tweetKey + 1,
-      this.show = true;
+  methods: {
+    openModal(tweet) {
+      this.tweet = tweet;
+      (this.tweetKey = this.tweetKey + 1), (this.show = true);
     },
     closeModal() {
       this.show = false;
     },
-        async like(t) {
-   
+    async like(t) {
       try {
         t.isLike = true;
         t.likeCount = t.likeCount + 1;
@@ -130,21 +128,17 @@ export default {
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
-          Toast.fire({
-           icon: "success",
-           title: "按讚成功!",
-         });
-      
-     
+        Toast.fire({
+          icon: "success",
+          title: "按讚成功!",
+        });
       } catch (error) {
         console.log(error);
-         Toast.fire({
-           icon: "warning",
-           title: error.message,
-         });
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
       }
-
-
     },
     async unlike(t) {
       try {
@@ -159,22 +153,20 @@ export default {
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
-          Toast.fire({
-           icon: "success",
-           title: "成功收回讚!",
-         });
-        
+        Toast.fire({
+          icon: "success",
+          title: "成功收回讚!",
+        });
       } catch (error) {
-         console.log(error);
-         Toast.fire({
-           icon: "warning",
-           title: error.message,
-         });
+        console.log(error);
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
       }
     },
-
   },
-   computed: {
+  computed: {
     ...mapState(["currentUser", "isAuthenticated"]),
   },
 };

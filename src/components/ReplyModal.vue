@@ -13,50 +13,56 @@
         <div class="modal-body">
           <!--擷取點擊該推文資訊-->
           <div class="reply">
-            
             <div class="d-flex">
-            <!--待串接後用v-bind改為該推文作者img-->
-            <!--:src="tweet.avatar | emptyImage"-->
-            <img src="../assets/images/logo-gray.png" class="user-img" alt="" />
-
-            <div class="reply-list-text d-flex flex-column">
-              <div class="tweet-list-tweet-top d-flex align-items-center">
-                <div class="tweet-user-name">
-                  {{ tweet.User.name }}
-                </div>
-                <div class="tweet-user-account">
-                  {{ tweet.User.account | addPrefix }}
-                </div>
-                <span>・</span>
-                <div class="tweet-user-createdAt">
-                  {{ tweet.createdAt | date }} 
-                </div>
-              </div>
-
-              <div class="tweet-contentText">
-                {{ tweet.description }}
-                <div class="tweet-account">
-                  <span class="reply-span">回覆給</span>
-                  {{ tweet.User.account | addPrefix }}
-                </div>
-              </div>
-            </div>
-            </div>
-             <div class="reply-content d-flex">
               <!--待串接後用v-bind改為該推文作者img-->
-            <!--:src="取得目前使用者.avatar | emptyImage"-->
-            <img src="../assets/images/ac-logo.png" alt="" class="avatar" />
-            <textarea class="tweet" placeholder="推你的回覆" v-model="text">
-            </textarea>
-          </div>
-          <div class="modal-footer d-flex justify-content-end">
-            <div class="warn" v-show="textWarn">字數不可超過140字</div>
-            <div class="warn" v-show="noInputWarn">內容不可空白</div>
-            <button class="modal-tweet-button" :disabled="isLoading" @click="handleSubmit">
-              回覆
-            </button>
-          </div>
-         
+              <!--:src="tweet.avatar | emptyImage"-->
+              <img
+                src="../assets/images/logo-gray.png"
+                class="user-img"
+                alt=""
+              />
+
+              <div class="reply-list-text d-flex flex-column">
+                <div class="tweet-list-tweet-top d-flex align-items-center">
+                  <div class="tweet-user-name">
+                    {{ tweet.User.name }}
+                  </div>
+                  <div class="tweet-user-account">
+                    {{ tweet.User.account | addPrefix }}
+                  </div>
+                  <span>・</span>
+                  <div class="tweet-user-createdAt">
+                    {{ tweet.createdAt | date }}
+                  </div>
+                </div>
+
+                <div class="tweet-contentText">
+                  {{ tweet.description }}
+                  <div class="tweet-account">
+                    <span class="reply-span">回覆給</span>
+                    {{ tweet.User.account | addPrefix }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="reply-content d-flex">
+              <!--待串接後用v-bind改為該推文作者img-->
+              <!--:src="取得目前使用者.avatar | emptyImage"-->
+              <img src="../assets/images/ac-logo.png" alt="" class="avatar" />
+              <textarea class="tweet" placeholder="推你的回覆" v-model="text">
+              </textarea>
+            </div>
+            <div class="modal-footer d-flex justify-content-end">
+              <div class="warn" v-show="textWarn">字數不可超過140字</div>
+              <div class="warn" v-show="noInputWarn">內容不可空白</div>
+              <button
+                class="modal-tweet-button"
+                :disabled="isLoading"
+                @click="handleSubmit"
+              >
+                回覆
+              </button>
+            </div>
           </div>
         </div>
       </form>
@@ -83,13 +89,12 @@ import { emptyImageFilter } from "./../utils/mixins";
 import { fromNowFilter } from "../utils/mixins";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
+
 export default {
-<<<<<<< HEAD
- 
-=======
-    mixins: [fromNowFilter,emptyImageFilter],
->>>>>>> 547fb9ac22201ed541ed0d17a56fdd8b8c134d69
-      filters: {
+  name: "ReplyModal",
+  mixins: [fromNowFilter, emptyImageFilter],
+
+  filters: {
     addPrefix(account) {
       if (!account) {
         return "未提供帳號資訊";
@@ -97,14 +102,8 @@ export default {
         return `@${account}`;
       }
     },
-  
   },
-  name: "ReplyModal",
-<<<<<<< HEAD
-  mixins: [fromNowFilter, emptyImageFilter],
-=======
 
->>>>>>> 547fb9ac22201ed541ed0d17a56fdd8b8c134d69
   data() {
     return {
       text: "",
@@ -113,7 +112,6 @@ export default {
       noInputWarn: false,
       //tweet: dummyData.tweet, //待解決
     };
-    
   },
   props: {
     //從views/ReplyList帶入dummydata，待串接API以及點擊功能id===id
@@ -122,7 +120,6 @@ export default {
       required: true,
     },
   },
-
 
   methods: {
     //提交推文事件，待完成(僅寫出送出條件)
@@ -139,12 +136,12 @@ export default {
         return (this.noInputWarn = true);
       }
 
-  try {
-
-
-
-       //兩次輸入的密碼需相同
-        const response = await authorizationAPI.createReplies(this.tweet.id,this.text);
+      try {
+        //兩次輸入的密碼需相同
+        const response = await authorizationAPI.createReplies(
+          this.tweet.id,
+          this.text
+        );
         const data = response.data;
         console.log(data);
 
@@ -156,8 +153,7 @@ export default {
           icon: "success",
           title: `回覆成功 !`,
         });
-       this.$router.go(this.$router.currentRoute)
-
+        this.$router.go(this.$router.currentRoute);
       } catch (error) {
         console.log(error);
         Toast.fire({
@@ -165,8 +161,6 @@ export default {
           title: error.message,
         });
       }
-
-
     },
   },
 };
@@ -175,14 +169,14 @@ export default {
 
 
 <style scoped>
-
 /* Modal專用樣式 */
 .modal-body {
   all: unset;
 }
 .modal-container {
+  height: 100%;
   position: relative;
-  height: 500px;
+
 }
 .reply {
   border-bottom: 0;
@@ -201,10 +195,9 @@ export default {
   bottom: 20px;
 }
 .warn {
- position: absolute;
- bottom: 20px;
- right: 120px;
+  position: absolute;
+  bottom: 20px;
+  right: 120px;
 }
-
 </style>
 
