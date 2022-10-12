@@ -91,6 +91,7 @@
                   <textarea
                     v-model="currentUserTemp.introduction"
                     id="description"
+                    name="introduction"
                     class="form-control edit-description"
                     type="text"
                   >
@@ -220,8 +221,11 @@ export default {
       //確認表單通過條件審核，並帶入編輯後資料
       if (this.checkForm()) return;
       const formData = new FormData(this.$refs.form);
-      try {
 
+      //       for (var pair of formData.entries()) {
+      //     console.log(pair[0]+ ', ' + pair[1]);
+      // }
+      try {
         const response = await authorizationAPI.settingSave(
           this.currentUser.id,
           formData
@@ -240,11 +244,11 @@ export default {
           title: `修改成功 !`,
         });
 
-        this.currentUserTemp.cover = data.data.cover
-        this.currentUserTemp.avatar = data.data.avatar
+        this.currentUserTemp.cover = data.data.cover;
+        this.currentUserTemp.avatar = data.data.avatar;
 
         this.$store.commit("setCurrentUser", this.currentUserTemp);
-        this.$router.go(this.$router.currentRoute)
+        this.$router.go(this.$router.currentRoute);
       } catch (error) {
         console.log(error);
         Toast.fire({
@@ -307,4 +311,3 @@ export default {
   height: 625px;
 }
 </style>
-

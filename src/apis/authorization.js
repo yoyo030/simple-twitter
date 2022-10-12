@@ -119,6 +119,23 @@ export default {
         }
       );
     },
-
+    likeTweets(userId,tweetId) {
+      return apiHelper.post(      
+        `/tweets/${tweetId}/like`,
+        { userId,},
+        {
+          headers: { Authorization: `Bearer ${getToken()}` },
+        }
+      );
+    },
+    unlikeTweets(userId,tweetId) {
+      return apiHelper.post(
+        `/tweets/${tweetId}/unlike`,
+        { userId },
+        {
+          headers: { Authorization: `Bearer ${getToken()}` },
+        }
+      );
+    },
     
 };
