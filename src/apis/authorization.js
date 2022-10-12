@@ -145,5 +145,22 @@ export default {
         }
       );
     },
-    
+    createReplies(tweetId,comment) {
+      return apiHelper.post(
+        `/tweets/${tweetId}/replies`,
+        {
+          comment, 
+        },
+        {
+          headers: { Authorization: `Bearer ${getToken()}` },
+        }
+      );
+    },
+    // getTweet api 成功 獲取一篇貼文(沒有抓到此貼文的回覆)
+    getTweetReplies(id) {
+      return apiHelper.get(`/tweets/${id}/replies`, {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      });
+    },
+
 };

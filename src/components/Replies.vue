@@ -5,8 +5,8 @@
         <!--待串接後改為使用者img-->
         <img class="user-img" src="../assets/images/logo-gray.png" />
         <span class="info">
-          <div class="name">{{ tweet.User.name }}</div>
-          <div class="account">{{ tweet.User.account | addPrefix  }}</div>
+          <div v-if ="tweet.User!=null" class="name">{{ tweet.User.name }}</div>
+          <div v-if ="tweet.User!=null" class="account">{{ tweet.User.account | addPrefix  }}</div>
         </span>
       </div>
       <div class="d-flex align-items-center">
@@ -18,19 +18,19 @@
       <div class="line"></div>
       <div class="reply-action-amount d-flex">
         <div class="amount number-font d-flex">
-          <!-- {{ `${tweet.reply.length}` }} -->
+           {{ `${tweet.replyCount}` }} 
           <p>回覆</p>
         </div>
         <div class="amount number-font d-flex">
-          {{ tweet.likeAmount }}
+          {{ tweet.likeCount }}
           <p>喜歡次數</p>
         </div>
       </div>
       <div class="reply-action d-flex">
         <img
           src="../assets/images/reply.png"
-          class="reply-reply-icon cursor-pointer"
-          alt=""
+          class="reply-reply-icon cursor-pointer"     
+        @click.stop.prevent="openModal(tweet)"
         />
         <img
           src="../assets/images/like.png"
@@ -48,32 +48,36 @@
         <div class="reply-list-text d-flex flex-column">
           <div class="tweet-list-tweet-top d-flex align-items-center">
             <div class="tweet-user-name">
-              {{ reply.name }}
+              {{ reply.User.name }}
             </div>
             <div class="tweet-user-account">
-              {{ reply.account | addPrefix }}
+              {{ reply.User.account | addPrefix }}
             </div>
             <span>・</span>
             <div class="tweet-user-createdAt">
-              {{ reply.createdAt | fromNow }}
+              {{ reply.User.createdAt | fromNow }}
             </div>
           </div>
           <div class="tweet-account">
             <span class="reply-span">回覆</span>
-            {{ tweet.account | addPrefix }}
+            {{ tweet.User.account | addPrefix }}
           </div>
           <div class="tweet-contentText">
-            {{ reply.contentText }}
+            {{ reply.comment }}
           </div>
         </div>
       </div>
+         <ReplyModal v-if="show" @close="closeModal" :tweet="tweet" :key ="tweetKey"/>
     </div>
+
   </div>
 </template>
 
 <script>
 import { fromNowFilter } from "../utils/mixins";
-
+import ReplyModal from "../components/ReplyModal.vue";
+import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
 export default {
   name: "ReplyList",
   mixins: [fromNowFilter],
@@ -84,9 +88,13 @@ export default {
       required: true,
     },
   },
+  components: {
+    ReplyModal,
+  },
   data() {
     return {
       tweet: this.initialTweet,
+     show: false, //控制modal用
     };
   },
 
@@ -99,6 +107,76 @@ export default {
       }
     },
   },
+methods:{
+      openModal(tweet) {  
+      this.tweet = tweet
+      this.tweetKey = this.tweetKey + 1,
+      this.show = true;
+    },
+    closeModal() {
+      this.show = false;
+    },
+    //尚未綁定按鈕
+   async like(t) {
+     
+      try {
+        t.islike = true;
+        t.likeCount = t.likeCount + 1;
+        const response = await authorizationAPI.likeTweets(
+          this.currentUser.id,
+          t.id
+        );
+        const data = response.data;
+        //console.log(data);
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+          Toast.fire({
+           icon: "success",
+           title: "按讚成功!",
+         });
+      
+     
+      } catch (error) {
+        console.log(error);
+         Toast.fire({
+           icon: "warning",
+           title: error.message,
+         });
+      }
+
+
+    },
+    async unlike(t) {
+      try {
+        t.islike = false;
+        t.likeCount = t.likeCount - 1;
+        const response = await authorizationAPI.unlikeTweets(
+          this.currentUser.id,
+          t.id
+        );
+        const data = response.data;
+        //console.log(data);
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+          Toast.fire({
+           icon: "success",
+           title: "成功收回讚!",
+         });
+        
+      } catch (error) {
+         console.log(error);
+         Toast.fire({
+           icon: "warning",
+           title: error.message,
+         });
+      }
+    },
+
+}
+   
+ 
 
 };
 </script>

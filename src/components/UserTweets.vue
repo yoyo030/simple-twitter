@@ -34,31 +34,45 @@
             <img
               src="../assets/images/reply.png"
               class="icon cursor-pointer"
-              alt=""
+              @click.stop.prevent="openModal(tweet)"
             />
             <div class="tweet-reply-amount number-font">
-              <!-- {{ tweet.reply.length }} -->回應數
+              {{ tweet.replyCount }} 
             </div>
           </div>
           <div class="tweet-like d-flex">
-            <img
-              src="../assets/images/like.png"
-              alt=""
-              class="icon cursor-pointer"
-            />
+          
+             <img
+                v-if="!tweet.isLike"
+                src="../assets/images/like.png"
+                alt=""
+                class="icon cursor-pointer"
+                @click="like(tweet)"
+              />
+              <img
+                v-else
+                src="../assets/images/isliked.png"
+                alt=""
+                class="icon cursor-pointer"
+                @click="unlike(tweet)"
+              />
             <div class="tweet-like-amount number-font">
-              <!-- {{ tweet.likeAmount }} -->喜歡數
+               {{ tweet.likeCount }}
             </div>
           </div>
         </div>
       </div>
     </div>
+      <ReplyModal v-if="show" @close="closeModal" :tweet="tweet" :key ="tweetKey"/>
   </div>
 </template>
 
 <script>
 import { fromNowFilter } from "../utils/mixins";
-
+import ReplyModal from "../components/ReplyModal.vue";
+import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
+import { mapState } from "vuex";
 export default {
   name: "userTweets",
   mixins: [fromNowFilter],
@@ -72,7 +86,11 @@ export default {
   data() {
     return {
       tweets: this.initialTweets,
+       show: false, //控制modal用
     };
+  },  
+  components: {
+    ReplyModal,
   },
 
   filters: {
@@ -83,6 +101,76 @@ export default {
         return `@${account}`;
       }
     },
+  },
+  methods:{
+      openModal(tweet) {  
+      this.tweet = tweet
+      this.tweetKey = this.tweetKey + 1,
+      this.show = true;
+    },
+    closeModal() {
+      this.show = false;
+    },
+        async like(t) {
+   
+      try {
+        t.isLike = true;
+        t.likeCount = t.likeCount + 1;
+        const response = await authorizationAPI.likeTweets(
+          this.currentUser.id,
+          t.id
+        );
+        const data = response.data;
+        //console.log(data);
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+          Toast.fire({
+           icon: "success",
+           title: "按讚成功!",
+         });
+      
+     
+      } catch (error) {
+        console.log(error);
+         Toast.fire({
+           icon: "warning",
+           title: error.message,
+         });
+      }
+
+
+    },
+    async unlike(t) {
+      try {
+        t.isLike = false;
+        t.likeCount = t.likeCount - 1;
+        const response = await authorizationAPI.unlikeTweets(
+          this.currentUser.id,
+          t.id
+        );
+        const data = response.data;
+        //console.log(data);
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+          Toast.fire({
+           icon: "success",
+           title: "成功收回讚!",
+         });
+        
+      } catch (error) {
+         console.log(error);
+         Toast.fire({
+           icon: "warning",
+           title: error.message,
+         });
+      }
+    },
+
+  },
+   computed: {
+    ...mapState(["currentUser", "isAuthenticated"]),
   },
 };
 </script>

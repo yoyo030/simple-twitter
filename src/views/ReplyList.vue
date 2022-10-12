@@ -59,8 +59,7 @@ export default {
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
-       this.tweet = data;this.key=2
-      
+       this.tweet = data;
         
       } catch (error) {
         console.log(error);
@@ -69,6 +68,25 @@ export default {
           title: `資料載入失敗 !`,
         });
       }
+
+        try {
+        const response1 = await authorizationAPI.getTweetReplies(this.$route.params.id);
+        const data1 = response1.data;
+        console.log(data1);
+        if (data1.status && data1.status !== "success") {
+          throw new Error(data1.message);
+        }
+       this.tweet.reply = data1
+ 
+      } catch (error) {
+        console.log(error);
+        //   Toast.fire({
+        //   icon: "warning",
+        //   title: `資料載入失敗 !`,
+        // });
+      }
+
+      this.key= this.key +1
     },
 
   },

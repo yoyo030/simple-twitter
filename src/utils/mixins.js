@@ -7,6 +7,9 @@ export const fromNowFilter = {
     },
     replyListTime(datetime) {
       return datetime ? moment(datetime).format('LLLL') : '-'
+    },
+    date(datetime) {
+      return datetime ? moment(datetime).format('L') : '-'
     }
   },
 }

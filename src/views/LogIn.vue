@@ -97,7 +97,7 @@ export default {
            account: this.account, password: this.password 
         });
         let data = response.data
-        console.log(data)
+        //console.log(data)
 
         //await跑完才會來這裡,判斷身分認證是否成功
         if (data.status !== "success") {
