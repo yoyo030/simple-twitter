@@ -99,13 +99,15 @@ methods: {
 <style scoped>
 /*追蹤者樣板專用可視區域設定，用來控制scrollbar*/ 
 .profile-nav-list {
-  height: 80vh;
+  height: 85vh;
 }
 .btn-isFollowed {
- margin-left: 290px;
+  position: absolute;
+  right: 35px;
 }
 .btn-unFollow {
-  margin-left: 320px; 
+  position: absolute;
+  right: 35px;
 }
 
 </style>

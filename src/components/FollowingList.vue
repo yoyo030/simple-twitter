@@ -4,7 +4,7 @@
         v-for="following in followings" :key="following.id">
         <!--待串接後用v-bind改為使用者img-->
         <img
-         :src="follower.avatar | emptyImage"
+         :src="following.avatar | emptyImage"
          class="user-img"
          alt="" />
 
@@ -39,7 +39,7 @@
 import { emptyImageFilter } from "./../utils/mixins";
 
 export default {
-  name: "userFollower",
+  name: "userFollowing",
   mixins: [emptyImageFilter],
 
   props: {
@@ -99,13 +99,15 @@ export default {
 <style scoped>
 /*追蹤者樣板專用可視區域設定，用來控制scrollbar*/ 
 .profile-nav-list {
-  height: 80vh;
+  height: 85vh;
 }
 .btn-isFollowed {
- margin-left: 290px;
+  position: absolute;
+  right: 35px;
 }
 .btn-unFollow {
-  margin-left: 320px; 
+  position: absolute;
+  right: 35px;
 }
 
 </style>

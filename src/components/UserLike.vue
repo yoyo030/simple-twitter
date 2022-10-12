@@ -13,15 +13,7 @@
           <div class="tweet-user-name">
              {{ tweet.Tweet.User.name }}
           </div>
-          <div class="tweet-user-account">
-            {{ tweet.Tweet.User.account }}
-            {{ tweet.Tweet.name }}
-          </div>
-          <div class="tweet-user-account">
-            {{ tweet.Tweet.account | addPrefix }}
 
-             {{ tweet.Tweet.User.name }}
-          </div>
           <div class="tweet-user-account">
             {{ tweet.Tweet.User.account | addPrefix  }}
 
