@@ -11,10 +11,10 @@
       <div class="tweet-list-text d-flex flex-column">
         <div class="tweet-list-tweet-top d-flex align-items-center">
           <div class="tweet-user-name">
-            <!-- {{ tweet.User.name }} -->
+             {{ tweet.Tweet.User.name }}
           </div>
           <div class="tweet-user-account">
-            <!-- {{ tweet.User.account | addPrefix }} -->
+            {{ tweet.Tweet.User.account }}
           </div>
           <span>・</span>
           <div class="tweet-user-createdAt">
@@ -34,7 +34,7 @@
             <img
               src="../assets/images/reply.png"
               class="icon cursor-pointer"
-              alt=""
+              @click.stop.prevent="openModal(tweet.Tweet)"
             />
             <div class="tweet-reply-amount number-font">
               <!-- {{ tweet.reply.length }} -->
@@ -53,12 +53,13 @@
         </div>
       </div>
     </div>
+      <ReplyModal v-if="show" @close="closeModal" :tweet="tweet" :key ="tweetKey"/>
   </div>
 </template>
 
 <script>
 import { fromNowFilter } from "../utils/mixins";
-
+import ReplyModal from "../components/ReplyModal.vue";
 export default {
   name: "userLike",
   mixins: [fromNowFilter],
@@ -69,9 +70,15 @@ export default {
       required: true,
     },
   },
+   components: {
+    ReplyModal,
+  },
   data() {
     return {
       likedTweets: this.initialLikes,
+       show: false, //控制modal用
+       tweet:{},
+       tweetKey:0
     };
   },
 
@@ -84,6 +91,17 @@ export default {
       }
     },
   },
+   methods:{
+      openModal(tweet) {
+      alert('dfd');
+      this.tweet = tweet
+      this.tweetKey = this.tweetKey + 1,
+      this.show = true;
+    },
+     closeModal() {
+      this.show = false;
+    },
+}
 };
 </script>
 

@@ -77,7 +77,7 @@
                 src="../assets/images/reply.png"
                 class="icon cursor-pointer"
                 alt=""
-                @click.stop.prevent="openModal()"
+                @click.stop.prevent="openModal(tweet)"
               />
 
               <div class="tweet-reply-amount number-font">
@@ -108,7 +108,7 @@
         </div>
       </div>
     </div>
-    <ReplyModal v-if="show" @close="closeModal" />
+    <ReplyModal v-if="show" @close="closeModal" :tweet="tweet" :key ="tweetKey"/>
   </div>
 </template>
 
@@ -130,6 +130,8 @@ export default {
     return {
       tweets: [],
       show: false, //控制modal用
+      tweet: {},
+      tweetKey:0
     };
   },
   filters: {
@@ -150,7 +152,9 @@ export default {
   },
   methods: {
     //Modal操作
-    openModal() {
+    openModal(tweet) {
+      this.tweet = tweet
+      this.tweetKey = this.tweetKey + 1,
       this.show = true;
     },
     closeModal() {

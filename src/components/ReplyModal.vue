@@ -20,14 +20,14 @@
             <div class="reply-list-text d-flex flex-column">
               <div class="tweet-list-tweet-top d-flex align-items-center">
                 <div class="tweet-user-name">
-                  {{ tweet.name }}
+                  {{ tweet.User.name }}
                 </div>
                 <div class="tweet-user-account">
-                  {{ tweet.account | addPrefix }}
+                  {{ tweet.User.account | addPrefix }}
                 </div>
                 <span>・</span>
                 <div class="tweet-user-createdAt">
-                  {{ tweet.createdAt | fromNow }}
+                  {{ tweet.createdAt | date }} 
                 </div>
               </div>
 
@@ -35,7 +35,7 @@
                 {{ tweet.description }}
                 <div class="tweet-account">
                   <span class="reply-span">回覆給</span>
-                  {{ tweet.account | addPrefix }}
+                  {{ tweet.User.account | addPrefix }}
                 </div>
               </div>
             </div>
@@ -48,7 +48,7 @@
           <div class="modal-footer d-flex justify-content-end">
             <div class="warn" v-show="textWarn">字數不可超過140字</div>
             <div class="warn" v-show="noInputWarn">內容不可空白</div>
-            <button class="modal-tweet-button" :disabled="isLoading">
+            <button class="modal-tweet-button" :disabled="isLoading" @click="handleSubmit">
               回覆
             </button>
           </div>
@@ -63,36 +63,55 @@
 
 <script>
 //嘗試將TweetList資料點擊後帶入失敗，待解決
-const dummyData = {
-  tweet: {
-    id: 1,
-    account: "apple123",
-    name: "apple",
-    img: "../assets/images/logo-gray.png",
-    description: "滿員御禮!滿員御禮!",
-    createdAt: "2022-10-08",
-    reply: ["good", "good", "good"],
-    likeAmount: 520,
-  },
-};
-
+// const dummyData = {
+//   tweet: {
+//     id: 1,
+//     account: "apple123",
+//     name: "apple",
+//     img: "../assets/images/logo-gray.png",
+//     description: "滿員御禮!滿員御禮!",
+//     createdAt: "2022-10-08",
+//     reply: ["good", "good", "good"],
+//     likeAmount: 520,
+//   },
+// };
+import { fromNowFilter } from "../utils/mixins";
+import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
 export default {
+    mixins: [fromNowFilter],
+      filters: {
+    addPrefix(account) {
+      if (!account) {
+        return "未提供帳號資訊";
+      } else {
+        return `@${account}`;
+      }
+    },
+  
+  },
   data() {
     return {
       text: "",
       isLoading: false,
       textWarn: false,
       noInputWarn: false,
-      tweet: dummyData.tweet, //待解決
+      //tweet: dummyData.tweet, //待解決
     };
+    
   },
-  created() {
-    this.getpost();
+  props: {
+    //從views/ReplyList帶入dummydata，待串接API以及點擊功能id===id
+    tweet: {
+      type: Object,
+      required: true,
+    },
   },
+
 
   methods: {
     //提交推文事件，待完成(僅寫出送出條件)
-    handleSubmit() {
+    async handleSubmit() {
       this.isLoading = true;
       if (this.text.trim().length > 140) {
         this.isLoading = false;
@@ -104,6 +123,35 @@ export default {
         this.isLoading = false;
         return (this.noInputWarn = true);
       }
+
+  try {
+
+
+
+       //兩次輸入的密碼需相同
+        const response = await authorizationAPI.createReplies(this.tweet.id,this.text);
+        const data = response.data;
+        console.log(data);
+
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: `回覆成功 !`,
+        });
+       this.$router.go(this.$router.currentRoute)
+
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "error",
+          title: error.message,
+        });
+      }
+
+
     },
   },
 };
