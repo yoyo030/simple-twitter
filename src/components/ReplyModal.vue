@@ -115,6 +115,16 @@ export default {
     };
     
   },
+    filters: {
+    addPrefix(account) {
+      if (!account) {
+        return "未提供帳號資訊";
+      } else {
+        return `@${account}`;
+      }
+    },
+  
+  },
   props: {
     //從views/ReplyList帶入dummydata，待串接API以及點擊功能id===id
     tweet: {
