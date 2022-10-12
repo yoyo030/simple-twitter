@@ -92,8 +92,7 @@ export default {
     },
   },
    methods:{
-      openModal(tweet) {
-      alert('dfd');
+      openModal(tweet) {    
       this.tweet = tweet
       this.tweetKey = this.tweetKey + 1,
       this.show = true;
