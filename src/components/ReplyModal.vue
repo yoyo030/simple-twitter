@@ -83,28 +83,9 @@ import { emptyImageFilter } from "./../utils/mixins";
 import { fromNowFilter } from "../utils/mixins";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
-export default {
-<<<<<<< HEAD
- 
-=======
-    mixins: [fromNowFilter,emptyImageFilter],
->>>>>>> 547fb9ac22201ed541ed0d17a56fdd8b8c134d69
-      filters: {
-    addPrefix(account) {
-      if (!account) {
-        return "未提供帳號資訊";
-      } else {
-        return `@${account}`;
-      }
-    },
-  
-  },
+export default {    
   name: "ReplyModal",
-<<<<<<< HEAD
   mixins: [fromNowFilter, emptyImageFilter],
-=======
-
->>>>>>> 547fb9ac22201ed541ed0d17a56fdd8b8c134d69
   data() {
     return {
       text: "",
@@ -115,15 +96,14 @@ export default {
     };
     
   },
-    filters: {
+  filters: {
     addPrefix(account) {
       if (!account) {
         return "未提供帳號資訊";
       } else {
         return `@${account}`;
       }
-    },
-  
+    },  
   },
   props: {
     //從views/ReplyList帶入dummydata，待串接API以及點擊功能id===id

@@ -238,6 +238,11 @@ export default {
         //   return (this.noInputWarn = true);
         // }
 
+        if (this.text.trim().length === 0) {
+          return false
+        }
+
+
         //兩次輸入的密碼需相同
         const response = await authorizationAPI.insertTweets(this.text);
         const data = response.data;
