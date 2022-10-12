@@ -10,8 +10,8 @@ export default {
     })
   },
   //刪除貼文
-  deleteTweet({ id }) {
-    return apiHelper.delete(`/admin/tweets/${id}`, {
+  deleteTweet({ tweetId }) {
+    return apiHelper.delete(`/admin/tweets/${tweetId}`, {
        headers: { Authorization: `Bearer ${getToken()}` }
     })
   },
