@@ -18,7 +18,7 @@
               class=""
             >
               <div class="name">
-                {{ user.name }}
+                {{ user.name | nameLengthLimit}}
               </div>
             </router-link>
             <div class="account">
@@ -71,8 +71,6 @@ export default {
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
-
-
       } catch (error) {
         console.log(error);
         Toast.fire({
@@ -90,13 +88,12 @@ export default {
         if (followedData.status && followedData.status !== "success") {
           throw new Error(followedData.message);
         }
-        
+
         user.isFollowing = true;
         Toast.fire({
           icon: "success",
           title: "追蹤成功",
         });
-
       } catch (error) {
         console.log(error);
         Toast.fire({
@@ -136,6 +133,16 @@ export default {
       } else {
         return `@${account}`;
       }
+    },
+    nameLengthLimit(name) {
+      const re = /^[A-Za-z]+$/;
+      if (name.length > 6) {
+        if (name.match(re) === null) {
+          return `${name.slice(0, 4)}...`;
+        } else {
+          return `${name.slice(0, 6)}...`;
+        }
+      } return name
     },
   },
   //串接API後使用，本人以外挑選10個

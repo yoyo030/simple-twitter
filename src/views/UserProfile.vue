@@ -52,7 +52,9 @@
           </button>
         </div>
         <div class="user-profile-main">
+          <div class="user-title-div">
           <h5 class="user-title">{{ userInfo.name }}</h5>
+          </div>
           <div class="tweet-user-account">
             {{ userInfo.account | addPrefix }}
           </div>
@@ -299,5 +301,8 @@ export default {
 .btn-isFollowed {
   position: absolute;
   right: 20px;
+}
+.user-title-div {
+  width: 76%;
 }
 </style>
