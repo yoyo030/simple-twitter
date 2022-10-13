@@ -42,7 +42,7 @@
               @click.stop.prevent="openModal(tweet.Tweet)"
             />
             <div class="tweet-reply-amount number-font">
-              <!-- {{ tweet.reply.length }}-->
+              {{ tweet.Tweet.replyCount }}
             </div>
           </div>
           <div class="tweet-like d-flex">

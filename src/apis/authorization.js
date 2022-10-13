@@ -48,139 +48,136 @@ export default {
     });
   },
 
-    // getTweet api 成功 獲取一篇貼文(沒有抓到此貼文的回覆)
-    getTweet(id) {
-      return apiHelper.get(`/tweets/${id}`, {
-        headers: { Authorization: `Bearer ${getToken()}` },
-      });
-    },
-    //串api尚未成功
-    getTweetsReplies(id) {
-      return apiHelper.get(`/tweets/${id}/replies`, {
-        headers: { Authorization: `Bearer ${getToken()}` },
-      });
-    },
+  // getTweet api 成功 獲取一篇貼文(沒有抓到此貼文的回覆)
+  getTweet(id) {
+    return apiHelper.get(`/tweets/${id}`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
+  //串api尚未成功
+  getTweetsReplies(id) {
+    return apiHelper.get(`/tweets/${id}/replies`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
 
-    getUserInfo(id) {      
-      return apiHelper.get(`/users/${id}`, {
-        headers: { Authorization: `Bearer ${getToken()}` },
-      });
-    },
-    getUserFollowers(id) {      
-      return apiHelper.get(`/users/${id}/followers`, {
-        headers: { Authorization: `Bearer ${getToken()}` },
-      });
-    },
-    getUserFollowing(id) {      
-      return apiHelper.get(`/users/${id}/followings`, {
-        headers: { Authorization: `Bearer ${getToken()}` },
-      });
-    },
+  getUserInfo(id) {
+    return apiHelper.get(`/users/${id}`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
+  getUserFollowers(id) {
+    return apiHelper.get(`/users/${id}/followers`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
+  getUserFollowing(id) {
+    return apiHelper.get(`/users/${id}/followings`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
 
-    getTopUser() {      
-      return apiHelper.get(`/followships/followers/top10`, {
-        headers: { Authorization: `Bearer ${getToken()}` },
-      });
-    },
+  getTopUser() {
+    return apiHelper.get(`/followships/followers/top10`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
 
-  
 
-    followed(id) {
-      return apiHelper.post(
-        `/followships`,
-        { id },
-        {
-          headers: { Authorization: `Bearer ${getToken()}` },
-        }
-      );
-    },
-    unfollowed(id) {
-      return apiHelper.delete(`/followships/${id}`, {
-        headers: { Authorization: `Bearer ${getToken()}` },
-      });
-    },
 
-    getUserTweets(id) {
-      return apiHelper.get(`/users/${id}/tweets`, {
+  followed(id) {
+    return apiHelper.post(
+      `/followships`, { id },
+      { headers: { Authorization: `Bearer ${getToken()}` }, }
+    );
+  },
+  unfollowed(id) {
+    return apiHelper.delete(`/followships/${id}`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
+
+  getUserTweets(id) {
+    return apiHelper.get(`/users/${id}/tweets`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
+  getUserReplies(id) {
+    return apiHelper.get(`/users/${id}/replied_tweets`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
+
+  insertTweets(description) {
+    return apiHelper.post(
+      "/tweets",
+      {
+        description, // req.body.description
+      },
+      {
         headers: { Authorization: `Bearer ${getToken()}` },
-      });
-    },
-    getUserReplies(id) {
-      return apiHelper.get(`/users/${id}/replied_tweets`, {
+      }
+    );
+  },
+  likeTweets(userId, tweetId) {
+    return apiHelper.post(
+      `/tweets/${tweetId}/like`,
+      { userId, },
+      {
         headers: { Authorization: `Bearer ${getToken()}` },
-      });
-    },
- 
-    insertTweets(description) {
-      return apiHelper.post(
-        "/tweets",
-        {
-          description, // req.body.description
-        },
-        {
-          headers: { Authorization: `Bearer ${getToken()}` },
-        }
-      );
-    },
-    likeTweets(userId,tweetId) {
-      return apiHelper.post(      
-        `/tweets/${tweetId}/like`,
-        { userId,},
-        {
-          headers: { Authorization: `Bearer ${getToken()}` },
-        }
-      );
-    },
-    unlikeTweets(userId,tweetId) {
-      return apiHelper.post(
-        `/tweets/${tweetId}/unlike`,
-        { userId },
-        {
-          headers: { Authorization: `Bearer ${getToken()}` },
-        }
-      );
-    },
-    getlikeTweets(userId) {
-      return apiHelper.get(
-        `/users/${userId}/likes`,     
-        {
-          headers: { Authorization: `Bearer ${getToken()}` },
-        }
-      );
-    },
-    createReplies(tweetId,comment) {
-      return apiHelper.post(
-        `/tweets/${tweetId}/replies`,
-        {
-          comment, 
-        },
-        {
-          headers: { Authorization: `Bearer ${getToken()}` },
-        }
-      );
-    },
-    // getTweet api 成功 獲取一篇貼文(沒有抓到此貼文的回覆)
-    getTweetReplies(id) {
-      return apiHelper.get(`/tweets/${id}/replies`, {
+      }
+    );
+  },
+  unlikeTweets(userId, tweetId) {
+    return apiHelper.post(
+      `/tweets/${tweetId}/unlike`,
+      { userId },
+      {
         headers: { Authorization: `Bearer ${getToken()}` },
-      });
-    },
+      }
+    );
+  },
+  getlikeTweets(userId) {
+    return apiHelper.get(
+      `/users/${userId}/likes`,
+      {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      }
+    );
+  },
+  createReplies(tweetId, comment) {
+    return apiHelper.post(
+      `/tweets/${tweetId}/replies`,
+      {
+        comment,
+      },
+      {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      }
+    );
+  },
+  // getTweet api 成功 獲取一篇貼文(沒有抓到此貼文的回覆)
+  getTweetReplies(id) {
+    return apiHelper.get(`/tweets/${id}/replies`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
 
 
 
 
 
-    //尚未串到頁面
-    getFollowings(userId) {
-      return apiHelper.get(`/users/${userId}/followings`, {
-        headers: { Authorization: `Bearer ${getToken()}` },
-      });
-    },
-    getFollowers(userId) {
-      return apiHelper.get(`/users/${userId}/followers`, {
-        headers: { Authorization: `Bearer ${getToken()}` },
-      });
-    },
+  //尚未串到頁面
+  getFollowings(userId) {
+    return apiHelper.get(`/users/${userId}/followings`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
+  getFollowers(userId) {
+    return apiHelper.get(`/users/${userId}/followers`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+  },
 
 
 };

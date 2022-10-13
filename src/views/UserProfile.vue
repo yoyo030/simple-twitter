@@ -31,17 +31,26 @@
         >
           編輯個人資料
         </button>
-        <button
-          v-else
-          type="button"
-          style="float: right"
-          class="edit-button"
-          @click.stop.prevent=""
-        >
-          <!--待改為追蹤或不追蹤按鈕-->
-          正在追蹤
-        </button>
-
+        <div v-else>
+          <button
+            v-if="userInfo.isFollowing"
+            type="button"
+            class="btn-isFollowed"
+            @click.stop.prevent="unFollowed(userInfo.id)"
+          >
+            <!--待改為追蹤或不追蹤按鈕-->
+            正在跟隨
+          </button>
+          <button
+            v-else
+            type="button"
+            class="btn-unFollow"
+            @click.stop.prevent="followed(userInfo.id)"
+          >
+            <!--待改為追蹤或不追蹤按鈕-->
+            跟隨
+          </button>
+        </div>
         <div class="user-profile-main">
           <h5 class="user-title">{{ userInfo.name }}</h5>
           <div class="tweet-user-account">
@@ -51,25 +60,25 @@
           <div class="user-follow-count d-flex">
             <router-link
               class="to-user-follow"
-              :to="{ name: 'user-follower', params: { id: currentUser.id } }"
-            >
-              <div class="user-follower cursor-pointer">
-                {{
-                  `${
-                    userInfoFollowings > 0 ? userInfoFollowings.length : 0
-                  } 個跟隨中`
-                }}
-              </div>
-            </router-link>
-            <router-link
-              class="to-user-follow"
               :to="{ name: 'user-following', params: { id: currentUser.id } }"
             >
               <div class="user-following cursor-pointer">
                 {{
                   `${
-                    userInfoFollowers > 0 ? userInfoFollowers.length : 0
-                  } 位跟隨者`
+                    userInfo.FollowingCount > 0 ? userInfo.FollowingCount : 0
+                  } 位跟隨中`
+                }}
+              </div>
+            </router-link>
+            <router-link
+              class="to-user-follow"
+              :to="{ name: 'user-follower', params: { id: currentUser.id } }"
+            >
+              <div class="user-follower cursor-pointer">
+                {{
+                  `${
+                    userInfo.FollowerCount > 0 ? userInfo.FollowerCount : 0
+                  } 個跟隨者`
                 }}
               </div>
             </router-link>
@@ -198,6 +207,45 @@ export default {
         //console.log(error);
       }
     },
+    //追蹤按鈕功能
+    async followed(userId) {
+      try {
+        let followedResponse = await authorizationAPI.followed(userId);
+        let followedData = followedResponse.data;
+        console.log(followedData);
+
+        if (followedData.status && followedData.status !== "success") {
+          throw new Error(followedData.message);
+        }
+
+        this.userInfo.isFollowing = true;
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "error",
+          title: error.message,
+        });
+      }
+    },
+    //取消追蹤按鈕功能
+    async unFollowed(userId) {
+      try {
+        let unfollowedResponse = await authorizationAPI.unfollowed(userId);
+        let unfollowedData = unfollowedResponse.data;
+        console.log(unfollowedData);
+
+        if (unfollowedData.status && unfollowedData.status !== "success") {
+          throw new Error(unfollowedData.message);
+        }
+        this.userInfo.isFollowing = false;
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "error",
+          title: error.message,
+        });
+      }
+    },
     //透過點擊控制nav下方欲顯示樣板
     handleNav(navID) {
       this.navID = navID;
@@ -244,3 +292,12 @@ export default {
 </script>
 
 <style scoped>
+.btn-unFollow {
+  position: absolute;
+  right: 20px;
+}
+.btn-isFollowed {
+  position: absolute;
+  right: 20px;
+}
+</style>
