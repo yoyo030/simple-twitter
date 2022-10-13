@@ -45,14 +45,23 @@
               {{ tweet.Tweet.replyCount }}
             </div>
           </div>
-          <div class="tweet-like d-flex">
+          <div class="tweet-like d-flex">           
+              <img
+              v-if="!tweet.isLike"
+              src="../assets/images/like.png"
+              alt=""
+              class="icon cursor-pointer"
+              @click="like(tweet)"
+            />
             <img
+              v-else
               src="../assets/images/isliked.png"
               alt=""
               class="icon cursor-pointer"
+              @click="unlike(tweet)"
             />
             <div class="tweet-like-amount number-font">
-              {{ tweet.isLike }}
+              {{ tweet.isLike }} 
             </div>
           </div>
         </div>
@@ -71,6 +80,8 @@
 import { fromNowFilter } from "../utils/mixins";
 import ReplyModal from "../components/ReplyModal.vue";
 import { emptyImageFilter } from "./../utils/mixins";
+import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
 
 export default {
   name: "userLike",
@@ -116,6 +127,56 @@ export default {
     },
     closeModal() {
       this.show = false;
+    },
+        async like(t) {
+      try {
+        t.isLike = true;
+        t.likeCount = t.likeCount + 1;
+        const response = await authorizationAPI.likeTweets(
+          this.currentUser.id,
+          t.id
+        );
+        const data = response.data;
+        //console.log(data);
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+        Toast.fire({
+          icon: "success",
+          title: "按讚成功!",
+        });
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
+      }
+    },
+    async unlike(t) {
+      try {
+        t.isLike = false;
+        t.likeCount = t.likeCount - 1;
+        const response = await authorizationAPI.unlikeTweets(
+          this.currentUser.id,
+          t.id
+        );
+        const data = response.data;
+        //console.log(data);
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+        Toast.fire({
+          icon: "success",
+          title: "成功收回讚!",
+        });
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
+      }
     },
   },
 };
