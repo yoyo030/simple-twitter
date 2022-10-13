@@ -3,7 +3,8 @@
     <div class="reply-tweet-box">
       <div class="reply-tweet-title d-flex">
         <!--待串接後改為使用者img-->
-        <img class="user-img" src="../assets/images/logo-gray.png" />
+        <!-- <img class="user-img" src="../assets/images/logo-gray.png" /> -->
+        <img :src="tweet.User.avatar | emptyImage" class="user-img" alt="" />
         <span class="info">
           <div v-if="tweet.User != null" class="name">
             {{ tweet.User.name }}
@@ -46,7 +47,7 @@
 
     <div class="tweet-reply-list scrollbar">
       <div class="reply d-flex" v-for="reply in tweet.reply" :key="reply.id">
-        <img :src="reply.avatar | emptyImage" class="user-img" alt="" />
+        <img :src="reply.User.avatar | emptyImage" class="user-img" alt="" />
 
         <div class="reply-list-text d-flex flex-column">
           <div class="tweet-list-tweet-top d-flex align-items-center">
