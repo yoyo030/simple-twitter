@@ -47,7 +47,7 @@
           </div>
           <div class="tweet-like d-flex">           
               <img
-              v-if="!tweet.isLike"
+              v-if="tweet.isLike==0"
               src="../assets/images/like.png"
               alt=""
               class="icon cursor-pointer"
@@ -61,7 +61,7 @@
               @click="unlike(tweet)"
             />
             <div class="tweet-like-amount number-font">
-              {{ tweet.isLike }} 
+              {{ tweet.Tweet.likeCount }} 
             </div>
           </div>
         </div>
@@ -82,7 +82,7 @@ import ReplyModal from "../components/ReplyModal.vue";
 import { emptyImageFilter } from "./../utils/mixins";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
-
+import { mapState } from "vuex";
 export default {
   name: "userLike",
   mixins: [fromNowFilter, emptyImageFilter],
@@ -128,10 +128,11 @@ export default {
     closeModal() {
       this.show = false;
     },
-        async like(t) {
+     async like(t) {
+
       try {
-        t.isLike = true;
-        t.likeCount = t.likeCount + 1;
+        t.isLike = 1;
+        t.Tweet.likeCount = t.Tweet.likeCount + 1;
         const response = await authorizationAPI.likeTweets(
           this.currentUser.id,
           t.id
@@ -153,10 +154,10 @@ export default {
         });
       }
     },
-    async unlike(t) {
+    async unlike(t) {   
       try {
-        t.isLike = false;
-        t.likeCount = t.likeCount - 1;
+        t.isLike = 0;
+        t.Tweet.likeCount = t.Tweet.likeCount - 1;
         const response = await authorizationAPI.unlikeTweets(
           this.currentUser.id,
           t.id
@@ -178,6 +179,9 @@ export default {
         });
       }
     },
+  },
+  computed: {
+    ...mapState(["currentUser", "isAuthenticated"]),
   },
 };
 </script>
