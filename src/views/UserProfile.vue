@@ -87,7 +87,7 @@
       </div>
 
       <ul class="user-profile-nav user-nav-group cursor-pointer d-flex">
-        <li :class="['nav-user-link', (navID==nav.id ? 'active' : '')]"
+        <li :class="['nav-user-link', (navID==nav.id ? 'activeTab' : '')]"
           class="nav-user-link"
           v-for="nav in navs"
           :key="nav.id"
