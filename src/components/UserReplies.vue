@@ -23,7 +23,7 @@
         </div>
         <div class="tweet-account">
           <span class="reply-span">回覆</span>
-          {{ reply.User.account | addPrefix }}
+          {{ reply.Tweet.User.account | addPrefix }}
         </div>
         <div class="tweet-contentText">
           {{ reply.comment }}
