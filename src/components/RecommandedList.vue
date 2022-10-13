@@ -26,7 +26,7 @@
             </div>
           </span>
           <button
-            v-if="user.isFollowed"
+            v-if="user.isFollowing"
             class="btn-isFollowed"
             @click.stop.prevent="unFollowed(user)"
           >
@@ -72,10 +72,7 @@ export default {
           throw new Error(data.message);
         }
 
-        //假資料
-        this.userList = this.userList.map((user) => {
-          return { ...user, isFollowed: false };
-        });
+
       } catch (error) {
         console.log(error);
         Toast.fire({
@@ -93,16 +90,13 @@ export default {
         if (followedData.status && followedData.status !== "success") {
           throw new Error(followedData.message);
         }
-        user.isFollowed = true;
-        // this.userList = this.userList.map((user) => {
-        //   if (user.id === userId) {
-        //     return {
-        //       ...user,
-        //       isFollowed: true,
-        //     };
-        //   }
-        //   return user;
-        // });
+        
+        user.isFollowing = true;
+        Toast.fire({
+          icon: "success",
+          title: "追蹤成功",
+        });
+
       } catch (error) {
         console.log(error);
         Toast.fire({
@@ -120,16 +114,11 @@ export default {
         if (unfollowedData.status && unfollowedData.status !== "success") {
           throw new Error(unfollowedData.message);
         }
-        user.isFollowed = false;
-        // this.userList = this.userList.map((user) => {
-        //   if (user.id === userId) {
-        //     return {
-        //       ...user,
-        //       isFollowed: false,
-        //     };
-        //   }
-        //   return user;
-        // });
+        user.isFollowing = false;
+        Toast.fire({
+          icon: "success",
+          title: "取消追蹤成功",
+        });
       } catch (error) {
         console.log(error);
         Toast.fire({
