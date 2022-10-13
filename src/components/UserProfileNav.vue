@@ -35,6 +35,7 @@ export default {
       type: Number,
       required: true,
     },
+    
   },
   data() {
     return {
@@ -44,6 +45,7 @@ export default {
       repliesKey: 0,
       likes: [],
       likesKey: 0,
+      ss:this.navID
     };
   },
   created() {
@@ -129,8 +131,22 @@ export default {
       this.fetchLikesTweets();
       this.fetchTweets();
     },
+   
+      navID: {
+      handler () {      
+      this.fetchReplies();
+      this.fetchLikesTweets();
+      this.fetchTweets();
+      },
+      // 这里增加了一个immediate属性，说明监听到props传参后立即先去执行handler方法
+      immediate: true,
+    },
+
+
+  
 
   },
+  
 };
 </script>
 
