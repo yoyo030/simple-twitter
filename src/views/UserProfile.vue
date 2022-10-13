@@ -12,7 +12,7 @@
         <div class="d-flex flex-column">
           <!--待串接使用者資料與貼文總數-->
           <h5 class="user-title">{{ userInfo.name }}</h5>
-          <p class="tweet-amount">{{ tweetAmount + " 則推文" }}</p>
+          <p class="tweet-amount">{{ `${userInfo.TweetCount} 則推文` }}</p>
         </div>
       </div>
       <div class="bg-container">
@@ -60,7 +60,7 @@
           <div class="user-follow-count d-flex">
             <router-link
               class="to-user-follow"
-              :to="{ name: 'user-following', params: { id: currentUser.id } }"
+              :to="{ name: 'user-following', params: { id: userInfo.id } }"
             >
               <div class="user-following cursor-pointer">
                 {{
@@ -72,7 +72,7 @@
             </router-link>
             <router-link
               class="to-user-follow"
-              :to="{ name: 'user-follower', params: { id: currentUser.id } }"
+              :to="{ name: 'user-follower', params: { id: userInfo.id } }"
             >
               <div class="user-follower cursor-pointer">
                 {{
