@@ -1,6 +1,6 @@
 <template>
   <div class="profile-nav-list scrollbar">
-    <div v-if="followings" class="d-flex justify-content-center">
+    <div v-if="followers" class="d-flex justify-content-center">
       使用者還沒有任何追隨者
     </div>
     <div class="reply d-flex" v-for="follower in followers" :key="follower.id">
@@ -60,14 +60,14 @@ export default {
     };
   },
    created() {
-    this.fetchFollowing();
+    this.fetchFollower();
   },
   methods: {
-    fetchFollowing() {
+    fetchFollower() {
       if (!this.initialFollower) {
         this.followers = null;
       }
-      this.followers = this.initialFollowing;
+      this.followers = this.initialFollower;
     },
   },
 

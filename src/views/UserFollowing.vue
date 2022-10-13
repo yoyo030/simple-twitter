@@ -35,8 +35,7 @@
         </router-link>
       </ul>
       <div>
-        <FollowingList
-         :initial-following="following" />
+        <FollowingList :initial-following="userInfoFollowings" />
       </div>
     </div>
     <div class="w100 rightSection"><RecommandedList /></div>
@@ -61,32 +60,30 @@ export default {
   },
   data() {
     return {
-      userInfo: {},//頁面內點擊查看追蹤時，帶入id
-      following: [],
+      userInfo: {}, //頁面內點擊查看追蹤時，帶入id
+      userInfoFollowings: [],
       isLoading: false,
     };
   },
   created() {
     const { id } = this.$route.params;
-    this.fetchFollowings(id);
-    this.fetchUserInfo(id) 
+    this.fetchUserInfoFollowing(id);
+    this.fetchUserInfo(id);
   },
   methods: {
-    async fetchFollowings(userId) {
+    async fetchUserInfoFollowing() {
       try {
-        this.isLoading = true;
-        const response = await authorizationAPI.getFollowings(userId);
-        console.log(response)
-        if (response.message == "AssertionError: 這個使用者還沒有任何追隨者") {
-          this.following = null
-        }
-        this.following = response.data;
-        console.log(this.following);
-        this.isLoading = false;
+        //兩次輸入的密碼需相同
+        const response = await authorizationAPI.getUserFollowing(
+          this.$route.params.id
+        )
+        const data = response.data;
+        this.userInfoFollowings = data;
+        console.log(data);
       } catch (error) {
         Toast.fire({
           icon: "error",
-          title: "目前無法取得跟隨者，請稍後再試",
+          title: error.message,
         });
       }
     },
@@ -102,18 +99,14 @@ export default {
         }
       } catch (error) {
         console.log(error);
-        Toast.fire({
-          icon: "error",
-          title: error.message,
-        });
       }
     },
   },
-computed: {
+  computed: {
     //把vuex資料拿出來,得到currentUser
     ...mapState(["currentUser", "isAuthenticated"]),
   },
-  }
+};
 </script>
 
 <style scoped>

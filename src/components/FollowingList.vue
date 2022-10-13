@@ -1,6 +1,6 @@
 <template>
   <div class="profile-nav-list scrollbar">
-    <div v-if="followings" class="d-flex justify-content-center">使用者還沒有追隨任何用戶</div>
+    <div v-if="!followings" class="d-flex justify-content-center">使用者還沒有追隨任何用戶</div>
     <div
       vv-else
       class="reply d-flex"
@@ -51,7 +51,7 @@ export default {
   mixins: [emptyImageFilter],
 
   props: {
-    //從views/ReplyList帶入dummydata，待串接API以及點擊功能id===id
+    //從views/Userfollowing
     initialFollowing: {
       type: Array,
       required: true,
