@@ -35,7 +35,9 @@
         </router-link>
       </ul>
       <div>
-        <FollowingList :initial-following="userInfoFollowings" />
+        <FollowingList
+         :initial-following="userInfoFollowings"
+         :key="followingkey" />
       </div>
     </div>
     <div class="w100 rightSection"><RecommandedList /></div>
@@ -63,6 +65,7 @@ export default {
       userInfo: {}, //頁面內點擊查看追蹤時，帶入id
       userInfoFollowings: [],
       isLoading: false,
+      followingkey: 0
     };
   },
   created() {
@@ -79,6 +82,7 @@ export default {
         )
         const data = response.data;
         this.userInfoFollowings = data;
+        this.followingkey = this.followingkey + 1
         console.log(data);
       } catch (error) {
         Toast.fire({

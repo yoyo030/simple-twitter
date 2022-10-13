@@ -35,7 +35,9 @@
         </router-link>
       </ul>
 
-      <FollowerList :initial-follower="userInfoFollowers" />
+      <FollowerList
+       :initial-follower="userInfoFollowers"
+       :key="followerkey" />
     </div>
     <div class="w100 rightSection"><RecommandedList /></div>
   </div>
@@ -62,6 +64,7 @@ export default {
       userInfo: {}, //頁面內點擊查看追蹤時，帶入id
       userInfoFollowers: [],
       isLoading: false,
+      followerkey: 0
     };
   },
   created() {
@@ -78,6 +81,7 @@ export default {
         );
         const data = response.data;       
         this.userInfoFollowers = data;
+        this.followerkey = this.followerkey + 1
          console.log(this.userInfoFollowers);
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
