@@ -36,12 +36,21 @@
           src="../assets/images/reply.png"
           class="reply-reply-icon cursor-pointer"
           @click.stop.prevent="openModal(tweet)"
-        />
-        <img
-          src="../assets/images/like.png"
-          alt=""
-          class="reply-like-icon cursor-pointer"
-        />
+        />     
+          <img
+              v-if="!tweet.isLike"
+              src="../assets/images/like.png"
+              alt=""
+               class="reply-like-icon cursor-pointer"
+              @click="like(tweet)"
+            />
+            <img
+              v-else
+              src="../assets/images/isliked.png"
+              alt=""
+                class="reply-like-icon cursor-pointer"
+              @click="unlike(tweet)"
+            />
       </div>
     </div>
 
@@ -92,7 +101,7 @@ import ReplyModal from "../components/ReplyModal.vue";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
 import { emptyImageFilter } from "./../utils/mixins";
-
+import { mapState } from "vuex";
 export default {
   name: "ReplyList",
   mixins: [fromNowFilter, emptyImageFilter],
@@ -129,12 +138,10 @@ export default {
     },
     closeModal() {
       this.show = false;
-    },
-    //尚未綁定按鈕
-    async like(t) {
+    },    
+     async like(t) {
       try {
-        t.islike = true;
-        t.likeCount = t.likeCount + 1;
+        t.isLike = true;
         const response = await authorizationAPI.likeTweets(
           this.currentUser.id,
           t.id
@@ -158,8 +165,7 @@ export default {
     },
     async unlike(t) {
       try {
-        t.islike = false;
-        t.likeCount = t.likeCount - 1;
+        t.isLike = false;
         const response = await authorizationAPI.unlikeTweets(
           this.currentUser.id,
           t.id
@@ -181,6 +187,9 @@ export default {
         });
       }
     },
+  },
+    computed: {
+    ...mapState(["currentUser", "isAuthenticated"]),
   },
 };
 </script>
