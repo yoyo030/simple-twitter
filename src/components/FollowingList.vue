@@ -22,14 +22,14 @@
           <button
             v-if="following.isFollowing"
             class="btn-isFollowed"
-            @click.stop.prevent="unFollowed(following.id)"
+            @click.stop.prevent="unFollowed(following)"
           >
             正在跟隨
           </button>
           <button
             v-else
             class="btn-unFollow"
-            @click.stop.prevent="followed(following.id)"
+            @click.stop.prevent="followed(following)"
           >
             跟隨
           </button>
@@ -45,7 +45,8 @@
 
 <script>
 import { emptyImageFilter } from "./../utils/mixins";
-
+import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
 export default {
   name: "userFollowing",
   mixins: [emptyImageFilter],
@@ -71,6 +72,52 @@ export default {
         this.followings = null;
       }
       this.followings = this.initialFollowing;
+    },
+    async followed(user) {
+      try {
+        let followedResponse = await authorizationAPI.followed(user.id);
+        let followedData = followedResponse.data;
+        console.log(followedData);
+
+        if (followedData.status && followedData.status !== "success") {
+          throw new Error(followedData.message);
+        }
+        
+        user.isFollowing = true;
+        Toast.fire({
+          icon: "success",
+          title: "追蹤成功",
+        });
+
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "error",
+          title: error.message,
+        });
+      }
+    },
+    async unFollowed(user) {
+      try {
+        let unfollowedResponse = await authorizationAPI.unfollowed(user.id);
+        let unfollowedData = unfollowedResponse.data;
+        console.log(unfollowedData);
+
+        if (unfollowedData.status && unfollowedData.status !== "success") {
+          throw new Error(unfollowedData.message);
+        }
+        user.isFollowing = false;
+        Toast.fire({
+          icon: "success",
+          title: "取消追蹤成功",
+        });
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "error",
+          title: error.message,
+        });
+      }
     },
   },
 
