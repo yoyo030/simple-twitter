@@ -16,8 +16,8 @@
           </textarea>
         </div>
         <div class="modal-footer d-flex justify-content-end">
-          <div class="warn" v-show="textWarn">字數不可超過140字</div>
-          <div class="warn" v-show="noInputWarn">內容不可空白</div>
+          <div class="warn warn-tweet" v-show="textWarn">字數不可超過140字</div>
+          <div class="warn warn-tweet" v-show="noInputWarn">內容不可空白</div>
           <button class="modal-tweet-button" :disabled="isLoading">推文</button>
         </div>
       </form>
@@ -89,3 +89,11 @@ export default {
 };
 </script>
 
+<style scoped>
+
+.warn-tweet {
+  top: 252px;
+  left: 415px;
+}
+
+</style>

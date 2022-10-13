@@ -86,7 +86,6 @@ export default {
       isLoading: false,
       textWarn: false,
       noInputWarn: false,
-      //tweet: dummyData.tweet, //待解決
     };
   },
   filters: {
@@ -174,13 +173,19 @@ export default {
   margin-top: 23px;
 }
 .modal-tweet-button {
-  position: absolute;
-  bottom: 20px;
+  all: unset;
+    padding: 8px 16px;
+    background: #FF6600;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #FFF;
+    line-height: 24px;
 }
 .warn {
   position: absolute;
-  bottom: 20px;
-  right: 120px;
+  top: 376px;
+  left: 410px;
 }
 </style>
 

@@ -67,10 +67,10 @@
                   <h6 class="name-count">
                     {{ `${currentUserTemp.name.length}/50` }}
                   </h6>
-                  <span class="warn" v-show="nameLengthWarn"
+                  <span class="warn warn-name" v-show="nameLengthWarn"
                     >字數不可超過50字</span
                   >
-                  <span class="warn" v-show="noInputWarn">此處不可空白</span>
+                  <span class="warn warn-name" v-show="noInputWarn">此處不可空白</span>
                 </div>
                 <div class="form-label-group description">
                   <label for="description">自我介紹</label>
@@ -296,5 +296,13 @@ export default {
 }
 .modal-container {
   height: 625px;
+}
+.warn {
+  left: 16px;
+  top: 300px;
+}
+.warn-name {
+  top: 115px;
+  left: 16px;
 }
 </style>

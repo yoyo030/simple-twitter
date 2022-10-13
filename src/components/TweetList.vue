@@ -15,8 +15,17 @@
           name="home-tweet-input"
           placeholder="有什麼新鮮事？"
         />
-      </div>
-      <button class="home-tweet-button" @click="handleSubmit">推文</button>
+ 
+        <div class="warn" v-show="textWarn">字數不可超過140字</div>
+        <div class="warn" v-show="noInputWarn">內容不可空白</div>
+
+      <button
+       class="home-tweet-button"
+        @click="handleSubmit"
+        :disabled="isLoading">
+        推文
+        </button>
+    </div>
     </div>
 
     <div class="tweet-list scrollbar">
@@ -102,6 +111,7 @@
       :key="tweetKey"
     />
   </div>
+
 </template>
 
 <script>
@@ -126,6 +136,9 @@ export default {
       tweet: {},
       tweetKey: 0,
       text: "",
+      textWarn: false,
+      noInputWarn: false,
+      isLoading: false,
     };
   },
   filters: {
@@ -243,8 +256,15 @@ export default {
         //   return (this.noInputWarn = true);
         // }
 
+        if (this.text.trim().length > 140) {
+          this.isLoading = false;
+          this.noInputWarn = false;
+          return (this.textWarn = true);
+        }
         if (this.text.trim().length === 0) {
-          return false;
+          this.textWarn = false;
+          this.isLoading = false;
+          return (this.noInputWarn = true);
         }
 
         //兩次輸入的密碼需相同
@@ -284,5 +304,10 @@ export default {
 a,
 a:hover {
   text-decoration: none;
+}
+
+.warn {
+  top: 75px;
+  left: 84px;
 }
 </style>
