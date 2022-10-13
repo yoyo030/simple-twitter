@@ -22,7 +22,7 @@
           :to="{ name: 'user-follower', params: { id: userInfo.id } }"
         >
           <div class="user-following cursor-pointer">
-            <li class="nav-user-link">追蹤者</li>
+            <li class="nav-user-link">追隨者</li>
           </div>
         </router-link>
         <router-link
@@ -30,7 +30,7 @@
           :to="{ name: 'user-following', params: { id: userInfo.id } }"
         >
           <div class="user-following cursor-pointer">
-            <li class="nav-user-link">正在追蹤</li>
+            <li class="nav-user-link">正在追隨</li>
           </div>
         </router-link>
       </ul>
@@ -81,14 +81,19 @@ export default {
           this.$route.params.id
         )
         const data = response.data;
+        //以是否為陣列來判斷有無追蹤
+        if (Array.isArray(response.data) === false) {
+          throw new Error(response.data.message)
+        }
         this.userInfoFollowings = data;
         this.followingkey = this.followingkey + 1
-        console.log(data);
+
       } catch (error) {
         Toast.fire({
           icon: "error",
           title: error.message,
         });
+        console.log(error.message)
       }
     },
     async fetchUserInfo(id) {

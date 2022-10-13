@@ -1,9 +1,9 @@
 <template>
   <div class="profile-nav-list scrollbar">
-    <div v-if="!followers" class="d-flex justify-content-center">
-      使用者還沒有任何追隨者
-    </div>
-    <div  v-else class="reply d-flex" v-for="follower in followers" :key="follower.id">
+    <div  
+      class="reply d-flex" 
+      v-for="follower in followers"
+      :key="follower.id">
       <!--待串接後用v-bind改為使用者img-->
 
       <img :src="follower.avatar | emptyImage" class="user-img" alt="" />
@@ -139,10 +139,10 @@ export default {
 }
 .btn-isFollowed {
   position: absolute;
-  right: 35px;
+  right: 15px;
 }
 .btn-unFollow {
   position: absolute;
-  right: 35px;
+  right: 15px;
 }
 </style>

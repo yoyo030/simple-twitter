@@ -136,10 +136,10 @@ export default {
         return `@${account}`;
       }
     },
-    //首頁顯示推文字數超過95字，後面隱藏(待確認是否需要此功能)
+    //首頁顯示推文字數超過95字，後面隱藏
     sliceTweet(description) {
-      if (description.length > 95) {
-        return `${description.slice(0, 95)}...`;
+      if (description.length > 110) {
+        return `${description.slice(0, 110)}...繼續閱讀`;
       }
       return description;
     },

@@ -157,7 +157,7 @@ a {
 
 .btn-isFollowed {
   position: absolute;
-  right: 5px;
+  right: 15px;
   top: 8px;
 }
 

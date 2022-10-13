@@ -1,8 +1,6 @@
 <template>
   <div class="profile-nav-list scrollbar">
-    <div v-if="!followings" class="d-flex justify-content-center">使用者還沒有追隨任何用戶</div>
     <div
-      vv-else
       class="reply d-flex"
       v-for="following in followings"
       :key="following.id"
@@ -70,6 +68,7 @@ export default {
     fetchFollowing() {
       if (!this.initialFollowing) {
         this.followings = null;
+        console.log(this.initialFollowing)
       }
       this.followings = this.initialFollowing;
     },
@@ -142,10 +141,10 @@ export default {
 }
 .btn-isFollowed {
   position: absolute;
-  right: 35px;
+  right: 15px;
 }
 .btn-unFollow {
   position: absolute;
-  right: 35px;
+  right: 15px;
 }
 </style>

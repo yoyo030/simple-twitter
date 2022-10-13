@@ -22,7 +22,7 @@
           :to="{ name: 'user-follower', params: { id: userInfo.id } }"
         >
           <div class="user-following cursor-pointer">
-            <li class="nav-user-link">追蹤者</li>
+            <li class="nav-user-link">追隨者</li>
           </div>
         </router-link>
         <router-link
@@ -30,14 +30,12 @@
           :to="{ name: 'user-following', params: { id: userInfo.id } }"
         >
           <div class="user-following cursor-pointer">
-            <li class="nav-user-link">正在追蹤</li>
+            <li class="nav-user-link">正在追隨</li>
           </div>
         </router-link>
       </ul>
 
-      <FollowerList
-       :initial-follower="userInfoFollowers"
-       :key="followerkey" />
+      <FollowerList :initial-follower="userInfoFollowers" :key="followerkey" />
     </div>
     <div class="w100 rightSection"><RecommandedList /></div>
   </div>
@@ -64,7 +62,7 @@ export default {
       userInfo: {}, //頁面內點擊查看追蹤時，帶入id
       userInfoFollowers: [],
       isLoading: false,
-      followerkey: 0
+      followerkey: 0,
     };
   },
   created() {
@@ -79,14 +77,18 @@ export default {
         const response = await authorizationAPI.getUserFollowers(
           this.$route.params.id
         );
-        const data = response.data;       
-        this.userInfoFollowers = data;
-        this.followerkey = this.followerkey + 1
-         console.log(this.userInfoFollowers);
-        if (data.status && data.status !== "success") {
-          throw new Error(data.message);
+        const data = response.data;
+        //以是否為陣列來判斷有無追蹤
+        if (Array.isArray(response.data) === false) {
+          throw new Error(response.data.message);         
         }
+        this.userInfoFollowers = data;
+        this.followerkey = this.followerkey + 1;
       } catch (error) {
+        Toast.fire({
+          icon: "error",
+          title: error.message,
+        });
         console.log(error);
       }
     },
