@@ -36,6 +36,9 @@
   margin-bottom: 10px;
 }
 .tweet-list-contentText {
+  word-wrap: break-word;
+  word-break: break-all;
+  overflow: hidden;
   margin-bottom: 8px;
   @include font-setting(24px, 400, $dark-100, 36px);
 }

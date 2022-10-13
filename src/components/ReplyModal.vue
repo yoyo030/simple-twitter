@@ -158,7 +158,6 @@ export default {
 }
 .modal-container {
   height: 100%;
-  position: relative;
 }
 .reply {
   border-bottom: 0;
@@ -166,25 +165,26 @@ export default {
 .modal-body {
   padding: 16px;
 }
-.avatar {
-  position: a;
-}
+
 .reply-content {
   margin-top: 23px;
 }
 .modal-tweet-button {
   all: unset;
-    padding: 8px 16px;
-    background: #FF6600;
-    border-radius: 50px;
-    font-size: 16px;
-    font-weight: 400;
-    color: #FFF;
-    line-height: 24px;
+  padding: 8px 16px;
+  background: #FF6600;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #FFF;
+  line-height: 24px;
+}
+.modal-footer {
+  position: relative;
 }
 .warn {
   position: absolute;
-  top: 376px;
+  top: 10px;
   left: 410px;
 }
 </style>
