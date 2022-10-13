@@ -24,7 +24,7 @@
             </div>
           </div>
           <div class="tweet-contentText">
-            {{ tweet.description }}
+            {{ tweet.description | sliceTweet }}
           </div>
 
           <img
@@ -65,6 +65,13 @@ export default {
       } else {
         return `@${account}`;
       }
+    },
+    //顯示推文字數超過50字，後面隱藏
+    sliceTweet(description) {
+      if (description.length > 50) {
+        return `${description.slice(0, 50)}...繼續閱讀`;
+      }
+      return description;
     },
   },
 
