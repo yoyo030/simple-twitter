@@ -1,6 +1,8 @@
 <template>
   <div class="profile-nav-list scrollbar">
+    <div v-if="followings" class="d-flex justify-content-center">使用者還沒有追隨任何用戶</div>
     <div
+      vv-else
       class="reply d-flex"
       v-for="following in followings"
       :key="following.id"
@@ -18,7 +20,7 @@
             </div>
           </router-link>
           <button
-            v-if="following.isFollowed"
+            v-if="following.isFollowing"
             class="btn-isFollowed"
             @click.stop.prevent="unFollowed(following.id)"
           >
@@ -34,7 +36,7 @@
         </div>
 
         <div class="tweet-contentText">
-          {{ following.description }}
+          {{ following.introduction }}
         </div>
       </div>
     </div>
@@ -57,33 +59,18 @@ export default {
   },
   data() {
     return {
-      followings: this.initialFollowing,
+      followings: [],
     };
   },
+  created() {
+    this.fetchFollowing();
+  },
   methods: {
-    //用map找出被點擊按鈕所屬id，切換狀態(失敗中)
-    followed(followingId) {
-      this.followings = this.followings.map((following) => {
-        if (following.id === followingId) {
-          return {
-            ...following,
-            isFollowed: true,
-          };
-        }
-        return following;
-      });
-    },
-    //用map找出被點擊按鈕所屬id，切換狀態(失敗中)
-    unFollowed(followingId) {
-      this.followings = this.followings.map((following) => {
-        if (following.id === followingId) {
-          return {
-            ...following,
-            isFollowed: false,
-          };
-        }
-        return following;
-      });
+    fetchFollowing() {
+      if (!this.initialFollowing) {
+        this.followings = null;
+      }
+      this.followings = this.initialFollowing;
     },
   },
 

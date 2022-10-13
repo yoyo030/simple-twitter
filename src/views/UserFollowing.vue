@@ -12,14 +12,14 @@
         />
         <div class="d-flex flex-column">
           <!--待串接使用者資料與貼文總數-->
-          <h5 class="user-title">{{ currentUser.name }}</h5>
-          <p class="tweet-amount">{{ `${currentUser.tweet.length} 則推文` }}</p>
+          <h5 class="user-title">{{ userInfo.name }}</h5>
+          <p class="tweet-amount">{{ `${userInfo.TweetCount} 則推文` }}</p>
         </div>
       </div>
       <ul class="follow-nav cursor-pointer d-flex">
         <router-link
           class="to-user-follow"
-          :to="{ name: 'user-follower', params: { id: currentUser.id } }"
+          :to="{ name: 'user-follower', params: { id: userInfo.id } }"
         >
           <div class="user-following cursor-pointer">
             <li class="nav-user-link">追蹤者</li>
@@ -27,15 +27,17 @@
         </router-link>
         <router-link
           class="to-user-follow"
-          :to="{ name: 'user-following', params: { id: currentUser.id } }"
+          :to="{ name: 'user-following', params: { id: userInfo.id } }"
         >
           <div class="user-following cursor-pointer">
             <li class="nav-user-link">正在追蹤</li>
           </div>
         </router-link>
       </ul>
-      <!--透過點擊li決定顯示樣板-->
-      <UserFollowNav :navID="navID" />
+      <div>
+        <FollowingList
+         :initial-following="following" />
+      </div>
     </div>
     <div class="w100 rightSection"><RecommandedList /></div>
   </div>
@@ -45,38 +47,73 @@
 <script>
 import NavBar from "../components/NavBar.vue";
 import RecommandedList from "../components/RecommandedList.vue";
-import UserFollowNav from "../components/UserFollowNav.vue";
+import FollowingList from "../components/FollowingList.vue";
+import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
+import { mapState } from "vuex";
 
 export default {
   name: "UserFollow",
   components: {
     NavBar,
     RecommandedList,
-    UserFollowNav,
+    FollowingList,
   },
   data() {
     return {
-      //先帶假資料
-      currentUser: {
-        id: 1,
-        name: "John Doe",
-        tweet: [1, 2, 3],
-      },
-      //動態帶入nav標題抓到點擊時的id
-      navID: 2,
-      navs: [
-        { id: 1, title: "追蹤者" },
-        { id: 2, title: "正在追蹤" },
-      ],
+      userInfo: {},//頁面內點擊查看追蹤時，帶入id
+      following: [],
+      isLoading: false,
     };
   },
+  created() {
+    const { id } = this.$route.params;
+    this.fetchFollowings(id);
+    this.fetchUserInfo(id) 
+  },
   methods: {
-    //透過點擊控制nav下方欲顯示樣板
-    handleNav(navID) {
-      this.navID = navID;
+    async fetchFollowings(userId) {
+      try {
+        this.isLoading = true;
+        const response = await authorizationAPI.getFollowings(userId);
+        console.log(response)
+        if (response.message == "AssertionError: 這個使用者還沒有任何追隨者") {
+          this.following = null
+        }
+        this.following = response.data;
+        console.log(this.following);
+        this.isLoading = false;
+      } catch (error) {
+        Toast.fire({
+          icon: "error",
+          title: "目前無法取得跟隨者，請稍後再試",
+        });
+      }
+    },
+    async fetchUserInfo(id) {
+      try {
+        //兩次輸入的密碼需相同
+        const response = await authorizationAPI.getUserInfo(id);
+        const data = response.data;
+        console.log(data);
+        this.userInfo = data;
+        if (data.status && data.status !== "success") {
+          throw new Error(data.message);
+        }
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "error",
+          title: error.message,
+        });
+      }
     },
   },
-};
+computed: {
+    //把vuex資料拿出來,得到currentUser
+    ...mapState(["currentUser", "isAuthenticated"]),
+  },
+  }
 </script>
 
 <style scoped>

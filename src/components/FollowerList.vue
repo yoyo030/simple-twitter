@@ -1,5 +1,8 @@
 <template>
   <div class="profile-nav-list scrollbar">
+    <div v-if="followings" class="d-flex justify-content-center">
+      使用者還沒有任何追隨者
+    </div>
     <div class="reply d-flex" v-for="follower in followers" :key="follower.id">
       <!--待串接後用v-bind改為使用者img-->
 
@@ -45,41 +48,26 @@ export default {
   name: "userFollower",
   mixins: [emptyImageFilter],
   props: {
-    //從views/ReplyList帶入dummydata，待串接API以及點擊功能id===id
+    //從views/UserFollower
     initialFollower: {
-      type: Array,
+      type: [],
       required: true,
     },
   },
   data() {
     return {
-      followers: this.initialFollower,
+      followers: []
     };
   },
+   created() {
+    this.fetchFollowing();
+  },
   methods: {
-    //用map找出被點擊按鈕所屬id，切換狀態(失敗中)
-    followed(followerId) {
-      this.followers = this.followers.map((follower) => {
-        if (follower.id === followerId) {
-          return {
-            ...follower,
-            isFollowed: true,
-          };
-        }
-        return this.follower;
-      });
-    },
-    //用map找出被點擊按鈕所屬id，切換狀態(失敗中)
-    unFollowed(followerId) {
-      this.followers = this.followers.map((follower) => {
-        if (follower.id === followerId) {
-          return {
-            ...follower,
-            isFollowed: false,
-          };
-        }
-        return this.follower;
-      });
+    fetchFollowing() {
+      if (!this.initialFollower) {
+        this.followers = null;
+      }
+      this.followers = this.initialFollowing;
     },
   },
 
