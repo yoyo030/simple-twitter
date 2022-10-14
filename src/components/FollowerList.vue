@@ -14,9 +14,10 @@
             :to="{ name: 'user-profile', params: { id: follower.id } }"
           >
             <div class="tweet-user-name">
-              {{ follower.name }}
+              {{ follower.name }} 
             </div>
           </router-link>
+           <div v-if="currentUser.id!=follower.id">
           <button
             v-if="follower.isFollowing"
             class="btn-isFollowed"
@@ -30,7 +31,7 @@
             @click.stop.prevent="followed(follower)"
           >
             跟隨
-          </button>
+          </button> </div>
         </div>
 
         <div class="tweet-contentText">
@@ -45,6 +46,7 @@
 import { emptyImageFilter } from "./../utils/mixins";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
+import { mapState } from "vuex";
 export default {
   name: "userFollower",
   mixins: [emptyImageFilter],
@@ -126,6 +128,9 @@ export default {
         return `@${account}`;
       }
     },
+  },
+      computed: {
+    ...mapState(["currentUser", "isAuthenticated"]),
   },
 };
 </script>

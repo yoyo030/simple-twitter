@@ -25,6 +25,7 @@
               {{ user.account | addPrefix }}
             </div>
           </span>
+          <div v-if="currentUser.id!=user.id">
           <button
             v-if="user.isFollowing"
             class="btn-isFollowed"
@@ -38,7 +39,7 @@
             @click.stop.prevent="followed(user)"
           >
             跟隨
-          </button>
+          </button></div>
         </div>
       </div>
     </div>
@@ -49,7 +50,7 @@
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
 import { emptyImageFilter } from "./../utils/mixins";
-
+import { mapState } from "vuex";
 export default {
   name: "recommandedList",
   mixins: [emptyImageFilter],
@@ -151,6 +152,9 @@ export default {
   //  return this.userList.filter(user => user.id !== this.userId).slice(0, 10)
   // }
   // },
+    computed: {
+    ...mapState(["currentUser", "isAuthenticated"]),
+  },
 };
 </script>
 

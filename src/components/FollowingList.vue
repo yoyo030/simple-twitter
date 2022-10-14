@@ -17,6 +17,7 @@
               {{ following.name }}
             </div>
           </router-link>
+        <div v-if="currentUser.id!=following.id">
           <button
             v-if="following.isFollowing"
             class="btn-isFollowed"
@@ -30,7 +31,7 @@
             @click.stop.prevent="followed(following)"
           >
             跟隨
-          </button>
+          </button>    </div>
         </div>
 
         <div class="tweet-contentText">
@@ -45,6 +46,7 @@
 import { emptyImageFilter } from "./../utils/mixins";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
+import { mapState } from "vuex";
 export default {
   name: "userFollowing",
   mixins: [emptyImageFilter],
@@ -128,6 +130,9 @@ export default {
         return `@${account}`;
       }
     },
+  },
+    computed: {
+    ...mapState(["currentUser", "isAuthenticated"]),
   },
 };
 </script>
