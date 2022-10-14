@@ -165,6 +165,7 @@ export default {
         const data = response.data;
         console.log(data);
         this.userInfo = data;
+        this.navID= 1
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
@@ -287,7 +288,7 @@ export default {
   },
   watch: {
     "$route.params.id": function () {
-      this.fetchUserInfo();
+      this.fetchUserInfo();     
     },
   },
 };

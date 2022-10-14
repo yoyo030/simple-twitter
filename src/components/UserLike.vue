@@ -1,16 +1,23 @@
 <template>
   <div class="profile-nav-list scrollbar">
     <div class="tweet d-flex" v-for="tweet in likedTweets" :key="tweet.id">
-      <img
+    
+
+        <router-link
+            :to="{ name: 'user-profile', params: { id: tweet.Tweet.User.id } }"
+            class=""
+          >
+             <img
         :src="tweet.Tweet.User.avatar | emptyImage"
         class="tweet-list-tweet-img"
         alt=""
       />
+          </router-link>
 
       <div class="tweet-list-text d-flex flex-column">
         <div class="tweet-list-tweet-top d-flex align-items-center">
           <router-link
-            :to="{ name: 'user-profile', params: { id: tweet.id } }"
+            :to="{ name: 'user-profile', params: { id: tweet.Tweet.User.id } }"
             class=""
           >
             <div class="tweet-user-name">

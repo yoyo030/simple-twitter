@@ -1,12 +1,17 @@
 <template>
   <div class="profile-nav-list scrollbar">
     <div class="reply d-flex" v-for="reply in replies" :key="reply.id">
-      <img :src="reply.User.avatar | emptyImage" class="user-img" alt="" />
-
+    
+      <router-link
+            :to="{ name: 'user-profile', params: { id: reply.User.id } }"
+            class=""
+          >
+          <img :src="reply.User.avatar | emptyImage" class="user-img" alt="" />
+          </router-link>
       <div class="reply-list-text d-flex flex-column">
         <div class="tweet-list-tweet-top d-flex align-items-center">
           <router-link
-            :to="{ name: 'user-profile', params: { id: reply.id } }"
+            :to="{ name: 'user-profile', params: { id: reply.User.id } }"
             class=""
           >
           <div class="tweet-user-name">
