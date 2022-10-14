@@ -164,6 +164,7 @@ export default {
     // 帶入編輯資料
     fetchCurrentUser() {
       this.currentUserTemp = JSON.parse(JSON.stringify(this.currentUser));
+       this.currentUserTemp.introduction ='';
     },
 
     // 二、執行表單送出功能
