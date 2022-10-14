@@ -135,7 +135,7 @@ export default {
         t.Tweet.likeCount = t.Tweet.likeCount + 1;
         const response = await authorizationAPI.likeTweets(
           this.currentUser.id,
-          t.id
+          t.TweetId
         );
         const data = response.data;
         //console.log(data);
@@ -160,7 +160,7 @@ export default {
         t.Tweet.likeCount = t.Tweet.likeCount - 1;
         const response = await authorizationAPI.unlikeTweets(
           this.currentUser.id,
-          t.id
+          t.TweetId
         );
         const data = response.data;
         //console.log(data);

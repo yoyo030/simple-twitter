@@ -131,4 +131,9 @@ export default {
   color: #ff6600;
   padding-bottom: 14px;
 }
+.router-link-active .user-following .nav-user-link {
+  border-bottom: 1px solid #ff6600;
+  color: #ff6600;
+  padding-bottom: 14px;
+}
 </style>
