@@ -9,7 +9,7 @@
       </div>
       <h3 class="sign-page-title">登入 Alphitter</h3>
       <div class="sign-up-content">
-        <div class="form-label-group mb-2">
+        <div class="sign-form-label-group mb-2">
           <label for="account">帳號</label>
           <input
             v-model="account"
@@ -24,7 +24,7 @@
           />
         </div>
 
-        <div class="form-label-group mb-3">
+        <div class="sign-form-label-group mb-3">
           <label for="password">密碼</label>
           <input
             v-model="password"
