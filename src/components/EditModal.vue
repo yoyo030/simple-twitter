@@ -71,7 +71,7 @@
                   <span class="warn warn-name" v-show="nameLengthWarn"
                     >字數不可超過50字</span
                   >
-                  <span class="warn warn-name" v-show="noInputWarn">此處不可空白</span>
+                  <span class="warn warn-name" v-show="noInputWarn">名稱不可空白</span>
                 </div>
                 <div class="form-label-group description">
                   <label for="description">自我介紹</label>
@@ -95,8 +95,8 @@
                   <span class="warn warn-intro" v-show="introLengthWarn"
                     >字數不可超過160字</span
                   >
-                  <span class="warn warn-intro" v-show="noInputWarn"
-                    >此處不可空白</span
+                  <span class="warn warn-intro" v-show="nointroInputWarn"
+                    >自我介紹不可空白</span
                   >
 
                   <input
@@ -151,6 +151,7 @@ export default {
       nameLengthWarn: false,
       introLengthWarn: false,
       noInputWarn: false,
+      nointroInputWarn: false,
       isProcessing: false,
     };
   },
@@ -190,10 +191,10 @@ export default {
       }
       //檢查介紹是否空白
       if (!introLength) {
-        this.noInputWarn = true;
+        this.nointroInputWarn = true;
         return true;
       } else {
-        this.noInputWarn = false;
+        this.nointroInputWarn = false;
       }
       //檢查介紹字數
       if (introLength > 160) {
