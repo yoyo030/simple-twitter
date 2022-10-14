@@ -92,6 +92,8 @@
 </template>
 
 <script>
+import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
 export default {
   name: "SignUp",
   data() {
@@ -104,65 +106,71 @@ export default {
     };
   },
   methods: {
-    handleSubmit() {
-      const data = JSON.stringify({
-        account: this.account,
-        name: this.name,
-        email: this.email,
-        password: this.password,
-        passwordCheck: this.passwordCheck,
-      });
+    async handleSubmit() {
+      try {
+        //檢查必填欄位
+        if (
+          !this.account ||
+          !this.name ||
+          !this.email ||
+          !this.password ||
+          !this.passwordCheck
+        ) {
+          Toast.fire({
+            icon: "warning",
+            title: "請填寫所有欄位",
+          });
+          return;
+        }
+        //兩次輸入的密碼需相同
+        if (this.password !== this.passwordCheck) {
+          Toast.fire({
+            icon: "warning",
+            title: "兩次輸入的密碼需相同",
+          });
+          this.passwordCheck = "";
+          return;
+        }
 
-      // TODO: 待向後端驗證使用者註冊資訊是否合法
-      console.log("data", data);
+        //call api
+        const response = await authorizationAPI.signUp({
+          account: this.account,
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          checkPassword: this.passwordCheck,
+        });
+        const data = response.data;
+        console.log(data);
+
+        if (data.status !== "success") {
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: `註冊成功，歡迎 ${data.data.name} !`,
+        });
+
+        this.$router.push("/login");
+      } catch (error) {
+        console.log(error);
+        Toast.fire({
+          icon: "error",
+          title: error.message,
+        });
+      }
     },
   },
 };
-
-/////////串接API後 更改程式碼、新增前端錯誤提示///////////
-//async handleSubmit() {
-//     try {
-//if (
-//         !this.account ||
-//         !this.name ||
-//         !this.email ||
-//        !this.password ||
-//         !this.checkPassword
-//       ) {
-//         Toast.fire({
-//           icon: 'warning',
-//           title: '請填寫所有欄位'
-//          })
-//         return
-//       }
-//       if (this.password !== this.checkPassword) {
-//         Toast.fire({
-//           icon: 'warning',
-//           title: '兩次輸入的密碼需相同'
-//        })
-//         this.checkPassword = ''
-//         return
-//       }
-//       const { data } = await authorizationAPI.signUp({
-//         account: this.account,
-//         name: this.name,
-//         email: this.email,
-//         password: this.password,
-//         checkPassword: this.checkPassword
-//       })
-//       if (data.status === 'error') {
-//         throw new Error(data.message)
-//       }
-//      Toast.fire({
-//         icon: 'success',
-//        title: `註冊成功，歡迎 ${data.name} !`
-//      })
-//       this.$router.push('/users/signin')
-//    } catch (error) {
-//      console.log(error)
-//       Toast.fire({
-//         icon: 'error',
-//         title: '此帳號已存在'
-//       })
 </script>
 
+<style scoped>
+.cancel {
+  text-decoration: underline;
+  color: #0062FF
+  }
+a:hover {
+  color: #FF6600;
+}
+</style>

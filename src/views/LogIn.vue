@@ -1,7 +1,8 @@
 <template>
-  <form 
-   @submit.prevent.stop="handleSubmit"
-   class="d-flex flex-column align-items-center">
+  <form
+    @submit.prevent.stop="handleSubmit"
+    class="d-flex flex-column align-items-center"
+  >
     <div class="d-flex flex-column align-items-center">
       <div>
         <img class="logo" src="../assets/images/ac-logo.png" />
@@ -39,7 +40,9 @@
       </div>
 
       <div class="sign-up-button">
-        <button class="sign-up" type="submit">登入</button>
+        <button class="sign-up" type="submit" :disabled="isProcessing">
+          登入
+        </button>
       </div>
 
       <div class="login-footer-link">
@@ -52,31 +55,85 @@
   </form>
 </template>
 
-
 <style scoped lang="scss">
 @import "@/assets/styles/main.scss";
 @import "@/assets/styles/_LogIn.scss";
+button:disabled {
+  background: gray;
+}
 </style>
 
 <script>
+import authorizationAPI from "./../apis/authorization";
+import { Toast } from "./../utils/helpers";
 export default {
   data() {
     return {
       account: "",
       password: "",
+      isProcessing: false,
     };
   },
   methods: {
-    handleSubmit() {
-      const data = JSON.stringify({
-        account: this.account,
-        password: this.password,
-      });
+    async handleSubmit() {
+      try {
+        //檢查必填欄位
+        if (!this.account || !this.password) {
+          Toast.fire({
+            icon: "warning",
+            title: "請填入 account 和 password",
+          });
+          return;
+        }
+        //鎖定登入鍵
+        this.isProcessing = true;
 
-      // TODO: 待向後端驗證使用者登入資訊是否合法
-      console.log("data", data);
+        // 使用 authorizationAPI 的 signIn 方法
+        // 並且帶入使用者填寫的 email 和 password
+        const response = await authorizationAPI.signIn({
+          account: this.account,
+          password: this.password,
+        });
+        let data = response.data;
+        //console.log(data)
+
+        //await跑完才會來這裡,判斷身分認證是否成功
+        if (data.status !== "success") {
+          throw new Error(data.message);
+        }
+
+        Toast.fire({
+          icon: "success",
+          title: `登入成功，歡迎 ${data.data.user.name} !`,
+        });
+        // 將 token 存放在 localStorage 內
+        localStorage.setItem("token", data.data.token);
+
+        //set vuex
+        this.$store.commit("setCurrentUser", data.data.user);
+
+        // 成功登入後轉址到餐聽首頁
+        this.$router.push("/home");
+      } catch (error) {
+        this.password = "";
+        this.isProcessing = false;
+
+        Toast.fire({
+          icon: "warning",
+          title: error.message,
+        });
+      }
     },
   },
 };
 </script>
 
+<style scoped>
+a {
+  text-decoration: underline;
+  color: #0062FF
+  }
+a:hover {
+  color: #FF6600;
+}
+</style>

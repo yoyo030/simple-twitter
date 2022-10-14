@@ -9,14 +9,17 @@ html,
 body {
   width: 100%;
   height: 100%;
-  margin: 0;
+  min-width: 960px;
+  max-width: 1140px;
+  margin: 0 auto;
   padding: 0;
   background-color: $bg-color;
 }
 
-#app{
+#app {
   height: 100%;
 }
+
 html {
   scroll-behavior: smooth;
 }
@@ -25,7 +28,6 @@ h1,
 h2,
 h3,
 h4,
-h5,
 h6,
 p,
 span {
@@ -56,6 +58,9 @@ h4 {
 }
 
 h5 {
+  margin: 0;
+  padding: 0;
+  color: #44444F;
   font-size: 18px;
   font-weight: 700;
 }
@@ -75,11 +80,7 @@ li {
 }
 
 a {
-  color: $primary;
-}
-
-a:hover {
-  color: $brand;
+  text-decoration: none;
 }
 
 button,
@@ -106,7 +107,11 @@ select {
   border: none;
 }
 
+
+
 /* 使用@mixin設定 */
+
+//文字樣式
 @mixin font-setting($size, $weight, $color, $line-height) {
   font-size: $size;
   font-weight: $weight;
@@ -114,15 +119,30 @@ select {
   line-height: $line-height;
 }
 
+
 /* 使用@extend 繼承設定 */
 
 //登入註冊欄位
-%form-setting {
+%sign-form-setting {
   display: flex;
   flex-direction: column;
   -webkit-appearance: none;
   padding: 2px 10.55px;
   width: 356px;
+  height: 54px;
+  border-bottom: 2px solid $underline;
+  border-radius: 2px;
+  margin-bottom: 32px;
+  background-color: $placeholder-bg;
+}
+
+//帳戶設定頁面
+%settimg-form {
+  display: flex;
+  flex-direction: column;
+  -webkit-appearance: none;
+  padding: 2px 10.55px;
+  width: 470px;
   height: 54px;
   border-bottom: 2px solid $underline;
   border-radius: 2px;
@@ -174,11 +194,73 @@ input:invalid {
 :-ms-input-placeholder {
   /* IE 10+ */
   @include font-setting(16px, 400, $dark-60, 26px);
-    background-color: transparent;
-  }
+  background-color: transparent;
+}
+
+
+
+
+/*主頁共用樣式Home、UserProfile、Setting、Reply*/
+
+.container {
+  width: 100%;
+  height: 100%;
+  margin: 0 2rem;
+}
 
 .main-title {
   padding: 24px;
   margin-bottom: 24px;
   border-bottom: 1px solid $border;
+}
+
+.w100 {
+  height: 100%;
+}
+
+.leftSection {
+  width: 18%;
+  margin-left: 0px;
+  padding-right: 24px;
+}
+
+.centerSection {
+  width: 56%;
+  margin-left: 0px;
+  border-left: 1px solid $border;
+  border-right: 1px solid $border;
+}
+
+.rightSection {
+  padding-left: 25px;
+  width: 29%;
+}
+
+/* RWD樣式 */
+
+@media screen and (min-width: 992px) {
+
+  
+
+}
+
+@media screen and (min-width: 1200px) {
+
+  .leftSection {
+    width: 178px;
+    margin-left: 0px;
+    margin-right: 24px
+  }
+
+  .centerSection {
+    border: 1px solid #E6ECF0;
+    width: 641px;
+    margin-left: 0px;
+    margin-right: 25px
+  }
+
+  .rightSection {
+    margin-left: 0px;
+    width: 273px;
+  }
 }

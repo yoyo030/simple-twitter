@@ -6,8 +6,19 @@
 /*頁面元件渲染*/
 @import './_Sign.scss';
 @import './_Setting.scss';
+@import './_Home.scss';
+@import './_UserFollow.scss';
+@import './_UserProfile.scss';
+@import './_RecommendedList.scss';
+@import './_TweetList.scss';
+@import './_Reply.scss';
+@import './TweetModal.scss';
+@import './EditModal.scss';
 
 
+
+
+/*字型載入*/
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
 

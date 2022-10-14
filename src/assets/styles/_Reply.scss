@@ -1,0 +1,97 @@
+/*ReplyList.vue 樣式*/
+
+.back-icon {
+  width: 17px;
+  height: 14px;
+  margin-left: 28px;
+}
+
+.reply-main-title {
+  margin: 0 ;
+}
+
+.reply-list-top,
+.reply-tweet-date
+ {
+  border-bottom: 1px solid $border;
+}
+
+
+/*TweetReply.vue 樣式*/
+
+.name {
+  @include font-setting(15px, 700, $dark-100, 26px);
+}
+
+.account {
+  @include font-setting(14px, 400, $dark-70, 22px);
+}
+
+
+.reply-tweet-box {
+  margin: 16px;
+}
+
+.reply-tweet-title {
+  margin-bottom: 10px;
+}
+.tweet-list-contentText {
+  word-wrap: break-word;
+  word-break: break-all;
+  overflow: hidden;
+  margin-bottom: 8px;
+  @include font-setting(24px, 400, $dark-100, 36px);
+}
+.reply-tweet-date,
+.reply-span {
+  padding-bottom: 8px;
+  @include font-setting(14px, 500, $secondary, 22px);
+}
+.amount {
+  margin: 0 24px 0 0;
+  @include font-setting(19px, 700, black, 22px);
+}
+p {
+  @include font-setting(19px, 500, $secondary, 22px);
+}
+
+.reply-action-amount {
+  padding: 16px 0;
+
+}
+
+.reply-action {
+  border-top: 1px solid $border;
+}
+
+.reply-reply-icon,
+.reply-like-icon {
+  margin: 22px 133px 5px 0;
+  width: 25px;
+  height: 25px;
+}
+.tweet-reply-list {
+  height: 45vh;
+  border-top: 1px solid $border;
+  overflow-y: scroll;
+  }
+  
+  .tweet-reply-list::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .tweet-reply-list::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 50px;
+  }
+
+.reply {
+  position: relative;
+  padding: 16px 23px;
+  border-bottom: 1px solid $border;
+}
+
+.tweet-account {
+  margin-top: 8px;
+  @include font-setting(14px, 400, $brand, 22px);
+}
