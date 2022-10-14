@@ -54,7 +54,7 @@
           </div>
           <div class="tweet-like d-flex">           
               <img
-              v-if="tweet.isLike==0"
+              v-if="!tweet.isLike"
               src="../assets/images/like.png"
               alt=""
               class="icon cursor-pointer"
@@ -138,7 +138,7 @@ export default {
      async like(t) {
 
       try {
-        t.isLike = 1;
+        t.isLike = true;
         t.Tweet.likeCount = t.Tweet.likeCount + 1;
         const response = await authorizationAPI.likeTweets(
           this.currentUser.id,
@@ -162,8 +162,9 @@ export default {
       }
     },
     async unlike(t) {   
+     
       try {
-        t.isLike = 0;
+        t.isLike = false;
         t.Tweet.likeCount = t.Tweet.likeCount - 1;
         const response = await authorizationAPI.unlikeTweets(
           this.currentUser.id,
