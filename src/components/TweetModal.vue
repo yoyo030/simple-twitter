@@ -1,5 +1,6 @@
 <template>
-  <div class="modal-mask">
+ <Transition name="modal">
+  <div class="modal-mask" >
     <div class="modal-wrapper d-flex">
       <form class="modal-container" @submit.stop.prevent="handleSubmit">
         <div class="modal-header">
@@ -23,6 +24,7 @@
       </form>
     </div>
   </div>
+ </Transition>
 </template>
 
 <script>
@@ -40,6 +42,7 @@ export default {
       isLoading: false,
       textWarn: false,
       noInputWarn: false,
+      show: true,
     };
   },
 
@@ -81,6 +84,7 @@ export default {
         });
       }
     },
+
   },
   computed: {
     //把vuex資料拿出來,得到currentUser
@@ -91,9 +95,12 @@ export default {
 
 <style scoped>
 
+
+
 .warn-tweet {
   top: 252px;
   left: 415px;
 }
+
 
 </style>

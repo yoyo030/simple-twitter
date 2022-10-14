@@ -1,4 +1,5 @@
 <template>
+ <Transition name="modal">
   <div class="modal-mask">
     <div class="modal-wrapper">
       <form class="modal-container" @submit.stop.prevent="handleSubmit">
@@ -68,6 +69,7 @@
       </form>
     </div>
   </div>
+  </Transition>
 </template>
 
 
@@ -185,7 +187,13 @@ export default {
 .warn {
   position: absolute;
   top: 10px;
-  left: 410px;
+  left: 390px;
 }
+
+.modal-enter-from {
+  opacity: 0;
+}
+
+
 </style>
 

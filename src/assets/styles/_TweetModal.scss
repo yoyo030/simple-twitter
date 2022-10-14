@@ -7,7 +7,7 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   display: table;
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .modal-wrapper {
@@ -20,7 +20,8 @@
   margin: 0 auto;
   background-color: #ffffff;
   border-radius: 14px;
-  opacity: 1
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
 }
 
 .modal-header {
@@ -70,5 +71,19 @@
   width: 64px;
   height: 40px;
   @include font-setting(15px, 400, white, 22px);
+}
+
+.modal-enter-from {
+  opacity: 0;
+}
+
+.modal-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-from .modal-container,
+.modal-leave-to .modal-container {
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
 }
 
