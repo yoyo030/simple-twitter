@@ -1,74 +1,69 @@
 <template>
- <Transition name="modal">
-  <div class="modal-mask">
-    <div class="modal-wrapper">
-      <form class="modal-container" @submit.stop.prevent="handleSubmit">
-        <div class="modal-header">
-          <img
-            class="btn-close"
-            src="../assets/images/error.png"
-            alt=""
-            @click="$emit('close')"
-          />
-        </div>
-        <div class="modal-body">
-          <!--擷取點擊該推文資訊-->
-          <div class="reply">
-            <div class="d-flex">
-              <!--待串接後用v-bind改為該推文作者img-->
-              <!--:src="tweet.avatar | emptyImage"-->
-              <img
-                src="../assets/images/logo-gray.png"
-                class="user-img"
-                alt=""
-              />
+  <Transition name="modal">
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <form class="modal-container" @submit.stop.prevent="handleSubmit">
+          <div class="modal-header">
+            <img
+              class="btn-close"
+              src="../assets/images/error.png"
+              alt=""
+              @click="$emit('close')"
+            />
+          </div>
+          <div class="modal-body">
+            <div class="reply">
+              <div class="d-flex">
+                <img
+                  src="../assets/images/logo-gray.png"
+                  class="user-img"
+                  alt=""
+                />
 
-              <div class="reply-list-text d-flex flex-column">
-                <div class="tweet-list-tweet-top d-flex align-items-center">
-                  <div class="tweet-user-name">
-                    {{ tweet.User.name }}
+                <div class="reply-list-text d-flex flex-column">
+                  <div class="tweet-list-tweet-top d-flex align-items-center">
+                    <div class="tweet-user-name">
+                      {{ tweet.User.name }}
+                    </div>
+                    <div class="tweet-user-account">
+                      {{ tweet.User.account | addPrefix }}
+                    </div>
+                    <span>・</span>
+                    <div class="tweet-user-createdAt">
+                      {{ tweet.createdAt | date }}
+                    </div>
                   </div>
-                  <div class="tweet-user-account">
-                    {{ tweet.User.account | addPrefix }}
-                  </div>
-                  <span>・</span>
-                  <div class="tweet-user-createdAt">
-                    {{ tweet.createdAt | date }}
-                  </div>
-                </div>
 
-                <div class="tweet-contentText">
-                  {{ tweet.description }}
-                  <div class="tweet-account">
-                    <span class="reply-span">回覆給</span>
-                    {{ tweet.User.account | addPrefix }}
+                  <div class="tweet-contentText">
+                    {{ tweet.description }}
+                    <div class="tweet-account">
+                      <span class="reply-span">回覆給</span>
+                      {{ tweet.User.account | addPrefix }}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="reply-content d-flex">
-              <!--待串接後用v-bind改為該推文作者img-->
-              <!--:src="取得目前使用者.avatar | emptyImage"-->
-              <img src="../assets/images/ac-logo.png" alt="" class="avatar" />
-              <textarea class="tweet" placeholder="推你的回覆" v-model="text">
-              </textarea>
-            </div>
-            <div class="modal-footer d-flex justify-content-end">
-              <div class="warn" v-show="textWarn">字數不可超過140字</div>
-              <div class="warn" v-show="noInputWarn">內容不可空白</div>
-              <button
-                class="modal-tweet-button"
-                :disabled="isLoading"
-                @click="handleSubmit"
-              >
-                回覆
-              </button>
+              <div class="reply-content d-flex">
+                <img src="../assets/images/ac-logo.png" alt="" class="avatar" />
+                <textarea class="tweet" placeholder="推你的回覆" v-model="text">
+                </textarea>
+              </div>
+              <div class="modal-footer d-flex justify-content-end">
+                <div class="warn" v-show="textWarn">字數不可超過140字</div>
+                <div class="warn" v-show="noInputWarn">內容不可空白</div>
+                <button
+                  class="modal-tweet-button"
+                  :disabled="isLoading"
+                  @click="handleSubmit"
+                >
+                  回覆
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
-  </div>
   </Transition>
 </template>
 
@@ -107,7 +102,7 @@ export default {
   },
 
   methods: {
-    //提交推文事件
+    //提交推文事件(含條件審核))
     async handleSubmit() {
       this.isLoading = true;
       if (this.text.trim().length > 140) {
@@ -122,7 +117,6 @@ export default {
       }
 
       try {
-        //兩次輸入的密碼需相同
         const response = await authorizationAPI.createReplies(
           this.tweet.id,
           this.text
@@ -174,11 +168,11 @@ export default {
 .modal-tweet-button {
   all: unset;
   padding: 8px 16px;
-  background: #FF6600;
+  background: #ff6600;
   border-radius: 50px;
   font-size: 16px;
   font-weight: 400;
-  color: #FFF;
+  color: #fff;
   line-height: 24px;
 }
 .modal-footer {
@@ -193,7 +187,5 @@ export default {
 .modal-enter-from {
   opacity: 0;
 }
-
-
 </style>
 

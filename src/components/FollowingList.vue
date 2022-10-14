@@ -5,9 +5,7 @@
       v-for="following in followings"
       :key="following.id"
     >
-      <!--待串接後用v-bind改為使用者img-->
       <img :src="following.avatar | emptyImage" class="user-img" alt="" />
-
       <div class="reply-list-text d-flex flex-column">
         <div class="tweet-list-tweet-top d-flex align-items-center">
           <router-link
@@ -17,21 +15,22 @@
               {{ following.name }}
             </div>
           </router-link>
-        <div v-if="currentUser.id!=following.id">
-          <button
-            v-if="following.isFollowing"
-            class="btn-isFollowed"
-            @click.stop.prevent="unFollowed(following)"
-          >
-            正在跟隨
-          </button>
-          <button
-            v-else
-            class="btn-unFollow"
-            @click.stop.prevent="followed(following)"
-          >
-            跟隨
-          </button>    </div>
+          <div v-if="currentUser.id != following.id">
+            <button
+              v-if="following.isFollowing"
+              class="btn-isFollowed"
+              @click.stop.prevent="unFollowed(following)"
+            >
+              正在跟隨
+            </button>
+            <button
+              v-else
+              class="btn-unFollow"
+              @click.stop.prevent="followed(following)"
+            >
+              跟隨
+            </button>
+          </div>
         </div>
 
         <div class="tweet-contentText">
@@ -67,13 +66,15 @@ export default {
     this.fetchFollowing();
   },
   methods: {
+    //抓取正在追蹤
     fetchFollowing() {
       if (!this.initialFollowing) {
         this.followings = null;
-        console.log(this.initialFollowing)
+        console.log(this.initialFollowing);
       }
       this.followings = this.initialFollowing;
     },
+    //追蹤功能
     async followed(user) {
       try {
         let followedResponse = await authorizationAPI.followed(user.id);
@@ -83,13 +84,12 @@ export default {
         if (followedData.status && followedData.status !== "success") {
           throw new Error(followedData.message);
         }
-        
+
         user.isFollowing = true;
         Toast.fire({
           icon: "success",
           title: "追蹤成功",
         });
-
       } catch (error) {
         console.log(error);
         Toast.fire({
@@ -98,6 +98,7 @@ export default {
         });
       }
     },
+    //取消追蹤功能
     async unFollowed(user) {
       try {
         let unfollowedResponse = await authorizationAPI.unfollowed(user.id);
@@ -131,7 +132,7 @@ export default {
       }
     },
   },
-    computed: {
+  computed: {
     ...mapState(["currentUser", "isAuthenticated"]),
   },
 };

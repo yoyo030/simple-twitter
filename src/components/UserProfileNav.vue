@@ -1,13 +1,19 @@
 <template>
   <!--透過點擊li決定顯示樣板-->
   <div>
-    <UserTweets :initial-tweets="tweets" :key="tweetsKey" v-if="navID === 1" />
+    <UserTweets
+     :initial-tweets="tweets"
+     :key="tweetsKey"
+      v-if="navID === 1" />
     <UserReplies
       :initial-replies="replies"
       :key="repliesKey"
       v-if="navID === 2"
     />
-    <UserLike :initial-likes="likes" :key="likesKey" v-if="navID === 3" />
+    <UserLike
+     :initial-likes="likes"
+     :key="likesKey"
+      v-if="navID === 3" />
   </div>
 </template>
 
@@ -18,10 +24,8 @@ import UserTweets from "../components/UserTweets.vue";
 import UserReplies from "../components/UserReplies.vue";
 import UserLike from "../components/UserLike.vue";
 import authorizationAPI from "./../apis/authorization";
-//import { Toast } from "./../utils/helpers";
+import { Toast } from "./../utils/helpers";
 
-//UserTweets用假資料(預設顯示貼文的內容)
-//Userlikes用假資料(點按喜歡的內容)
 
 export default {
   name: "UserProfileNav",
@@ -56,7 +60,6 @@ export default {
   methods: {
     async fetchTweets() {
       try {
-        //兩次輸入的密碼需相同
         const response = await authorizationAPI.getUserTweets(
           this.$route.params.id
         );
@@ -71,17 +74,16 @@ export default {
       } catch (error) {
         //console.log(error);
         this.tweets = [];
-        // Toast.fire({
-        //   icon: "error",
-        //   title: error.message,
-        // });
+         Toast.fire({
+           icon: "error",
+           title: error.message,
+         });
       }
       this.tweetsKey = this.tweetsKey + 1;
       this.$emit("tweetCount", this.tweets.length);
     },
     async fetchReplies() {
       try {
-        //兩次輸入的密碼需相同
         const response = await authorizationAPI.getUserReplies(
           this.$route.params.id
         );
@@ -95,16 +97,16 @@ export default {
       } catch (error) {
         this.replies = [];
 
-        // Toast.fire({
-        //   icon: "error",
-        //   title: error.message,
-        // });
+         Toast.fire({
+           icon: "error",
+           title: error.message,
+         });
       }
       this.repliesKey = this.repliesKey + 1;
     },
     async fetchLikesTweets() {
       try {
-        //兩次輸入的密碼需相同
+
         const response = await authorizationAPI.getlikeTweets(
           this.$route.params.id
         );
@@ -117,10 +119,10 @@ export default {
       } catch (error) {
         this.likes = [];
 
-        // Toast.fire({
-        //   icon: "error",
-        //   title: error.message,
-        // });
+         Toast.fire({
+           icon: "error",
+           title: error.message,
+         });
       }
       this.likesKey = this.likesKey + 1;
     },
@@ -138,7 +140,7 @@ export default {
       this.fetchLikesTweets();
       this.fetchTweets();
       },
-      // 这里增加了一个immediate属性，说明监听到props传参后立即先去执行handler方法
+      // 增加了immediate属性，說明監聽到props傳参後立即先去執行handler方法
       immediate: true,
     },
 

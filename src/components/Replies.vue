@@ -2,8 +2,6 @@
   <div class="reply-tweet-container">
     <div class="reply-tweet-box">
       <div class="reply-tweet-title d-flex">
-        <!--待串接後改為使用者img-->
-        <!-- <img class="user-img" src="../assets/images/logo-gray.png" /> -->
         <img :src="tweet.User.avatar | emptyImage" class="user-img" alt="" />
         <span class="info">
           <div v-if="tweet.User != null" class="name">
@@ -106,7 +104,7 @@ export default {
   name: "ReplyList",
   mixins: [fromNowFilter, emptyImageFilter],
   props: {
-    //從views/ReplyList帶入dummydata，待串接API以及點擊功能id===id
+    //從views/ReplyList帶入
     initialTweet: {
       type: Object,
       required: true,
@@ -132,6 +130,7 @@ export default {
     },
   },
   methods: {
+    //控制Modal功能
     openModal(tweet) {
       this.tweet = tweet;
       (this.tweetKey = this.tweetKey + 1), (this.show = true);
@@ -163,6 +162,7 @@ export default {
         });
       }
     },
+    //點擊愛心Like功能
     async unlike(t) {
       try {
         t.isLike = false;

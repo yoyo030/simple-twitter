@@ -2,7 +2,6 @@
   <div class="home-tweet-container">
     <div class="home-tweet-box">
       <div class="d-flex align-items-center">
-        <!--目前使用者的大頭貼-->
         <img
           :src="currentUser.avatar | emptyImage"
           class="tweet-list-tweet-img"
@@ -30,7 +29,6 @@
 
     <div class="tweet-list scrollbar">
       <div class="tweet d-flex" v-for="tweet in tweets" :key="tweet.id">
-        <!--待串接後用v-bind改為使用者img-->
         <router-link
           :to="{ name: 'user-profile', params: { id: tweet.User.id } }"
           class=""
@@ -166,6 +164,7 @@ export default {
     closeModal() {
       this.show = false;
     },
+    //點擊愛心功能
     async like(t) {
       try {
         t.islike = true;

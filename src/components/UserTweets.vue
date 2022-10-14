@@ -118,6 +118,7 @@ export default {
     },
   },
   methods: {
+    //Modal功能
     openModal(tweet) {
       this.tweet = tweet;
       (this.tweetKey = this.tweetKey + 1), (this.show = true);
@@ -125,6 +126,7 @@ export default {
     closeModal() {
       this.show = false;
     },
+    //點擊愛心功能
     async like(t) {
       try {
         t.isLike = true;
