@@ -61,7 +61,7 @@
         <div class="reply-list-text d-flex flex-column">
           <div class="tweet-list-tweet-top d-flex align-items-center">
             <router-link
-            :to="{ name: 'user-profile', params: { id: reply.id } }"
+            :to="{ name: 'user-profile', params: { id: reply.User.id } }"
             class=""
             >
             <div class="tweet-user-name">
@@ -73,7 +73,7 @@
             </div>
             <span>・</span>
             <div class="tweet-user-createdAt">
-              {{ reply.User.createdAt | fromNow }}
+              {{ reply.createdAt | fromNow }}
             </div>
           </div>
           <div class="tweet-account">
