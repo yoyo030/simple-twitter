@@ -18,7 +18,7 @@
             </div>
           </router-link>
           <button
-            v-if="follower.isFollowed"
+            v-if="follower.isFollowing"
             class="btn-isFollowed"
             @click.stop.prevent="unFollowed(follower)"
           >
