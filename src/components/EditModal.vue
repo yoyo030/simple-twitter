@@ -66,12 +66,12 @@
                     class="form-control"
                   />
                   <h6 class="name-count">
-                    {{ `${currentUserTemp.name.length}/50` }}
+                    {{ `${currentUserTemp.name.trim().length}/50` }}
                   </h6>
-                  <span class="warn warn-name" v-show="nameLengthWarn"
+                  <span class="warn warn-name" v-show="currentUserTemp.name.trim().length > 50"
                     >字數不可超過50字</span
                   >
-                  <span class="warn warn-name" v-show="noInputWarn">名稱不可空白</span>
+                  <span class="warn warn-name" v-show="(!currentUserTemp.name.trim().length)">此處不可空白</span>
                 </div>
                 <div class="form-label-group description">
                   <label for="description">自我介紹</label>
@@ -85,18 +85,15 @@
                   </textarea>
                   <h6 class="count-description">
                     {{
-                      `${
-                        !currentUserTemp.introduction
-                          ? 0
-                          : currentUserTemp.introduction.length
+                      `${ currentUserTemp.introduction.trim().length
                       }/160`
                     }}
                   </h6>
-                  <span class="warn warn-intro" v-show="introLengthWarn"
+                  <span class="warn warn-intro" v-show="currentUserTemp.introduction.trim().length > 160"
                     >字數不可超過160字</span
                   >
-                  <span class="warn warn-intro" v-show="nointroInputWarn"
-                    >自我介紹不可空白</span
+                  <span class="warn warn-intro" v-show="(!currentUserTemp.introduction.trim().length)"
+                    >此處不可空白</span
                   >
 
                   <input
@@ -148,10 +145,6 @@ export default {
     return {
       currentUserTemp: {},
       inputForm: {},
-      nameLengthWarn: false,
-      introLengthWarn: false,
-      noInputWarn: false,
-      nointroInputWarn: false,
       isProcessing: false,
     };
   },
@@ -165,51 +158,25 @@ export default {
     fetchCurrentUser() {
       this.currentUserTemp = JSON.parse(JSON.stringify(this.currentUser));
     },
-    // 一、表單編輯送出前的檢查條件
-    checkForm() {
-      const { name, introduction } = { ...this.currentUserTemp };
 
-      const { username, nameLength, introLength } = {
-        username: name,
-        nameLength: name ? name.length : 0,
-        introLength: introduction ? introduction.length : 0,
-      };
-
-      //檢查名稱是否空白
-      if (!username) {
-        this.noInputWarn = true;
-        return true;
-      } else {
-        this.noInputWarn = false;
-      }
-      //檢查名稱字數
-      if (nameLength > 50) {
-        this.nameLengthWarn = true;
-        return true;
-      } else {
-        this.nameLengthWarn = false;
-      }
-      //檢查介紹是否空白
-      if (!introLength) {
-        this.nointroInputWarn = true;
-        return true;
-      } else {
-        this.nointroInputWarn = false;
-      }
-      //檢查介紹字數
-      if (introLength > 160) {
-        this.introLengthWarn = true;
-        return true;
-      } else {
-        this.introLengthWarn = false;
-      }
-      return false;
-    },
 
     // 二、執行表單送出功能
     async handleSubmit() {
-      //確認表單通過條件審核，並帶入編輯後資料
-      if (this.checkForm()) return;
+       if (!this.currentUserTemp.name.trim() || !this.currentUserTemp.introduction.trim()) {
+          Toast.fire({
+            icon: 'warning',
+            title: '請確實填寫名稱和自我介紹'
+          })
+          return
+        }
+        if (this.currentUserTemp.name.trim() > 50 || this.currentUserTemp.introduction.trim() > 160 ) {
+          Toast.fire({
+            icon: 'warning',
+            title: '請注意欄位的字數限制'
+          })
+          return
+        }
+
       const formData = new FormData(this.$refs.form);
 
       //       for (var pair of formData.entries()) {
