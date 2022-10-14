@@ -107,7 +107,6 @@ export default {
 
       const form = e.target;
       const formData = new FormData(form);
-      //刪除passwordCheck,因為後端沒有接
       formData.delete("passwordCheck");
 
       try {

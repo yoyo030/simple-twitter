@@ -11,7 +11,6 @@
           class="user-back back-icon cursor-pointer"
         />
         <div class="d-flex flex-column">
-          <!--待串接使用者資料與貼文總數-->
           <h5 class="user-title">{{ userInfo.name }}</h5>
           <p class="tweet-amount">{{ `${userInfo.TweetCount} 則推文` }}</p>
         </div>
@@ -73,7 +72,6 @@ export default {
   methods: {
     async fetchUserInfoFollowers() {
       try {
-        //兩次輸入的密碼需相同
         const response = await authorizationAPI.getUserFollowers(
           this.$route.params.id
         );
@@ -94,7 +92,6 @@ export default {
     },
     async fetchUserInfo(id) {
       try {
-        //兩次輸入的密碼需相同
         const response = await authorizationAPI.getUserInfo(id);
         const data = response.data;
         console.log(data);

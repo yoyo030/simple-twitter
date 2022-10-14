@@ -3,7 +3,6 @@
     <h4 class="setting-title main-title">推文清單</h4>
     <div class="tweet-list scrollbar">
       <div class="tweet d-flex" v-for="tweet in tweets" :key="tweet.id">
-        <!--待串接後用v-bind改為使用者img-->
         <img
           :src="tweet.User.avatar | emptyImage"
           class="tweet-list-tweet-img"

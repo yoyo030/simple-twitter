@@ -10,7 +10,7 @@
       <h3 class="sign-page-title">建立你的帳號</h3>
 
       <div class="sign-up-content">
-        <div class="form-label-group mb-2">
+        <div class="sign-up-form-label-group mb-2">
           <label for="account">帳號</label>
           <input
             v-model="account"
@@ -24,7 +24,7 @@
             autofocus
           />
         </div>
-        <div class="form-label-group mb-2">
+        <div class="sign-up-form-label-group mb-2">
           <label for="name">名稱</label>
           <input
             v-model="name"
@@ -39,7 +39,7 @@
           />
         </div>
 
-        <div class="form-label-group mb-2">
+        <div class="sign-up-form-label-group mb-2">
           <label for="email">Email</label>
           <input
             v-model="email"
@@ -53,7 +53,7 @@
           />
         </div>
 
-        <div class="form-label-group mb-3">
+        <div class="sign-up-form-label-group mb-3">
           <label for="password">密碼</label>
           <input
             v-model="password"
@@ -67,7 +67,7 @@
           />
         </div>
 
-        <div class="form-label-group mb-3">
+        <div class="sign-up-form-label-group mb-3">
           <label for="password-check">密碼確認</label>
           <input
             v-model="passwordCheck"

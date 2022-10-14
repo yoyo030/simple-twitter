@@ -63,6 +63,7 @@ export default {
     this.fetchRecommendedlist();
   },
   methods: {
+    //抓取推薦列表名單
     async fetchRecommendedlist() {
       try {
         const response = await authorizationAPI.getTopUser();
