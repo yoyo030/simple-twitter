@@ -29,7 +29,7 @@ git clone https://github.com/yoyo030/simple-twitter.git
 
 2. 下載完畢後，進到專案資料夾
 ```
-cd project-simple-twitter-vue
+cd simple-twitter
 ```
 
 3. 操作以下指令安裝所需的套件
@@ -90,14 +90,27 @@ npm run lint
 
 ---
 
-## 專案畫面預覽
+## 💻專案畫面預覽
 
-![使用者登入頁](https://lurl.cc/gIXaMw)
-![使用者註冊頁](https://lurl.cc/X5X18y)
-![網站首頁](https://lurl.cc/ijVvAl)
-![個人資料頁](https://lurl.cc/NpTgcm)
-![個人資料設定頁](https://lurl.cc/tuJ1Jr)
-![後台登入頁](https://lurl.cc/oRj5Lz)
+
+
+**使用者登入頁**
+![使用者登入頁](https://imgur.com/fOhOrbt.jpg)
+
+**使用者註冊頁**
+![使用者註冊頁](https://imgur.com/vNECnro.jpg)
+
+**網站首頁**
+![網站首頁](https://imgur.com/YwG1SPV.jpg)
+
+**個人資料頁**
+![個人資料頁](https://imgur.com/W4hyMPi.jpg)
+
+**個人資料設定頁**
+![個人資料設定頁](https://imgur.com/nWPe0Ja.jpg)
+
+**後台登入頁**
+![後台登入頁](https://imgur.com/e1AHggd.jpg)
 
 
 ---
