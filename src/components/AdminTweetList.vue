@@ -68,7 +68,7 @@ export default {
     //顯示推文字數超過50字，後面隱藏
     sliceTweet(description) {
       if (description.length > 50) {
-        return `${description.slice(0, 50)}...繼續閱讀`;
+       return `${description.slice(0, 50)}...繼續閱讀`;
       }
       return description;
     },
@@ -123,10 +123,6 @@ export default {
     },
   },
 
-  //  deleteTweet (tweetId) {
-  //    this.tweets = this.tweets.filter((tweet) => tweet.id !== tweetId)
-  //  }
-
   computed: {
     ...mapState(["currentUser", "isAuthenticated"]),
   },
@@ -140,7 +136,7 @@ export default {
 <style  lang="scss" scoped>
 /*AdminTweetList限定樣式^^*/
 .admin-main {
-  width: 80%;
+  width: 100%;
   border-right: 1px solid #e6ecf0;
   border-left: 1px solid #e6ecf0;
 }

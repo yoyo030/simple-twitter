@@ -52,7 +52,8 @@ export default {
 
 <style scoped lang="scss">
 .container {
-  width: 95%;
+  width: 100%;
+  max-width: 1400px;
 }
 
 .admin-side-bar {

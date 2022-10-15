@@ -169,13 +169,13 @@ a {
 
 .btn-isFollowed {
   position: absolute;
-  right: 15px;
+  right: 5px;
   top: 8px;
 }
 
 .btn-unFollow {
   position: absolute;
-  right: 20px;
+  right: 5px;
   top: 8px;
 }
 </style>
