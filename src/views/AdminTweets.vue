@@ -53,7 +53,7 @@ export default {
 
 <style scoped lang="scss">
 .container {
-  width: 95%;
+  width: 100%;
 }
 
 .admin-side-bar {

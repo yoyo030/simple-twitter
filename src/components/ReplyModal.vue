@@ -15,7 +15,7 @@
             <div class="reply">
               <div class="d-flex">
                 <img
-                  src="../assets/images/logo-gray.png"
+                  :src="tweet.User.avatar"
                   class="user-img"
                   alt=""
                 />
@@ -44,7 +44,7 @@
                 </div>
               </div>
               <div class="reply-content d-flex">
-                <img src="../assets/images/ac-logo.png" alt="" class="avatar" />
+                <img :src="currentUser.avatar | emptyImage" alt="" class="avatar" />
                 <textarea class="tweet" placeholder="推你的回覆" v-model="text">
                 </textarea>
               </div>
@@ -73,6 +73,7 @@ import { emptyImageFilter } from "./../utils/mixins";
 import { fromNowFilter } from "../utils/mixins";
 import authorizationAPI from "./../apis/authorization";
 import { Toast } from "./../utils/helpers";
+import { mapState } from "vuex";
 
 export default {
   name: "ReplyModal",
@@ -141,6 +142,10 @@ export default {
         });
       }
     },
+  },
+   computed: {
+    //把vuex資料拿出來,得到currentUser
+    ...mapState(["currentUser", "isAuthenticated"]),
   },
 };
 </script>

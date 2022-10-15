@@ -243,18 +243,6 @@ export default {
     },
     async handleSubmit() {
       try {
-        // this.isLoading = true;
-        // if (this.text.trim().length > 140) {
-        //   this.isLoading = false;
-        //   this.noInputWarn = false;
-        //   return (this.textWarn = true);
-        // }
-        // if (this.text.trim().length === 0) {
-        //   this.textWarn = false;
-        //   this.isLoading = false;
-        //   return (this.noInputWarn = true);
-        // }
-
         if (this.text.trim().length > 140) {
           this.isLoading = false;
           this.noInputWarn = false;
@@ -266,7 +254,6 @@ export default {
           return (this.noInputWarn = true);
         }
 
-        //兩次輸入的密碼需相同
         const response = await authorizationAPI.insertTweets(this.text);
         const data = response.data;
         console.log(data);

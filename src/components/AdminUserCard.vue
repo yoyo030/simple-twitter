@@ -104,9 +104,11 @@ export default {
 
 
 <style  lang="scss" scoped>
-/*AdminUsersCard限定樣式^^*/
+/*AdminUsersCard樣式*/
+
 .admin-main {
-  width: 80%;
+  max-width: 1090px;
+  width: 100%;
   border-right: 1px solid #e6ecf0;
   border-left: 1px solid #e6ecf0;
 }
