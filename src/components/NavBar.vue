@@ -22,13 +22,13 @@
           設定
         </router-link>
       </li>
-      <li>
-        <button type="button" class="button" @click.stop.prevent="openModal">
+      <li class="cursor-pointer">
+        <button type="button" class="cursor-pointer button" @click.stop.prevent="openModal">
           推文
         </button>
       </li>
 
-      <li style="position: absolute; bottom: 0" @click="logout">
+      <li class="cursor-pointer" style="position: absolute; bottom: 0" @click="logout">
         <img class="navbar-icon" src="../assets/images/sign-out.png" />
         登出
       </li>
