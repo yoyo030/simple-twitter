@@ -1,6 +1,6 @@
 <template>
   <div class="profile-nav-list scrollbar">
-   <diV class="tweet d-flex align-items-center" v-if ="!tweets.length>0" > 目前無任何喜歡的內容</diV>
+   <diV class="tweet d-flex align-items-center" v-if ="!tweets.length>0" > 目前無任何推文</diV>
     <div class="tweet d-flex" v-for="tweet in tweets" :key="tweet.id" v-else>
       <router-link
         :to="{ name: 'user-profile', params: { id: tweet.User.id } }"
