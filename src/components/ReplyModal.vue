@@ -15,7 +15,7 @@
             <div class="reply">
               <div class="d-flex">
                 <img
-                  :src="tweet.User.avatar"
+                  :src="tweet.User.avatar | emptyImage"
                   class="user-img"
                   alt=""
                 />
