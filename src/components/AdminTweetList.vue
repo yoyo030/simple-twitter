@@ -28,7 +28,7 @@
 
           <img
             src="../assets/images/delete.png"
-            class="btn-delete"
+            class="btn-delete cursor-pointer"
             :disabled="isProcessing"
             @click.prevent.stop="deleteTweet(tweet.id)"
             alt=""
