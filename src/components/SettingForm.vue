@@ -104,6 +104,13 @@ export default {
         this.passwordCheck = "";
         return;
       }
+      if(!this.currentUserTemp.account.trim() || !this.currentUserTemp.name.trim()) {
+         Toast.fire({
+          icon: "warning",
+          title: "請確認輸入帳號及名稱，不可空白",
+        });
+        return
+      }
 
       const form = e.target;
       const formData = new FormData(form);

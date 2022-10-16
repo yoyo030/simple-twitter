@@ -5,6 +5,7 @@ import SignUp from '../views/SignUp.vue'
 import LogIn from '../views/LogIn.vue'
 import AdminLogIn from '../views/AdminLogIn.vue'
 import store from './../store'
+import { Toast } from "./../utils/helpers";
 Vue.use(VueRouter);
 
 const routes = [
@@ -102,6 +103,10 @@ router.beforeEach(async (to, from, next) => {
   if (!isAuthenticated && !pathsWithoutAuthentication.includes(to.name)) {   
     localStorage.removeItem('vuex')
     next('/login')
+    Toast.fire({
+      icon: "warning",
+      title: "請先登入使用者身分",
+    });
     return
   }
 
