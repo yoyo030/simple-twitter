@@ -1,6 +1,6 @@
 <template>
   <div class="profile-nav-list scrollbar">
-   <diV class="tweet d-flex align-items-center" v-if ="!replies.length>0" > 目前無任何喜歡的內容</diV>
+   <diV class="tweet d-flex align-items-center" v-if ="!replies.length>0" > 目前無任何回應的內容</diV>
     <div class="reply d-flex" v-for="reply in replies" :key="reply.id" v-else>
     
       <router-link

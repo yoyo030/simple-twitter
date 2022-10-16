@@ -17,7 +17,7 @@
           <h5 class="card-title cursor-pointer">{{ user.name }}</h5>
           <p class="card-text">{{ user.account | addPrefix }}</p>
           <div class="click-on-condition">
-            <div class="tweet-count">
+            <div class="tweet-count number-font">
               <img
                 src="../assets/images/tweet.png"
                 alt=""
@@ -25,7 +25,7 @@
               />
               {{ user.tweetCount }}
             </div>
-            <div class="like-count">
+            <div class="like-count number-font">
               <img
                 src="../assets/images/like.png"
                 alt=""
@@ -128,6 +128,11 @@ export default {
   position: relative;
   width: 249px;
   margin: 0 16px 16px 0;
+
+  &:hover {
+   transform: scale(1.02);
+   transition: all 0.3s ease
+  }
 
   .background-img {
     width: 245px;
