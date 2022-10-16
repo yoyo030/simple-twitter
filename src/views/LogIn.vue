@@ -55,13 +55,6 @@
   </form>
 </template>
 
-<style scoped lang="scss">
-@import "@/assets/styles/main.scss";
-@import "@/assets/styles/_LogIn.scss";
-button:disabled {
-  background: gray;
-}
-</style>
 
 <script>
 import authorizationAPI from "./../apis/authorization";
@@ -112,7 +105,7 @@ export default {
         //set vuex
         this.$store.commit("setCurrentUser", data.data.user);
 
-        // 成功登入後轉址到餐聽首頁
+        // 成功登入後轉址到首頁
         this.$router.push("/home");
       } catch (error) {
         this.password = "";
@@ -128,7 +121,13 @@ export default {
 };
 </script>
 
-<style scoped>
+
+<style scoped lang="scss">
+@import "@/assets/styles/main.scss";
+@import "@/assets/styles/_LogIn.scss";
+button:disabled {
+  background: gray;
+}
 a {
   text-decoration: underline;
   color: #0062FF

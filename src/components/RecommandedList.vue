@@ -92,6 +92,7 @@ export default {
         }
 
         user.isFollowing = true;
+        this.$router.go(this.$router.currentRoute)
         Toast.fire({
           icon: "success",
           title: "追蹤成功",
@@ -114,6 +115,7 @@ export default {
           throw new Error(unfollowedData.message);
         }
         user.isFollowing = false;
+        this.$router.go(this.$router.currentRoute)
         Toast.fire({
           icon: "success",
           title: "取消追蹤成功",
@@ -153,9 +155,9 @@ export default {
   //  return this.userList.filter(user => user.id !== this.userId).slice(0, 10)
   // }
   // },
-    computed: {
+  computed: {
     ...mapState(["currentUser", "isAuthenticated"]),
-  },
+  }
 };
 </script>
 

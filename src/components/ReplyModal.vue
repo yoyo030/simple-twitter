@@ -15,7 +15,7 @@
             <div class="reply">
               <div class="d-flex">
                 <img
-                  :src="tweet.User.avatar"
+                  :src="tweet.User.avatar | emptyImage"
                   class="user-img"
                   alt=""
                 />
@@ -52,7 +52,7 @@
                 <div class="warn" v-show="textWarn">字數不可超過140字</div>
                 <div class="warn" v-show="noInputWarn">內容不可空白</div>
                 <button
-                  class="modal-tweet-button"
+                  class="modal-tweet-button cursor-pointer"
                   :disabled="isLoading"
                   @click="handleSubmit"
                 >

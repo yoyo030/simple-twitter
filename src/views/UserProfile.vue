@@ -216,7 +216,7 @@ export default {
         let followedResponse = await authorizationAPI.followed(userId);
         let followedData = followedResponse.data;
         console.log(followedData);
-
+        this.$router.go(this.$router.currentRoute)
         if (followedData.status && followedData.status !== "success") {
           throw new Error(followedData.message);
         }
@@ -236,7 +236,7 @@ export default {
         let unfollowedResponse = await authorizationAPI.unfollowed(userId);
         let unfollowedData = unfollowedResponse.data;
         console.log(unfollowedData);
-
+        this.$router.go(this.$router.currentRoute)
         if (unfollowedData.status && unfollowedData.status !== "success") {
           throw new Error(unfollowedData.message);
         }

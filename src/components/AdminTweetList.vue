@@ -28,7 +28,7 @@
 
           <img
             src="../assets/images/delete.png"
-            class="btn-delete"
+            class="btn-delete cursor-pointer"
             :disabled="isProcessing"
             @click.prevent.stop="deleteTweet(tweet.id)"
             alt=""
@@ -68,7 +68,7 @@ export default {
     //顯示推文字數超過50字，後面隱藏
     sliceTweet(description) {
       if (description.length >= 50) {
-       return `${description.slice(0, 50)}...繼續閱讀`;
+       return `${description.slice(0, 50)}...`;
       }
       return description;
     },

@@ -1,6 +1,7 @@
 <template>
   <div class="profile-nav-list scrollbar">
-    <div class="tweet d-flex" v-for="tweet in tweets" :key="tweet.id">
+   <diV class="tweet d-flex align-items-center" v-if ="!tweets.length>0" > 目前無任何喜歡的內容</diV>
+    <div class="tweet d-flex" v-for="tweet in tweets" :key="tweet.id" v-else>
       <router-link
         :to="{ name: 'user-profile', params: { id: tweet.User.id } }"
         class=""

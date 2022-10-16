@@ -222,13 +222,11 @@ input:invalid {
 
 .leftSection {
   width: 18%;
-  margin-left: 0px;
   padding-right: 24px;
 }
 
 .centerSection {
   width: 58%;
-  margin-left: 0px;
   border-left: 1px solid $border;
   border-right: 1px solid $border;
 }
@@ -244,16 +242,10 @@ input:invalid {
 
   .leftSection {
     width: 178px;
-    margin-left: 0px;
     margin-right: 24px
   }
 
   .centerSection {
-    border: 1px solid #E6ECF0;
     width: 641px;
-  }
-
-  .rightSection {
-    margin-left: 0px;
   }
 }
