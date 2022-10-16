@@ -83,7 +83,7 @@
                 v-if="!tweet.islike"
                 src="../assets/images/like.png"
                 alt=""
-                class="icon cursor-pointer"
+                class="icon like-icon cursor-pointer"
                 @click="like(tweet)"
               />
               <img
@@ -286,14 +286,18 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 a,
 a:hover {
   text-decoration: none;
+}
+.icon:hover {
+  transform: scale(1.1);
 }
 
 .warn {
   top: 75px;
   left: 84px;
 }
+
 </style>

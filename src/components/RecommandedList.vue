@@ -165,6 +165,11 @@ export default {
 a {
   text-decoration: none;
 }
+
+.name:hover {
+  color: lightgray;
+}
+
 .user-container {
   position: relative;
 }

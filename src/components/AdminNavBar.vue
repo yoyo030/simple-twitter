@@ -15,7 +15,7 @@
         </router-link>
       </li>
 
-      <li style="position: absolute; bottom: 0" @click="logout">
+      <li class="cursor-pointer" style="position: absolute; bottom: 0" @click="logout">
         <img class="navbar-icon" src="../assets/images/sign-out.png" />
         登出
       </li>
@@ -43,7 +43,9 @@ nav a {
   padding: 10px;
   text-decoration: none; /* 移除超連結底線 */
 }
-
+a:hover {
+  color: #ffa265;
+}
 /* 滑鼠移到 <a> 時變成深底淺色 */
 a.active {
   color: #ff6600;

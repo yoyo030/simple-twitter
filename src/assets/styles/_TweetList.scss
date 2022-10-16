@@ -45,6 +45,10 @@
   border-bottom: 1px solid $border;
   padding: 16px 0;
 }
+.tweet:hover {
+  transform: scale(0.98);
+  transition: all 0.1s ease
+}
 
 .tweet-list-tweet-img {
   flex-shrink: 0;
