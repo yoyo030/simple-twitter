@@ -80,7 +80,7 @@ export default {
         if (followedData.status && followedData.status !== "success") {
           throw new Error(followedData.message);
         }
-
+        this.$router.go(this.$router.currentRoute)
         user.isFollowing = true;
         Toast.fire({
           icon: "success",
@@ -100,7 +100,7 @@ export default {
         let unfollowedResponse = await authorizationAPI.unfollowed(user.id);
         let unfollowedData = unfollowedResponse.data;
         console.log(unfollowedData);
-
+        this.$router.go(this.$router.currentRoute)
         if (unfollowedData.status && unfollowedData.status !== "success") {
           throw new Error(unfollowedData.message);
         }
