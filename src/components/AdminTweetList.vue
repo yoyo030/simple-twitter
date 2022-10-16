@@ -1,7 +1,7 @@
 <template>
   <div class="admin-main">
     <h4 class="setting-title main-title">推文清單</h4>
-    <div class="tweet-list scrollbar">
+    <div class="admin-tweet-list scrollbar">
       <div class="tweet d-flex" v-for="tweet in tweets" :key="tweet.id">
         <img
           :src="tweet.User.avatar | emptyImage"
@@ -143,6 +143,10 @@ export default {
 .tweet {
   position: relative;
 }
+.tweet:hover{
+  transform: scale(0.98);
+  transition: all 0.1s ease
+}
 .btn-delete {
   position: absolute;
   right: 10px;
@@ -153,7 +157,17 @@ export default {
   margin-bottom: 0;
 }
 
-.tweet-list {
+.admin-tweet-list {
   height: 85vh;
+  overflow-y: scroll;
+}
+
+.admin-tweet-list::-webkit-scrollbar {
+  width: 8px;
+ }
+  
+.admin-tweet-list::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 50px;
 }
 </style>

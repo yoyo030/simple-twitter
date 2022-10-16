@@ -75,7 +75,7 @@
         />
       </div>
     </div>
-    <div class="button">
+    <div class="">
       <button class="setting-save-button" type="submit">儲存</button>
     </div>
   </form>

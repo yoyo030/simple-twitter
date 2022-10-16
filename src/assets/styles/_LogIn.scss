@@ -7,6 +7,9 @@ button {
 .sign-form-label-group {
   @extend %sign-form-setting;
 }
+.sign-form-label-group:hover{
+  border-bottom: 2px solid #50B5FF;
+}   
 
 label {
   @include font-setting(14px, 400, $dark-80, 22px);

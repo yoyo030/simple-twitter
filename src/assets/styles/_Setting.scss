@@ -5,8 +5,13 @@
 
 .form-label-group {
   @extend %settimg-form;
-
 }
+
+.form-label-group:hover {
+  border-bottom: 2px solid #50B5FF;
+}
+
+
 
 .setting-save-button {
   position: absolute;
@@ -25,7 +30,6 @@
 .form-label-group {
     width: 593px;
   }
-  
 
 }
 
