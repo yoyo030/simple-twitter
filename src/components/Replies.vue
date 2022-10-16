@@ -150,6 +150,7 @@ export default {
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
+                t.likeCount = t.likeCount + 1
         Toast.fire({
           icon: "success",
           title: "按讚成功!",
@@ -175,6 +176,7 @@ export default {
         if (data.status && data.status !== "success") {
           throw new Error(data.message);
         }
+        t.likeCount = t.likeCount - 1
         Toast.fire({
           icon: "success",
           title: "成功收回讚!",
